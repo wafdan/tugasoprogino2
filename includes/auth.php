@@ -8,6 +8,8 @@
 require_once('session.php');
 require_once('databaseconnection.php');
 
+sessionInit();
+
 function authLogin($user, $pass) {
 	/*
 		Fungsi authLogin bekerja sebagai berikut:

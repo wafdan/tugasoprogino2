@@ -23,8 +23,8 @@ function sessionGet($svar) {
 	}
 }
 
-function sessionUnset() {
-
+function sessionUnset($svar) {
+	unset($_SESSION[$cfg['Session']['prefix'].$svar]);
 }
 
 ?>
