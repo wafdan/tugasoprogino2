@@ -33,8 +33,8 @@ function ShowTopics()
 	{
 		echo "<form method=\"POST\" action=\"discussionhandler.php\">";
 		echo "<input type=hidden name=courseinstanceid value=$data[courseinstanceid]>
-				<tr><td>$no</td><td>$data[title]</td><td>$data[userid]</td><td>$data[counter]</td>
-				<td><input type=submit value=Delete name='deletefileuser'><input type=submit value=Download name='downloadfileuser'></td>
+				<tr><td>$no</td><td><b>$data[title]</b><br>$data[subtitle]</td><td>$data[userid]</td>
+				<td><input type=submit value=Delete name='deletetopic'><input type=submit value=Masuk name='masuktopic'></td>
 				</tr></form>";
 		$no++;
 		};
