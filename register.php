@@ -7,7 +7,9 @@
 
 // Data pada form ini akan di-POST ke registerhandler.php
 require_once("includes/databaseconnection.php");
-$message = 'HALO WORLD';
+require_once('registerhandler.php');
+$valid = 0;
+
 //databaseconnect();
 //insert();
 //databasedisconnect();
@@ -31,16 +33,23 @@ $message = 'HALO WORLD';
 				<h2><b>Connecting People</b></h2>
 			</div>
 		</div>
+        <?php
+            if($_GET['valid']=='1'){
+                echo '<div>INSERTO</div>';
+            }elseif($_GET['valid']=='0'){
+                echo '<div>GAGALO</div>';
+            }
+        ?>
 		<hr />
         <div id="container">
             <div id="registration">
-                <form id="registration-form" action="registerhandler.php" method="post">
+                <form id="registration-form"  method="post" action="registerhandler.php">
                     <fieldset class="general">
                         <legend><span>Selamat Datang di Konco&trade;</span></legend>
                         <ul>
                             <li>
                                 <label for="name">Nama</label>
-                                <input id="name" name="name" type="text" maxlength="30" size="50" onchange="CheckNama()"  />
+                                <input id="name" name="name" type="text" maxlength="30" size="50" onchange="CheckNama()" />
 								<img id="name_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found" />								
 							</li>
                             <li>
@@ -168,10 +177,11 @@ $message = 'HALO WORLD';
                         <ul>
                             <li>
                                 <label>&nbsp;</label>
-                                <input type="submit" value="Buat Akun" onclick="javascript:submitRegistration();"/>
+                                <input type="submit" name="submit" value="Buat Akun" onclick="javascript:submitRegistration();"/>
                             </li>
                         </ul>
                     </fieldset>
+                    <input type="text" id="dummy" name="dummy" />
                 </form>
             </div>
 			<div id ="sidebar">
