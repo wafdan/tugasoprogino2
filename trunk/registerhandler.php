@@ -43,8 +43,16 @@ function insert(){
     }else{
         echo "NOT INSERTED";
     }
+    databasedisconnect();
 }; 
 
-insert();
-databasedisconnect();
+if($_POST['dummy']=='f'){
+    header("location:register.php?valid=0");
+    exit(0);
+}elseif($_POST['dummy']=='t'){
+    header("location:register.php?valid=1");
+    insert();
+    exit(0);
+}
+
 ?>
