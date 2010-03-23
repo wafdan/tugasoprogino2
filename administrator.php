@@ -54,7 +54,7 @@ sessionInit();
 						</tr>
 						<tr>
 							<td>Photo</td>
-							<td><input type="file" name="data[useradd][photo]" /></td>
+							<td><input type="file" name="photo" /></td>
 						</tr>
 						<tr>
 							<td>Password</td>
@@ -111,7 +111,7 @@ sessionInit();
 							</tr>
 							<tr>
 								<td>Photo</td>
-								<td><input type="file" name="data[usermod][photo]" /></td>
+								<td><input type="file" name="photo" /></td>
 							</tr>
 							<tr>
 								<td>Password</td>
