@@ -15,7 +15,7 @@ function ShowRepository()
 		echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
 		echo "<input type=hidden name=repositoryid value=$data[repositoryid]>
 				<input type=hidden name=filenamehash value=$data[filenamehash]>
-				<tr><td>$no</td><td>$data[filename]</td><td>$data[filesize]</td><td>$data[counter]</td>
+				<tr><td>$no</td><td>$data[filename]</td><td>$data[status]</td><td>$data[counter]</td>
 				<td><input type=submit value=Delete name='deletefileuser'><input type=submit value=Download name='downloadfileuser'></td>
 				</tr></form>";
 		$no++;

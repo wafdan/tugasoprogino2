@@ -1,7 +1,46 @@
 <?php
+require_once('includes/databaseconnection.php');
 function NewTopic()
 {
-	}
+	databaseconnect();
+	$title = $_POST['newtopic'];
+	$dummy_courseinstanceid = 13;
+	$dummy_userid =12;
+	mysql_select_db("tugasprogin");
+	mysql_query("INSERT INTO courseinstancetopic(courseinstanceid,
+													userid,
+													title
+													)
+													VALUES
+													(
+													'$dummy_courseinstanceid',
+													'$dummy_userid',
+													'$title'
+													)
+													");
+	databasedisconnect();
+}
+
+function ShowTopics()
+{
+	echo "<table><tr><th>No</th><th>Topic</th><th>Oleh</th><th>Aksi</th></tr>";
+	databaseconnect();
+	mysql_select_db("tugasprogin");
+	$tampil="SELECT * FROM courseinstancetopic";
+	$hasil = mysql_query($tampil);
+	$no =1;
+	while($data = mysql_fetch_array($hasil))
+	{
+		echo "<form method=\"POST\" action=\"discussionhandler.php\">";
+		echo "<input type=hidden name=courseinstanceid value=$data[courseinstanceid]>
+				<tr><td>$no</td><td>$data[title]</td><td>$data[userid]</td><td>$data[counter]</td>
+				<td><input type=submit value=Delete name='deletefileuser'><input type=submit value=Download name='downloadfileuser'></td>
+				</tr></form>";
+		$no++;
+		};
+	echo "</table>";
+}	
+
 
 function mainDiscussion()
 {
