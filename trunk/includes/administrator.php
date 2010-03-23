@@ -14,6 +14,7 @@ function userAdd($data) {
 	databaseconnect();
 	
 	print_r($data);
+	print_r($_FILES);
 	
 	$username = $data['username'];
 	$fullname = $data['fullname'];
@@ -44,7 +45,11 @@ function userAdd($data) {
 				'$status',
 				'$now')";
 	$result = mysql_query($sql);
-	echo mysql_error();
+	if($result) {
+	
+	} else {
+		echo mysql_error();
+	}
 	
 	return false;
 }
