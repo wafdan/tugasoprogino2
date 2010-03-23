@@ -33,7 +33,7 @@ sessionInit();
 			
 			<div>
 				Add user
-				<form action="administratorhandler.php" method="post">
+				<form action="administratorhandler.php" enctype="multipart/form-data" method="post">
 					<input type="hidden" name="action" value="useradd" />
 					<table>
 						<tr>
@@ -53,12 +53,16 @@ sessionInit();
 							<td><input type="text" name="data[useradd][email]" maxlength="256" /></td>
 						</tr>
 						<tr>
+							<td>Photo</td>
+							<td><input type="file" name="data[useradd][photo]" /></td>
+						</tr>
+						<tr>
 							<td>Password</td>
-							<td><input type="text" name="data[useradd][password]" maxlength="256" /></td>
+							<td><input type="password" name="data[useradd][password]" maxlength="256" /></td>
 						</tr>
 						<tr>
 							<td>Password (again)</td>
-							<td><input type="text" name="data[useradd][password2]" maxlength="256" /></td>
+							<td><input type="password" name="data[useradd][password2]" maxlength="256" /></td>
 						</tr>
 						<tr>
 							<td>Role</td>
@@ -66,6 +70,14 @@ sessionInit();
 								<input type="radio" name="data[useradd][role]" value="USER" selected />User
 								<input type="radio" name="data[useradd][role]" value="ADMIN" />Administrator
 							</td>
+						</tr>
+						<tr>
+							<td>Status</td>
+							<td>
+								<input type="radio" name="data[useradd][status]" value="ACTIVE" />Active
+								<input type="radio" name="data[useradd][status]" value="PENDING" />Pending
+								<input type="radio" name="data[useradd][status]" value="DISABLED" />Disabled
+							</tr>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="submit" value="Submit" /></td>
@@ -76,7 +88,7 @@ sessionInit();
 			
 			<div>
 				Modify user
-				<form action="administratorhandler.php" method="post">
+				<form action="administratorhandler.php" enctype="multipart/form-data" method="post">
 					<input type="hidden" name="action" value="usermod" />
 					<table>
 						<tr>
@@ -98,12 +110,16 @@ sessionInit();
 								<td><input type="text" name="data[usermod][email]" maxlength="256" /></td>
 							</tr>
 							<tr>
+								<td>Photo</td>
+								<td><input type="file" name="data[usermod][photo]" /></td>
+							</tr>
+							<tr>
 								<td>Password</td>
-								<td><input type="text" name="data[usermod][password]" maxlength="256" /></td>
+								<td><input type="password" name="data[usermod][password]" maxlength="256" /></td>
 							</tr>
 							<tr>
 								<td>Password (again)</td>
-								<td><input type="text" name="data[usermod][password2]" maxlength="256" /></td>
+								<td><input type="password" name="data[usermod][password2]" maxlength="256" /></td>
 							</tr>
 							<tr>
 								<td>Role</td>
