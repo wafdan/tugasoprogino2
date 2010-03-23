@@ -7,7 +7,6 @@
 
 // Data pada form ini akan di-POST ke registerhandler.php
 require_once("includes/databaseconnection.php");
-require_once("registerhandler.php");
 $message = 'HALO WORLD';
 //databaseconnect();
 //insert();
