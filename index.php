@@ -39,3 +39,33 @@ sessionInit();
 
 
 ?>
+
+<html>
+	<head>
+		<title>Home</title>
+	</head>
+	
+	<body>
+		<div>
+			<?php
+			
+			if(sessionGet('activeUserID')) {
+				?>
+			Login
+			<form action="loginhandler.php" method="post">
+				Username
+				<input type="text" name="data[login][username]" />
+				Password
+				<input type="password" name="data[login][password]" />
+				<input type="submit" value="Login" />
+			</form>
+				<?php
+			} else {
+			?>
+			Selamat datang, <?php echo sessionGet('activeFullname'); ?>
+				<?php
+			}
+			?>
+		</div>
+	</body>
+</html>
