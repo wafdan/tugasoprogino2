@@ -6,6 +6,7 @@
  */
 
 require_once('session.php');
+require_once('databaseconnection.php');
 
 function authLogin($user, $pass) {
 	/*
@@ -17,11 +18,33 @@ function authLogin($user, $pass) {
 			jika tidak:
 				return false
 	 */
+	
+	databaseconnect();
+	
+	$pass = md5($pass);
+	
+	$sql = "SELECT * FROM `user` WHERE `username` = '$user' AND `password` = '$pass'";
+	$result = mysql_query($sql);
+		
+	if(mysql_num_rows($result) > 0) {
+		$data = mysql_fetch_array($result);
+		
+		sessionSet('activeUserID', $data['userid']);
+		sessionSet('activeUsername', $data['username']);
+		sessionSet('activeFullname', $data['fullname']);
+		sessionSet('activeRole', $data['role']);
+		
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function authLogout() {
 	// Fungsi ini untuk me-logout user dari sistem
 	// dengan melakukan destroy session
+	
+	session_unset();
 }
 
 function isLogin() {

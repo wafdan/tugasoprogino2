@@ -16,7 +16,15 @@ function sessionSet($svar, $value) {
 }
 
 function sessionGet($svar) {
-	return $_SESSION[$cfg['Session']['prefix'].$svar];
+	if(isset($_SESSION[$cfg['Session']['prefix'].$svar])) {
+		return $_SESSION[$cfg['Session']['prefix'].$svar];
+	} else {
+		return false;
+	}
+}
+
+function sessionUnset() {
+
 }
 
 ?>
