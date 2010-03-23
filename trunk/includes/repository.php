@@ -68,7 +68,7 @@ function DeleteFileUser()
 
 function DownloadFileUser()
 {
-	$Location = 'http://localhost/tugasoprogino2';
+	$Location = 'http://localhost/tugasprogin';
 	$tempname = $_POST['filenamehash'];
 	databaseconnect();
 	mysql_select_db("tugasprogin");
@@ -80,19 +80,20 @@ function DownloadFileUser()
 
 function RedirectRepository()
 {
-	header("Location: http://localhost/tugasoprogino2/repository.php'");
+	header("Location: http://localhost/tugasprogin/repository.php");
 	}
 
 function mainRepository()
 {
 	if($_POST['uploadfileuser'])
 	{
+		RedirectRepository();
 		UploadFileUser();
 	}
 	elseif($_POST['deletefileuser'])
 	{
-		DeleteFileUser();
 		RedirectRepository();
+		DeleteFileUser();
 	}elseif($_POST['downloadfileuser'])
 	{
 		DownloadFileUser();
