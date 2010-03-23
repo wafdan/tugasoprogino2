@@ -46,7 +46,15 @@ function userAdd($data) {
 				'$now')";
 	$result = mysql_query($sql);
 	if($result) {
-	
+		if($_FILES) {
+			$filename = strtolower($_FILES['photo']['name']);
+			$filename = md5($filename).substr($filename, strrpos($filename, '.'));
+			if(move_uploaded_files($_FILES['photo']['tmp_name'], 'photofiles/'.$filename)) {
+				echo 'photo ok';
+			} else {
+				echo 'error';
+			}
+		}
 	} else {
 		echo mysql_error();
 	}
