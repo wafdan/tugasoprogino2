@@ -198,7 +198,17 @@ function CheckEmail(){
 }
 
 function CheckAll() {
-	return CheckAddress() && CheckPassword2() && CheckBirthday() && CheckEmail() && CheckNama() && CheckPassword() && CheckPhone() && CheckPhoto() && CheckUserName();
+	if(CheckAddress() && CheckPassword2() && CheckBirthday() && CheckEmail() && CheckNama() && CheckPassword() && CheckPhone() && CheckPhoto() && CheckUserName()){
+        //document.getElementsById("dummy").value = 't';
+        var tes=document.getElementById("dummy");
+        tes.value='t';
+        return true;
+    }else{
+        //document.getElementsById("dummy").value = 'f';
+        var tes=document.getElementById("dummy");
+        tes.value='f';
+        return false;
+    }
 }
 
 function SyncKotaText() {
@@ -283,7 +293,11 @@ var nothingHappens = function() {
 }
 
 var submitRegistration = function() {
-    if(CheckAll()) alert("Informasi valid"); else alert("Informasi tidak valid");
+    if(CheckAll()) {
+        alert("Informasi valid"); 
+    }else {
+        alert("Informasi tidak valid");
+    }
 }
 
 //Calendar Script
