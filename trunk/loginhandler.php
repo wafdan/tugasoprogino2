@@ -12,11 +12,16 @@ require_once('includes/auth.php');
 // setelah input diproses, baik gagal maupun berhasil
 // akan diredirect kembali ke halaman home (pakai meta http-equiv refresh, macam di rileks)
 
+sessionInit();
+
 if($_POST['data']) {
 	if(authLogin($_POST['data']['login']['username'], $_POST['data']['login']['password'])) {
-		echo 'ok';
+		sessionSet('splashmsg', 'Logged in');
+		sessionSet('splashtarget', 'index.php');
+		header('Location: splash.php');
 	} else {
-		echo 'gagal';
+		sessionSet('msg', 'Incorrect sername and/or password.');
+		header('Location: index.php');
 	}
 }
 

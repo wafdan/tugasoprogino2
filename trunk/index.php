@@ -48,9 +48,17 @@ sessionInit();
 	<body>
 		<div>
 			<?php
-			
 			if(sessionGet('activeUserID')) {
 				?>
+			Selamat datang, <?php echo sessionGet('activeFullname'); ?> <a href="logout.php">[logout]</a>
+				<?php
+				if(sessionGet('activeRole') == 'ADMIN') {
+					?>
+					<a href="administrator.php">Administrator Page</a>
+					<?php
+				}
+			} else {
+			?>
 			Login
 			<form action="loginhandler.php" method="post">
 				Username
@@ -59,10 +67,6 @@ sessionInit();
 				<input type="password" name="data[login][password]" />
 				<input type="submit" value="Login" />
 			</form>
-				<?php
-			} else {
-			?>
-			Selamat datang, <?php echo sessionGet('activeFullname'); ?>
 				<?php
 			}
 			?>
