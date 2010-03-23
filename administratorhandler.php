@@ -79,7 +79,7 @@ if($_POST) {
 
 <html>
 	<head>
-		<META http-equiv="refresh" content="4;URL=administrator.php">
+		<!-- META http-equiv="refresh" content="4;URL=administrator.php" -->
 	</head>
 	
 	<body>
