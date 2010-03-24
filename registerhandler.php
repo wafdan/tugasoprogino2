@@ -8,7 +8,7 @@ require_once("includes/session.php");
 require_once("includes/databaseconnection.php");
 require_once("includes/config.php");
 
-function uploadfile() {
+function uploadfile($username) {
     if(!isset($_POST['submit'])) {
         exit(0);
     }else{
@@ -20,7 +20,8 @@ function uploadfile() {
             echo '<b>Bukan file gambar.</b>';
             exit (0);
         }else {
-            $destination = 'C:\xampp\htdocs\progin\proginoduo\photofiles'.'\\'.$_FILES['photo']['name'];
+            $ext = strrchr($_FILES['photo']['name'],'.');
+            $destination = 'photofiles'.'\\'.md5($username).$ext;//.$_FILES['photo']['name'];
             $temp = $_FILES['photo']['tmp_name'];
             move_uploaded_file($temp,$destination);
             echo '<p><b>File berhasil diupload:</b> {$_FILES["photo"]["name"]}({$_FILES[photo][size]})</p>';
@@ -64,10 +65,11 @@ function insert() {
                 'USER', 
                 'PENDING', 
                 NOW());";
-
+    
     databaseconnect();
+    //$username= mysql_query("SELECT username FROM user where username='$username'");
     if(mysql_query($sql)) {
-        uploadfile();
+        uploadfile($username);
         echo "INSERTED";
     }else {
         echo "NOT INSERTED";
