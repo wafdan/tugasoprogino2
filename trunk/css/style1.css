@@ -118,9 +118,10 @@ fieldset select{
 }
 
 .submit input {
-	background: red;
 	border: 2px solid #FFFFFF;
-	color: #FFFFFF;
+	color: #000000;
+	background-color: #FFFF33;
+	font-weight: bold;
 }
 
 /* Sidebar */
