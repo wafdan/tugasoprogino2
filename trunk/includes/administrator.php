@@ -8,8 +8,6 @@
 require_once('session.php');
 require_once('databaseconnection.php');
 
-sessionInit();
-
 function facultyAdd($data) {
 	databaseconnect();
 	
