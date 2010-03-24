@@ -9,7 +9,7 @@ function databaseconnect() {
         die('Could not connect: '.mysql_error());
     }
 	
-	mysql_select_db('progin2');
+	mysql_select_db('progin2', $con);
 }
 
 function databasedisconnect() {
