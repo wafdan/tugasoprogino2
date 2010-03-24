@@ -4,16 +4,16 @@ require_once('config.php');
 
 function databaseconnect() {
 	global $cfg;
-    $con = mysql_connect($cfg['Database']['host'], $cfg['Database']['user'], $cfg['Database']['pass']);
-    if(!$con) {
+	
+    if(!mysql_connect($cfg['Database']['host'], $cfg['Database']['user'], $cfg['Database']['pass'])) {
         die('Could not connect: '.mysql_error());
     }
 	
-	mysql_select_db('progin2', $con);
+	mysql_select_db('progin2');
 }
 
 function databasedisconnect() {
-	$con = mysql_close();
+	mysql_close();
 }
 
 ?>
