@@ -1,7 +1,8 @@
 <?php
-require_once("repositoryhandler.php");
+require_once("includes/session.php");
+require_once("includes/repository.php");
 sessionInit();
-sessionSet("activeUserID",135);
+//sessionSet("activeUserID",135);
 if(!sessionGet("activeUserID"))
 {
 	header("Location: index.php");
@@ -24,7 +25,6 @@ color:white;
 <body>
 <div>
 <?php
-require_once("includes/repository.php");
 $repo_userid = $_GET['userid'];
 if(!$repo_userid)
 {
