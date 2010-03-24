@@ -11,6 +11,12 @@ require_once('includes/administrator.php');
 sessionInit();
 
 if($_POST) {
+	/*
+	echo '<pre>';
+	print_r($_POST);
+	echo '</pre>';
+	 */
+	 
 	$action = $_POST['action'];
 	$data = $_POST['data'][$action];
 	
@@ -22,7 +28,7 @@ if($_POST) {
 			
 			} else {
 				// Jika userAdd gagal
-				sessionSet('msg', 'Error');
+				sessionSet('msg', 'Add user error.');
 			}
 			break;
 			
@@ -37,18 +43,27 @@ if($_POST) {
 		
 		// Course Management section
 		case 'facultyadd':
-			break;
-		
-		case 'facultydel':
+			if(facultyAdd($data)) {
+				
+			} else {
+				sessionSet('msg', 'Add faculty error.');
+			}
 			break;
 		
 		case 'programadd':
-			break;
-		
-		case 'programdel':
+			if(programAdd($data)) {
+			
+			} else {
+				sessionSet('msg', 'Add program error.');
+			}
 			break;
 		
 		case 'courseadd':
+			if(courseAdd($data)) {
+			
+			} else {
+				sessionSet('msg', 'Add course error.');
+			}
 			break;
 		
 		case 'coursemod':
@@ -58,12 +73,22 @@ if($_POST) {
 			break;
 		
 		case 'courseinstadd':
+			if(courseinstAdd($data)) {
+			
+			} else {
+				sessionSet('msg', 'Add course instance error.');
+			}
 			break;
 		
 		case 'courseinstmod':
 			break;
 		
 		case 'courseinstdelegate':
+			if(courseinstDelegate($data)) {
+				
+			} else {
+				sessionSet('msg', 'Delegate course instance error.');
+			}
 			break;
 		
 		case 'courseinstdel':
@@ -73,6 +98,10 @@ if($_POST) {
 		default:
 			echo 'unexpected input';
 	}
+	
+	sessionSet('splashmsg', 'Processing your action');
+	sessionSet('splashtarget', 'administrator.php');
+	header('Location: splash.php');
 }
 
 ?>
