@@ -27,25 +27,34 @@ function DisplayWall($wall_userid)
 	databaseconnect();
 	$userid = sessionGet("activeUserID");
 	$userinfo = mysql_query("SELECT * FROM user WHERE userid='$userid'");
+	$userinfo = mysql_fetch_array($userinfo);
 	$hasil = mysql_query("SELECT * FROM userwallpost WHERE userid='$wall_userid'");
 	if(mysql_num_rows($hasil) > 0)
 	{
 		echo "<table>";
 		while($data = mysql_fetch_array($hasil))
 		{
-			echo "<td><tr>$userinfo[username] bilang : </tr><tr>$data[content]</tr></td><td><tr></tr><br><tr><form action=\"mywallhandler\" method=\"POST\">Comment : <input type=textbox value=Comment name=comment></form></tr></td>";
+			echo "<tr><td>$userinfo[username] bilang : </td><td><p>$data[content]</p></td></tr>
+				<tr><td></td><td><form action=\"mywallhandler\" method=\"POST\"><input type=hidden name=wallpostid value=$data[wallpostid]> Comment : <input type=textbox name=comment></form></td></tr>";
 			}		
 		echo "</table>";
 	}
 	databasedisconnect();
 }
 
+function TerimaComment()
+{
+	}
+
 function mainWall()
 {
 	if($_POST['content'])
 	{
 		TerimaPostWall();
-	}
+	}elseif($_POST['comment'])
+	{
+		TerimaComment();
+		}
 }
 
 ?>
