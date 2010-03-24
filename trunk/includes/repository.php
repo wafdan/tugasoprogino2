@@ -7,7 +7,6 @@ function ShowRepository($repo_userid)
 {
 	$tampil;
 	databaseconnect();
-	mysql_select_db("tugasprogin");
 	if(sessionGet("activeUserID")== $repo_userid)
 	{
 		$tampil="SELECT * FROM userrepository WHERE userid='$repo_userid'";
@@ -27,11 +26,11 @@ function ShowRepository($repo_userid)
 		{
 			echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
 			echo "<input type=hidden name=repositoryid value=$data[repositoryid]>
-					<input type=hidden name=filenamehash value=$data[filenamehash]>
+					<input type=hidden name=filename value=$data[filename]>
 					<tr><td>$no</td><td>$data[filename]</td><td>$data[status]</td><td>$data[counter]</td>
 					<td>";
 			if(sessionGet("activeUserID")== $repo_userid){
-				"<input type=submit value=Delete name='deletefileuser'>";
+				echo "<input type=submit value=Delete name='deletefileuser'>";
 			}
 			echo	"<input type=submit value=Download name='downloadfileuser'></td>
 					</tr></form>";
@@ -39,6 +38,10 @@ function ShowRepository($repo_userid)
 		};
 		echo "</table>";
 	}
+	else
+	{
+		echo "Repository Kosong!";
+		}
 }
 
 function isFollower($user_id,$target_userid)
@@ -59,14 +62,15 @@ function UploadFileUser(){
 	$nama_file = $_FILES['fupload']['name'];
 	$ukuran_file = $_FILES['fupload']['size'];
 	$dummy_userid = sessionGet("activeUserID");
-	$nama_file_hash = md5("salt $nama_file $dummy_userid");
-	$direktori = "repositoryfiles/$nama_file_hash";
+	mkdir("repositoryfiles/$dummy_userid");
+	$direktori = "repositoryfiles/$dummy_userid/$nama_file";
+	$now = date('Y-m-d H:i:s');
 	databaseconnect();
-	mysql_select_db("tugasprogin");
 	if(move_uploaded_file($lokasi_file,"$direktori"))
-	{
+{	
 		mysql_query("INSERT INTO userrepository(
 					userid,
+					uploadtimestamp,
 					status,
 					filename,
 					filenamehash,
@@ -74,6 +78,7 @@ function UploadFileUser(){
 					)
 					VALUES(
 					'$dummy_userid',
+					'$now',
 					'$_POST[status]',
 					'$nama_file',
 					'$nama_file_hash',
@@ -89,22 +94,21 @@ function UploadFileUser(){
 function DeleteFileUser()
 {
 	databaseconnect();
-	mysql_select_db("tugasprogin");
 	mysql_query("DELETE FROM userrepository WHERE repositoryid='$_POST[repositoryid]'");
-	$file2delete = "repositoryfiles/$_POST[filenamehash]";
+	$dummy_userid = sessionGet("activeUserID");
+	$file2delete = "repositoryfiles/$dummy_userid/$_POST[filename]";
 	unlink($file2delete) or die ("Gagal!");
 	databasedisconnect();
 	}
 
 function DownloadFileUser()
 {
-	$Location = 'http://localhost/tugasprogin';
-	$tempname = $_POST['filenamehash'];
+	$tempname = $_POST['filename'];
 	databaseconnect();
-	mysql_select_db("tugasprogin");
 	$count = $_POST['counter']+1;
+	$dummy_userid = sessionGet("activeUserID");
 	mysql_query("UPDATE userrepository SET counter='$count' WHERE repositoryid='$_POST[repositoryid]'");
-	header( "Location: $Location/repositoryfiles/$tempname") ;
+	header( "Location: repositoryfiles/$dummy_userid/$tempname") ;
 	databasedisconnect();
 	}
 
