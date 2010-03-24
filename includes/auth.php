@@ -27,17 +27,22 @@ function authLogin($user, $pass) {
 	
 	$sql = "SELECT * FROM `user` WHERE `username` = '$user' AND `password` = '$pass'";
 	$result = mysql_query($sql);
-		
-	if(mysql_num_rows($result) > 0) {
-		$data = mysql_fetch_array($result);
-		
-		sessionSet('activeUserID', $data['userid']);
-		sessionSet('activeUsername', $data['username']);
-		sessionSet('activeFullname', $data['fullname']);
-		sessionSet('activeRole', $data['role']);
-		
-		return true;
+	
+	if($result) {
+		if(mysql_num_rows($result) > 0) {
+			$data = mysql_fetch_array($result);
+			
+			sessionSet('activeUserID', $data['userid']);
+			sessionSet('activeUsername', $data['username']);
+			sessionSet('activeFullname', $data['fullname']);
+			sessionSet('activeRole', $data['role']);
+			
+			return true;
+		} else {
+			return false;
+		}
 	} else {
+		echo mysql_error();
 		return false;
 	}
 }
