@@ -31,6 +31,20 @@ function facultyAdd($data) {
 	}
 }
 
+function facultyDel($data) {
+	databaseconnect();
+	
+	$facultyid = $data['facultyid'];
+	
+	$sql = "DELETE FROM `faculty` WHERE `facultyid` = '$facultyid';";
+	if(mysql_query($sql)) {
+		return true;
+	} else {
+		echo mysql_error();
+		return false;
+	}
+}
+
 function getFacultyList() {
 	databaseconnect();
 	
@@ -178,7 +192,48 @@ function courseinstAdd($data) {
 function courseinstDelegate($data) {
 	databaseconnect();
 	
+	$courseid = $data['courseid'];
+	$year = $data['year'];
+	$semester = $data['semester'];
+	$username = $data['username'];
 	
+	// check for course instance existence
+	$sql = "SELECT * FROM `courseinstance`
+			WHERE `courseid` = '$courseid' AND
+				  `year` = '$year' AND
+				  `semester` = '$semester'";
+	$result = mysql_query($sql);
+	if(mysql_num_rows($result) == 0) {
+		return false;
+	} else {
+		$courseinstancedata = mysql_fetch_assoc($result);
+		$courseinstanceid = $courseinstancedata['courseinstanceid'];
+		
+		// check for username existence
+		$sql = "SELECT * FROM `user`
+				WHERE `username` = '$username'";
+		$result = mysql_query($sql);
+		echo mysql_error();
+		if(mysql_num_rows($result) == 0) {
+			return false;
+		} else {
+			$userdata = mysql_fetch_assoc($result);
+			$userid = $userdata['userid'];
+			
+			// insert into courseinstance
+			$sql = "INSERT INTO `courseinstancemanager`
+						(`userid`, `courseinstanceid`)
+					VALUES
+						('$userid', '$courseinstanceid')";
+			$result = mysql_query($sql);
+			if($result) {
+				return true;
+			} else {
+				echo mysql_error();
+				return false;
+			}
+		}
+	}
 }
 
 ?>

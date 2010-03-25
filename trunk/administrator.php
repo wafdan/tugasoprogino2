@@ -24,7 +24,7 @@ function generateOptionProgram() {
 	
 	echo '<option value=""></option';
 	foreach($data as $program) {
-		echo '<option value="'.$program['programid'].'">[ '.$program['facultycode'].' ] '.$program['name'].'</option';
+		echo '<option value="'.$program['programid'].'">[ '.$program['facultycode'].' ] ['.$program['code'].'] '.$program['name'].'</option';
 	}
 }
 
@@ -61,7 +61,7 @@ function generateOptionCourse() {
 			Course management
 			
 			<div>
-				Add/remove Faculty
+				Add Faculty
 				<div>
 					<form action="administratorhandler.php" method="post">
 						<input type="hidden" name="action" value="facultyadd" />
@@ -75,14 +75,7 @@ function generateOptionCourse() {
 								<td><input type="text" name="data[facultyadd][name]" size="48" /></td>
 							</tr>
 							<tr>
-								<td>Mode</td>
-								<td>
-									<input type="radio" name="data[facultyadd][mode]" value="ADD" />Add
-									<input type="radio" name="data[facultyadd][mode]" value="REMOVE" />Remove
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="Submit" /></td>
+								<td colspan="2"><input type="submit" value="Add" /></td>
 							</tr>
 						</table>
 					</form>
@@ -90,7 +83,29 @@ function generateOptionCourse() {
 			</div>
 			
 			<div>
-				Add/remove Program
+				Remove Faculty
+				<div>
+					<form action="administratorhandler.php" method="post">
+						<input type="hidden" name="action" value="facultydel" />
+						<table>
+							<tr>
+								<td>Faculty</td>
+								<td>
+									<select name="data[facultydel][facultyid]">
+										<?php generateOptionFaculty(); ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Remove" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			
+			<div>
+				Add Program
 				<div>
 					<form action="administratorhandler.php" method="post">
 						<input type="hidden" name="action" value="programadd" />
@@ -112,14 +127,7 @@ function generateOptionCourse() {
 								<td><input type="text" name="data[programadd][name]" size="48" /></td>
 							</tr>
 							<tr>
-								<td>Mode</td>
-								<td>
-									<input type="radio" name="data[programadd][mode]" value="ADD" />Add
-									<input type="radio" name="data[programadd][mode]" value="REMOVE" />Remove
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="Submit" /></td>
+								<td colspan="2"><input type="submit" value="Add" /></td>
 							</tr>
 						</table>
 					</form>
@@ -149,14 +157,7 @@ function generateOptionCourse() {
 								<td><input type="text" name="data[courseadd][coursename]" size="48" /></td>
 							</tr>
 							<tr>
-								<td>Mode</td>
-								<td>
-									<input type="radio" name="data[courseadd][mode]" value="ADD" />Add
-									<input type="radio" name="data[courseadd][mode]" value="REMOVE" />Remove
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="submit" value="Submit" /></td>
+								<td colspan="2"><input type="submit" value="Add" /></td>
 							</tr>
 						</table>
 					</form>
@@ -200,7 +201,7 @@ function generateOptionCourse() {
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="submit" value="Submit" /></td>
+								<td colspan="2"><input type="submit" value="Add" /></td>
 							</tr>
 						</table>
 					</form>
@@ -242,7 +243,7 @@ function generateOptionCourse() {
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="submit" value="Submit" /></td>
+								<td colspan="2"><input type="submit" value="Add" /></td>
 							</tr>
 						</table>
 					</form>

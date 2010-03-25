@@ -50,6 +50,14 @@ if($_POST) {
 			}
 			break;
 		
+		case 'facultydel':
+			if(facultyDel($data)) {
+				
+			} else {
+				sessionSet('msg', 'Remove faculty error.');
+			}
+			break;
+		
 		case 'programadd':
 			if(programAdd($data)) {
 			
