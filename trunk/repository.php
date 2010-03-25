@@ -25,6 +25,12 @@ if(!sessionGet("activeUserID")) {
                         <a href="index.php">Home</a>                    </li>
                     <li class="first">
                         <a href="profile.php">Profile</a>                    </li>
+                        <li>
+                            <a href="publicwall.php">Public Wall</a>
+                        </li>
+                        <li>
+                            <a href="publicwall.php">Public Wall</a>
+                        </li>
               <li>
                     <a href="repository.php">Repository</a></li>
                     <li> </li>
@@ -34,6 +40,7 @@ if(!sessionGet("activeUserID")) {
                         <a href="logout.php">Logout</a>                    </li>
               </ul>
           </div>
+          
             <div>
                 <?php
                 $repo_userid = $_GET['userid'];

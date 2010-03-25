@@ -44,6 +44,9 @@ databasedisconnect();
                             <?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
                         </li>
                         <li>
+                            <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Public Wall</a>
+                        </li>
+                        <li>
                             <?php echo "<a href=repository.php?userid=$wall_userid"; ?>>Repository</a>
                         </li>
                         <li>
