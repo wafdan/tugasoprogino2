@@ -98,14 +98,19 @@ if($_POST) {
 			}
 			break;
 		
-		case 'courseinstmod':
-			break;
-		
 		case 'courseinstdelegate':
 			if(courseinstDelegate($data)) {
 				
 			} else {
 				sessionSet('msg', 'Delegate course instance error.');
+			}
+			break;
+		
+		case 'courseinstdelegaterm':
+			if(courseinstDelegaterm($data)) {
+				
+			} else {
+				sessionSet('msg', 'Remove delegation course instance error.');
 			}
 			break;
 		
