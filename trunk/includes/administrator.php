@@ -46,14 +46,28 @@ function facultyDel($data) {
 	
 	$facultyid = $data['facultyid'];
 	
-	$sql  = "DELETE FROM `faculty` WHERE `facultyid` = '$facultyid';";
-	
-	if(mysql_query($sql)) {
-		return true;
-	} else {
-		echo mysql_error();
-		return false;
+	// delete repository files
+	$sql = "SELECT * FROM `courseinstancerepository` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid')));";
+	$result = mysql_query($sql);
+	while($repodata = mysql_fetch_assoc($result)) {
+		// delete file
 	}
+	
+	// cascade delete query
+	mysql_query("DELETE FROM `courseinstancewallpostcomment` WHERE `wallpostid` IN (SELECT `wallpostid` FROM `courseinstancewallpost` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid')))); ");
+	mysql_query("DELETE FROM `courseinstancewallpost` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid'))); ");
+	mysql_query("DELETE FROM `courseinstancetopicpost` WHERE `topicid` IN (SELECT `topicid` FROM `courseinstancetopic` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid')))); ");
+	mysql_query("DELETE FROM `courseinstancetopic` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid'))); ");
+	mysql_query("DELETE FROM `courseinstancerepository` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid'))); ");
+	mysql_query("DELETE FROM `courseinstancefollowing` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid'))); ");
+	mysql_query("DELETE FROM `courseinstancemanager` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid'))); ");
+	
+	mysql_query("DELETE FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid'));");
+	mysql_query("DELETE FROM `course` WHERE `courseprogram` IN (SELECT `programid` FROM `program` WHERE `facultyid` = '$facultyid');");
+	mysql_query("DELETE FROM `program` WHERE `facultyid' = '$facultyid';");
+	mysql_query("DELETE FROM `faculty` WHERE `facultyid` = '$facultyid';");
+	
+	return true;
 }
 
 function getFacultyList() {
@@ -101,6 +115,34 @@ function programAdd($data) {
 	}
 }
 
+function programDel($data) {
+	databaseconnect();
+	
+	$programid = $data['programid'];
+	
+	// delete repository files
+	$sql = "SELECT * FROM `courseinstancerepository` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid'));";
+	$result = mysql_query($sql);
+	while($repodata = mysql_fetch_assoc($result)) {
+		// delete file
+	}
+	
+	// cascade delete query
+	mysql_query("DELETE FROM `courseinstancewallpostcomment` WHERE `wallpostid` IN (SELECT `wallpostid` FROM `courseinstancewallpost` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid'))); ");
+	mysql_query("DELETE FROM `courseinstancewallpost` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid')); ");
+	mysql_query("DELETE FROM `courseinstancetopicpost` WHERE `topicid` IN (SELECT `topicid` FROM `courseinstancetopic` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid'))); ");
+	mysql_query("DELETE FROM `courseinstancetopic` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid')); ");
+	mysql_query("DELETE FROM `courseinstancerepository` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid')); ");
+	mysql_query("DELETE FROM `courseinstancefollowing` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid')); ");
+	mysql_query("DELETE FROM `courseinstancemanager` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid')); ");
+	
+	mysql_query("DELETE FROM `courseinstance` WHERE `courseid` IN (SELECT `courseid` FROM `course` WHERE `courseprogram` = '$programid');");
+	mysql_query("DELETE FROM `course` WHERE `courseprogram` = '$programid';");
+	mysql_query("DELETE FROM `program` WHERE `programid` = '$programid';");
+	
+	return true;
+}
+
 function getProgramList() {
 	databaseconnect();
 	
@@ -117,6 +159,7 @@ function getProgramList() {
 	
 	$data = array();
 	$n = 0;
+	echo mysql_error();
 	while($item = mysql_fetch_assoc($result)) {
 		$data[$n]['programid'] = $item['programid'];
 		$data[$n]['facultycode'] = $item['facultycode'];
@@ -172,6 +215,33 @@ function courseAdd($data) {
 		echo mysql_error();
 		return false;
 	}
+}
+
+function courseDel($data) {
+	databaseconnect();
+	
+	$courseid = $data['courseid'];
+	
+	// delete repository files
+	$sql = "SELECT * FROM `courseinstancerepository` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid');";
+	$result = mysql_query($sql);
+	while($repodata = mysql_fetch_assoc($result)) {
+		// delete file
+	}
+	
+	// cascade delete query
+	mysql_query("DELETE FROM `courseinstancewallpostcomment` WHERE `wallpostid` IN (SELECT `wallpostid` FROM `courseinstancewallpost` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid')); ");
+	mysql_query("DELETE FROM `courseinstancewallpost` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid')); ");
+	mysql_query("DELETE FROM `courseinstancetopicpost` WHERE `topicid` IN (SELECT `topicid` FROM `courseinstancetopic` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid'))); ");
+	mysql_query("DELETE FROM `courseinstancetopic` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid')); ");
+	mysql_query("DELETE FROM `courseinstancerepository` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid')); ");
+	mysql_query("DELETE FROM `courseinstancefollowing` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid')); ");
+	mysql_query("DELETE FROM `courseinstancemanager` WHERE `courseinstanceid` IN (SELECT `courseinstanceid` FROM `courseinstance` WHERE `courseid` = '$courseid')); ");
+	
+	mysql_query("DELETE FROM `courseinstance` WHERE `courseid` = '$courseid');");
+	mysql_query("DELETE FROM `course` WHERE `courseid` = '$courseid';");
+	
+	return true;
 }
 
 function courseinstAdd($data) {
