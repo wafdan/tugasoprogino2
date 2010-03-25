@@ -25,7 +25,7 @@ databasedisconnect();
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Konco&trade; - Anggrahita Bayu</title>
+        <title>Konco&trade;</title>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <script type="text/javascript" src="script/script.js"></script>
     </head>
@@ -61,7 +61,7 @@ databasedisconnect();
                             <h2><?php echo "<a href=profile.php?userid=$wall_userid>$data[fullname]</a>"; ?></h2>
 <?php
 $avatar = $data['avatar'];
-echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture not Found\" />";
+echo "<img id=\"primary-photo\" src=\"repositoryfiles\.$avatar.\" alt=\"Picture not Found\" />";
 							?>
                             
                         </li>
@@ -106,7 +106,7 @@ while($datafriend=mysql_fetch_array($friendresult))
 if($wall_userid == sessionGet('activeUserID'))
 {
 	echo	"<form action=\"mywallhandler.php\" method=\"POST\">
-			Post Wall : <input type=\"textbox\" name=\"content\" size=70>
+			<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70>
 			</form>";
 }
 			DisplayWall($wall_userid);
