@@ -26,7 +26,7 @@ function ShowRepository($repo_userid)
 		{
 			echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
 			echo "<input type=hidden name=repositoryid value=$data[repositoryid]>
-					<input type=hidden name=filename value=$data[filename]>
+					<input type=hidden name=filenamehash value=$data[filenamehash]>
 					<tr><td>$no</td><td>$data[filename]</td><td>$data[status]</td><td>$data[counter]</td>
 					<td>";
 			if(sessionGet("activeUserID")== $repo_userid){
@@ -60,10 +60,11 @@ function isFollower($user_id,$target_userid)
 function UploadFileUser(){
 	$lokasi_file = $_FILES['fupload']['tmp_name'];
 	$nama_file = $_FILES['fupload']['name'];
+	$ext = strrchr($nama_file,'.');
 	$ukuran_file = $_FILES['fupload']['size'];
 	$dummy_userid = sessionGet("activeUserID");
-	mkdir("repositoryfiles/$dummy_userid");
-	$direktori = "repositoryfiles/$dummy_userid/$nama_file";
+	$nama_file_hash = md5("$dummy_userid $nama_file").$ext;
+	$direktori = "repositoryfiles/$nama_file_hash";
 	$now = date('Y-m-d H:i:s');
 	databaseconnect();
 	if(move_uploaded_file($lokasi_file,"$direktori"))
@@ -96,19 +97,19 @@ function DeleteFileUser()
 	databaseconnect();
 	mysql_query("DELETE FROM userrepository WHERE repositoryid='$_POST[repositoryid]'");
 	$dummy_userid = sessionGet("activeUserID");
-	$file2delete = "repositoryfiles/$dummy_userid/$_POST[filename]";
+	$file2delete = "repositoryfiles/$_POST[filenamehash]";
 	unlink($file2delete) or die ("Gagal!");
 	databasedisconnect();
 	}
 
 function DownloadFileUser()
 {
-	$tempname = $_POST['filename'];
+	$tempname = $_POST['filenamehash'];
 	databaseconnect();
 	$count = $_POST['counter']+1;
 	$dummy_userid = sessionGet("activeUserID");
 	mysql_query("UPDATE userrepository SET counter='$count' WHERE repositoryid='$_POST[repositoryid]'");
-	header( "Location: repositoryfiles/$dummy_userid/$tempname") ;
+	header( "Location: repositoryfiles/$tempname") ;
 	databasedisconnect();
 	}
 
