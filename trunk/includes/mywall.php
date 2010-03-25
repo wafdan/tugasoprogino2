@@ -2,6 +2,23 @@
 require_once("databaseconnection.php");
 require_once("session.php");
 sessionInit();
+
+function ScanUsername($str) {
+	preg_match_all('/@[.a-z0-9_]{5,}/', $str, $matches);
+	foreach($matches[0] as $match) {
+		$username = substr($match, 1, strlen($match));
+		
+		$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
+		$result = mysql_query($sql);
+
+		if(mysql_num_rows($result) > 0) {
+			$str = str_replace($match, '<a href="profile.php">'.$username.'</a>', $str);
+		}
+	}
+	
+	return $str;
+}
+
 function TerimaPostWall() {
     $content = $_POST['content'];
     $userid = sessionGet('activeUserID');
@@ -23,6 +40,7 @@ function DisplayWall($wall_userid) {
     if(mysql_num_rows($hasil) > 0) {
         //echo "<table>";
         while($data = mysql_fetch_array($hasil)) {
+			$data['content'] = ScanUsername($data['content']);
             echo "<div class='friendstatus'>$userinfo[username] <label class='neutral2'>bilang</label> <label>$data[content]</label>";
             $wallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$data[wallpostid]' ORDER BY timestamp");
 
@@ -32,6 +50,7 @@ function DisplayWall($wall_userid) {
                 while($datacomment = mysql_fetch_array($wallcomment)) {
                     $userinfocomment = mysql_query("SELECT * FROM user WHERE userid='$datacomment[userid]'");
                     $userinfocomment = mysql_fetch_array($userinfocomment);
+					$datacomment['content'] = ScanUsername($datacomment['content']);
                     echo "<li><a href=\"profile.php?userid=$userinfocomment[userid]\">$userinfocomment[username] </a><label class='neutral'>bilang</label><label>$datacomment[content]</label></li>";
                 }
                 echo "</ul>
