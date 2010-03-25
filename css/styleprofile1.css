@@ -219,7 +219,7 @@ legend span {
 	position: relative;
 	left: 0px;
 	vertical-align: top;
-	float: left;
+	/*float: left; diubah oleh jiwo*/
 	height: auto;
 	width: auto;
 	color: #FF00FF;
