@@ -21,9 +21,31 @@ function uploadfile($username) {
             exit (0);
         }else {
             $ext = strrchr($_FILES['photo']['name'],'.');
-            $destination = 'photofiles'.'\\'.md5($username).$ext;//.$_FILES['photo']['name'];
+            $destination = 'repositoryfiles'.'\\'.md5($username).$ext;//.$_FILES['photo']['name'];
             $temp = $_FILES['photo']['tmp_name'];
             move_uploaded_file($temp,$destination);
+			$nama_file = ''.md5($username).$ext;
+			$dummy_userid = mysql_query("SELECT * FROM user WHERE username='$username'");
+			$dummy_userid = mysql_fetch_array($dummy_userid);
+			$ukuran_file = $_FILES['photo']['size'];
+			$now = date('Y-m-d H:i:s');
+			mysql_query("INSERT INTO userrepository(
+						userid,
+						uploadtimestamp,
+						status,
+						filename,
+						filenamehash,
+						filesize
+						)
+						VALUES(
+						'$dummy_userid[userid]',
+						'$now',
+						'PUBLIC',
+						'$nama_file',
+						'$nama_file',
+						'$ukuran_file'
+						)");
+			mysql_query("UPDATE user SET avatar='$nama_file' WHERE userid='$dummy_userid[userid]'");
             echo '<p><b>File berhasil diupload:</b> {$_FILES["photo"]["name"]}({$_FILES[photo][size]})</p>';
         }
     }
