@@ -37,7 +37,7 @@ function DisplayWall($wall_userid) {
                 echo "</ul>
                                     </div>";
             }
-            echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=comment></form>";
+			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=pagecourseid value=$wall_userid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=comment></form>";
             echo "</div>";
 
         }
@@ -70,7 +70,7 @@ function DisplayCoursesWall($courseid)
 				echo "</ul>
 						</div>";
 			}
-			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment></form>";
+			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=pagecourseid value=$courseid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment></form>";
 			echo "</div>";
 			
 		}
@@ -87,6 +87,16 @@ function RedirectToProfile() {
     else {
         header('Location: profile.php');
     }
+}
+
+function  RedirectToCourseWall(){
+	$pagecourseid = $_POST['pagecourseid'];
+	if($pagecourseid) {
+		header("Location: courses.php?coursesid=$pagecourseid");
+	}
+	else {
+		header('Location: courses.php');
+	}
 }
 
 function TerimaComment() {
@@ -148,9 +158,61 @@ function DisplayPublicWall($wall_userid)
 	databasedisconnect();
 	}
 
+function TerimaCommentCourse() {
+	databaseconnect();
+	$now = date('Y-m-d H:i:s');
+	$userid = sessionGet('activeUserID');
+	mysql_query("INSERT INTO courseinstancewallpostcomment(wallpostid,
+				userid,
+				content,
+				timestamp)
+				VALUES(
+				'$_POST[wallpostid]',
+				'$userid',
+				'$_POST[coursecomment]',
+				'$now'
+				)");
+	databasedisconnect();
+}
+
+function TerimaPostWallCourse() {
+	$content = $_POST['coursecontent'];
+	$courseid = $_POST['pagecourseid'];
+	$userid = sessionGet('activeUserID');
+	databaseconnect();
+	$now = date('Y-m-d H:i:s');
+	mysql_query
+		("INSERT INTO courseinstancewallpost(userid,content,timestamp,courseinstanceid)
+				VALUES('$userid','$content','$now','$courseid')"
+			);
+	databasedisconnect();
+}
+
+function FollowCourse()
+{
+	databaseconnect();
+	$userid = sessionGet('activeUserID');
+	$pagecourseid = $_POST['pagecourseid'];
+	mysql_query("INSERT INTO userfollowing(userid,courseinstanceid) VALUES('$userid','$pagecourseid')");
+	databasedisconnect();
+}
+
 function mainWall() {
-	if($_POST['coursecontent'])
-	{}
+	if($_POST['coursecomment'])
+	{
+		RedirectToCourseWall();
+		TerimaCommentCourse();
+		}
+	elseif($_POST['coursecontent'])
+		{
+		RedirectToCourseWall();
+		TerimaPostWallCourse();
+			}
+	elseif($_POST['followcourse'])
+	{
+		RedirectToCourseWall();
+		TerimaPostWallCourse();
+	}
 	else{
 		RedirectToProfile();
 		if($_POST['content']) {

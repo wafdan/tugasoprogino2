@@ -45,12 +45,19 @@ $userid =sessionGet("activeUserID");
 $isfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
 $ismanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
 if((mysql_num_rows($isfollow)>0)||(mysql_num_rows($ismanager)>0)){
-		echo	"<form action=\"mywallhandler.php\" method=\"POST\">
-				<b>Post Wall : </b><input type=\"textbox\" name=\"coursecontent\" size=70>
-				</form>";
-}
+	echo	"<form action=\"mywallhandler.php\" method=\"POST\">
+			<input type=hidden name=\"pagecourseid\" value=$courseid>
+			<b>Post Wall : </b><input type=\"textbox\" name=\"coursecontent\" size=70>
+			</form>";
+}else
+{
+	echo "<form action=\"mywallhandler.php\" method=\"POST\">
+                  <input name=\"followcourse\" type=\"submit\" value=\"Follow this course\">
+			<input name=\"pagecourseid\" type=\"hidden\" value=$courseid>
+						</form>";
+	}
 databasedisconnect();
-DisplayCoursesWall($coursesid);
+DisplayCoursesWall($courseid);
                 ?>
             </div>
         </div>
