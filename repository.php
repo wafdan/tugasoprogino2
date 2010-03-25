@@ -29,7 +29,7 @@ if(!sessionGet("activeUserID")) {
                     <a href="repository.php">Repository</a></li>
                     <li> </li>
                     <li>
-                        <a href="javascript:nothingHappens();">Photos</a>                    </li>
+                        <a href="javascript:nothingHappens();">Kuliah</a>                    </li>
                     <li>
                         <a href="logout.php">Logout</a>                    </li>
               </ul>
