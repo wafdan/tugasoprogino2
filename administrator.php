@@ -139,6 +139,28 @@ function generateOptionCourse() {
 			</div>
 			
 			<div>
+				Remove Program
+				<div>
+					<form action="administratorhandler.php" method="post">
+						<input type="hidden" name="action" value="programdel" />
+						<table>
+							<tr>
+								<td>Program</td>
+								<td>
+									<select name="data[programdel][programid]">
+										<?php generateOptionProgram(); ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Remove" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			
+			<div>
 				Add course
 				<div>
 					<form action="administratorhandler.php" method="post">
@@ -169,11 +191,25 @@ function generateOptionCourse() {
 			</div>
 			
 			<div>
-				Modify course
-			</div>
-				
-			<div>
 				Remove course
+				<div>
+					<form action="administratorhandler.php" method="post">
+						<input type="hidden" name="action" value="coursedel" />
+						<table>
+							<tr>
+								<td>Course</td>
+								<td>
+									<select name="data[coursedel][courseid]">
+										<?php generateOptionCourse(); ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Remove" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
 			</div>
 			
 			<div>

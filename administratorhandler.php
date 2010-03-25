@@ -66,6 +66,14 @@ if($_POST) {
 			}
 			break;
 		
+		case 'programdel':
+			if(programDel($data)) {
+			
+			} else {
+				sessionSet('msg', 'Remove program error.');
+			}
+			break;
+		
 		case 'courseadd':
 			if(courseAdd($data)) {
 			
@@ -74,10 +82,12 @@ if($_POST) {
 			}
 			break;
 		
-		case 'coursemod':
-			break;
-		
 		case 'coursedel':
+			if(courseDel($data)) {
+			
+			} else {
+				sessionSet('msg', 'Remove course error.');
+			}
 			break;
 		
 		case 'courseinstadd':
