@@ -9,6 +9,7 @@ if(!sessionGet('activeUserID'))
 	if($_GET['userid'])
 	{
 		$wall_userid = $_GET['userid'];
+		SetPageUserID($wall_userid);
 	}else
 	{
 		$wall_userid = sessionGet('activeUserID');
@@ -66,8 +67,11 @@ databasedisconnect();
                 <div id ="sidebar">
                     <ul>
                         <li id="profile">
-                            <h2><a href="profile.php">Anggrahita Bayu</a></h2>
-                            <a href="photofiles/22d42eb002cefa81e9ad604ea57bc01d.jpg"><img id="primary-photo" src="photofiles/22d42eb002cefa81e9ad604ea57bc01d.jpg" alt="Picture not Found" /></a>
+                            <h2><?php echo "<a href=profile.php?userid=$wall_userid>$data[fullname]</a>"; ?></h2>
+<?php
+echo "<img id=\"primary-photo\" src='$data[avatar]' alt=\"Picture not Found\" />";
+							?>
+                            
                         </li>
                         <input id="change-picture" name="change-picture" type="submit" value="Changepic"/>
                         <li id="friends">
@@ -90,7 +94,7 @@ while($datafriend=mysql_fetch_array($friendresult))
                 <fieldset class="profile-status">
                     <legend><span>My Wall</span></legend>
 					<?php
-if($wall_userid = sessionGet('activeUserID'))
+if($wall_userid == sessionGet('activeUserID'))
 {
 	echo	"<form action=\"mywallhandler.php\" method=\"POST\">
 			Post Wall : <input type=\"textbox\" name=\"content\" size=70>
