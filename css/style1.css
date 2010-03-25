@@ -380,4 +380,55 @@ fieldset select{
 	width: auto;
 	margin: 0px;
 	padding: 5px;
+	text-align: center;
+}
+/*repository.php*/
+table, td, th
+{
+	border:1px solid #99FF66;
+	vertical-align: middle;
+	padding: 7px;
+}
+th
+{
+background-color:green;
+color:white;
+}
+
+.repobutton {
+	border: 2px solid #FFFFFF;
+	color: #FFFFFF;
+	background-color: red;
+	width: auto;
+	height: auto;
+	vertical-align: top;
+	font-size: 15px;
+	position: relative;
+	text-align: center;
+}
+
+.repobutton:hover {
+	border: 2px solid #FFFF00;
+	color: #FFFF00;
+}
+.repobutton:active {
+	color: #F0F000;
+	background-color: #E60000;
+	border-top-color: #F0F000;
+	border-right-color: #F0F000;
+	border-bottom-color: #F0F000;
+	border-left-color: #F0F000;
+}
+#repolist {
+	border: 1px solid #00CC00;
+	float: left;
+	width: 960px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#repolist .no {
+	text-align: center;
+}
+#repolist .count {
+	text-align: center;
 }
