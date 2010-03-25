@@ -1,14 +1,10 @@
 <?php
 require_once("includes/session.php");
-require_once("includes/mywall.php");
+require_once("includes/repository.php");
 sessionInit();
 //sessionSet("activeUserID",135);
 if(!sessionGet("activeUserID")) {
-	header("Location: index.php");
-}
-$courseid = $_GET['coursesid'];
-if(!$courseid) {
-	header("Location: index.php");
+    header("Location: index.php");
 }
 ?>
 
@@ -28,7 +24,7 @@ if(!$courseid) {
                     <li>
                         <a href="index.php">Home</a>                    </li>
                     <li class="first">
-                        <a href="courses.php">Profile</a>                    </li>
+                        <a href="profile.php">Profile</a>                    </li>
               <li>
                     <a href="repository.php">Repository</a></li>
                     <li> </li>
@@ -39,26 +35,42 @@ if(!$courseid) {
               </ul>
           </div>
             <div>
-<?php
-databaseconnect();
-$userid =sessionGet("activeUserID");
-$isfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
-$ismanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
-if((mysql_num_rows($isfollow)>0)||(mysql_num_rows($ismanager)>0)){
-		echo	"<form action=\"mywallhandler.php\" method=\"POST\">
-				<b>Post Wall : </b><input type=\"textbox\" name=\"coursecontent\" size=70>
-				</form>";
-}
-databasedisconnect();
-DisplayCoursesWall($coursesid);
+                <?php
+                $repo_userid = $_GET['userid'];
+                if(!$repo_userid) {
+                    $repo_userid = sessionGet("activeUserID");
+                }
+                ShowRepository($repo_userid);
                 ?>
             </div>
         </div>
         <div id="container">
+
+            <?php
+// form upload
+//echo sessionGet("activeUserID");
+            if(sessionGet("activeUserID")== $repo_userid) {
+			echo "<h2>Upload File</h2>";
+                echo
+                "
+			<div>
+			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\">
+			Pilih file yang diupload : <input type=\"file\" name=\"fupload\">
+			<select name=\"status\">
+			<option value=\"PUBLIC\">PUBLIC</option>
+			<option value=\"FOLLOWER\">FOLLOWER</option>
+			<option value=\"PRIVATE\">PRIVATE</option>
+			</select>
+			<input type=\"submit\" name=\"uploadfileuser\" value=\"Upload\">
+			</form>
+                        </div>
+			";
+            }
+            ?>
         </div>
       	<div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
-            <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Adityo Jiwandono </a>, <a>Wafdan Musa Nursakti</a></p>
+            <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Anggrahita Bayu Sasmita</a>, <a>Alvin Andhika Zulen</a></p>
         </div>
     </body>
 </html>
