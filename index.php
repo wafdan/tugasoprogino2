@@ -77,6 +77,7 @@ sessionInit();
                         <input name="LoginButton" type="submit" id="LoginButton" value="Login" />
                     </p>
                 </form>
+                <a href="#">Lupa password</a> | <a href="register.php">Daftar</a>
             </div>
                 <?php
             }
