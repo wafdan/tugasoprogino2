@@ -49,10 +49,10 @@ sessionInit();
                 <h2><b>Connecting People</b></h2>
             </div>
         </div>
-        <div id="loginstatus">
+        
             <?php
             if(sessionGet('activeUserID')) {
-                ?>
+                ?><div id="loginstatus">
 		Selamat datang, <?php echo sessionGet('activeFullname'); ?> <a href="logout.php">[logout]</a>
                 <?php
                 if(sessionGet('activeRole') == 'ADMIN') {
