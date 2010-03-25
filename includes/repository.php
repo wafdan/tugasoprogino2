@@ -31,6 +31,7 @@ function ShowRepository($repo_userid)
 					<td>";
 			if(sessionGet("activeUserID")== $repo_userid){
 				echo "<input type=submit value=Delete name='deletefileuser'>";
+				echo "<input type=submit value='Use as Avatar' name='changeavatar'>";
 			}
 			echo	"<input type=submit value=Download name='downloadfileuser'></td>
 					</tr></form>";
@@ -117,6 +118,15 @@ function RedirectRepository()
 {
 	header("Location: repository.php");
 	}
+	
+function ChangeAvatar()
+{	
+	databaseconnect();
+	$tempname = $_POST['filenamehash'];
+	$dummy_userid = sessionGet("activeUserID");
+	mysql_query("UPDATE user SET avatar='$tempname' WHERE userid='$dummy_userid'");
+	databasedisconnect();
+	}
 
 function mainRepository()
 {
@@ -133,6 +143,10 @@ function mainRepository()
 	{
 		DownloadFileUser();
 		}
+	elseif($_POST['changeavatar'])
+	{
+		DownloadFileUser();
+	}
 	else	echo "Tidak Terjadi Apa-apa!";
 }
 ?>
