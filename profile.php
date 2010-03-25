@@ -9,7 +9,6 @@ if(!sessionGet('activeUserID'))
 	if($_GET['userid'])
 	{
 		$wall_userid = $_GET['userid'];
-		SetPageUserID($wall_userid);
 	}else
 	{
 		$wall_userid = sessionGet('activeUserID');
@@ -74,7 +73,24 @@ echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture no
 							?>
                             
                         </li>
-                        <input id="change-picture" name="change-picture" type="submit" value="Changepic"/>
+<?php
+
+if (!($wall_userid==sessionGet("activeUserID")))
+{
+	databaseconnect();
+	$activeuserid =sessionGet("activeUserID");
+	$result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='wall_userid' AND userid='$activeuserid'");
+	databasedisconnect();
+	if(mysql_num_rows($result)==0)
+	{
+			echo "<form action=\"mywallhandler.php\" method=\"POST\">
+                  <input name=\"followuser\" type=\"submit\" value=\"Follow this user\">
+			      <input name=\"pageuserid\" type=\"hidden\" value=$wall_userid>
+						</form>";
+		}
+	};
+						?>
+
                         <li id="friends">
                             <h2><a href="javascript:nothingHappens();">Follower</a></h2>
                             <ul>

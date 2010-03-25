@@ -48,22 +48,18 @@ function DisplayWall($wall_userid)
 				}
 				echo "</table>";
 			}
-			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=wallpostid value=$data[wallpostid]> Comment : <input type=textbox size=60 name=comment></form></td></tr>";
+			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input name=\"pageuserid\" type=\"hidden\" value=$wall_userid><input type=hidden name=wallpostid value=$data[wallpostid]> Comment : <input type=textbox size=60 name=comment></form></td></tr>";
 			}		
 		echo "</table>";
 	}
 	databasedisconnect();
 }
 
-$pageuserid;
-function SetPageUserID($new)
-{
-	$pageuserid = $new;
-	}
 function RedirectToProfile()
 {
+	$pageuserid = $_POST['pageuserid'];
 	if($pageuserid){
-		header('Location: profile.php?userid=$pageuserid');
+		header("Location: profile.php?userid=$pageuserid");
 	}
 	else{
 		header('Location: profile.php');
@@ -88,6 +84,21 @@ function TerimaComment()
  databasedisconnect();
 	}
 
+function FollowUser()
+{
+	databaseconnect();
+	$pageuserid = $_POST['pageuserid'];
+	$userid = sessionGet('activeUserID');
+	mysql_query("INSERT INTO userfollowing(userid,
+				targetuserid)
+				VALUES
+				(
+				'$userid',
+				'$pageuserid'
+				)");
+	databasedisconnect();
+	}
+
 function mainWall()
 {
 	RedirectToProfile();
@@ -97,7 +108,10 @@ function mainWall()
 	}elseif($_POST['comment'])
 	{
 		TerimaComment();
-		}
+	}elseif($_POST['followuser'])
+	{
+		FollowUser();
+	}
 }
 
 ?>
