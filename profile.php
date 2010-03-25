@@ -39,9 +39,8 @@ databasedisconnect();
                 <div id="menu">
                     <ul>
                         <li>
-                            <a href="javascript:nothingHappens();">Home</a>
-                        </li>
-                        <li class="first">
+                            <a href="index.php">Home</a>                        </li>
+                  <li class="first">
                             <?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
                         </li>
                         <li>
@@ -51,15 +50,8 @@ databasedisconnect();
                             <a href="javascript:nothingHappens();">Public Wall</a>
                         </li>
                         <li>
-                            <a href="javascript:nothingHappens();">Logout</a>
-                        </li>
-                    </ul>
-                    <div id="search">
-                        <form action="javascript:nothingHappens();" name="searchform">
-                            <input name="query" id="SearchBox" type="text" value="" />
-                            <input id="SearchButton" type="submit" value="Search" />
-                        </form>
-                    </div>
+                            <a href="logout.php">Logout</a>                        </li>
+                  </ul>
                 </div>
             </div><hr />
             <div id="container">
