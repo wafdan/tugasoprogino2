@@ -20,7 +20,7 @@ if($_POST['data']) {
 		sessionSet('splashtarget', 'index.php');
 		header('Location: splash.php');
 	} else {
-		sessionSet('msg', 'Incorrect sername and/or password.');
+		sessionSet('msg', 'Incorrect username and/or password.');
 		header('Location: index.php');
 	}
 }
