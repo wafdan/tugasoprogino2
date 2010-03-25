@@ -47,7 +47,7 @@ databasedisconnect();
                             <?php echo "<a href=repository.php?userid=$wall_userid"; ?>>Repository</a>
                         </li>
                         <li>
-                            <a href="javascript:nothingHappens();">Kuliah</a>
+                            <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Kuliah</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>                        </li>
@@ -65,23 +65,6 @@ echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture no
 							?>
                             
                         </li>
-<?php
-
-if (!($wall_userid==sessionGet("activeUserID")))
-{
-	databaseconnect();
-	$activeuserid =sessionGet("activeUserID");
-	$result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='wall_userid' AND userid='$activeuserid'");
-	databasedisconnect();
-	if(mysql_num_rows($result)==0)
-	{
-			echo "<form action=\"mywallhandler.php\" method=\"POST\">
-                  <input name=\"followuser\" type=\"submit\" value=\"Follow this user\">
-			      <input name=\"pageuserid\" type=\"hidden\" value=$wall_userid>
-						</form>";
-		}
-	};
-						?>
 
                         <li id="friends">
                             <h2><a href="javascript:nothingHappens();">Follower</a></h2>
@@ -101,16 +84,30 @@ while($datafriend=mysql_fetch_array($friendresult))
                     </ul>
                 </div>
                 <fieldset class="profile-status">
-                    <legend><span>My Wall</span></legend>
-					<?php
-if($wall_userid == sessionGet('activeUserID'))
+                    <legend><span>Public Wall</span></legend>
+<?php
+databaseconnect();
+$resultcourse = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'");
+
+if(mysql_num_rows($resultcourse)>0)
 {
-	echo	"<form action=\"mywallhandler.php\" method=\"POST\">
-			<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70>
-			</form>";
+	echo "<ul>";
+	while($datacourse=mysql_fetch_array($resultcourse))
+	{
+		$getcourse = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid='$datacourse[courseinstanceid]'");
+		$getcourse = mysql_fetch_array($getcourse);
+		$course = mysql_query("SELECT * FROM course WHERE courseid='$getcourse[courseid]'");
+		$course = mysql_fetch_array($course);
+		echo  "<li>";
+		echo "<div class=\"label\">$course[coursecode]</div>";
+		echo "<div class=\"info\">:$course[coursename]</div>";
+		echo "</li>";
+		DisplayCoursesWall($datacourse[courseinstanceid],false);
+	};
+	echo "</ul";
 }
-			DisplayWall($wall_userid);
-					 ?>
+databasedisconnect();
+?>
                 </fieldset>
                 <br />
                 <fieldset class="information">
