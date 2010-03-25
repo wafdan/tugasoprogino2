@@ -46,10 +46,6 @@ function DisplayWall($wall_userid) {
     databasedisconnect();
 }
 
-$pageuserid;
-function SetPageUserID($new) {
-    $pageuserid = $new;
-}
 function RedirectToProfile() {
     if($pageuserid) {
         header('Location: profile.php?userid=$pageuserid');
@@ -76,13 +72,25 @@ function TerimaComment() {
     databasedisconnect();
 }
 
+function FollowUser()
+{
+	databaseconnect();
+	$userid = sessionGet('activeUserID');
+	$pageuserid = $_POST['pageuserid'];
+	mysql_query("INSERT INTO userfollowing(userid,targetuserid) VALUES('$userid','$pageuserid')");
+	databasedisconnect();
+	}
+
 function mainWall() {
     RedirectToProfile();
     if($_POST['content']) {
         TerimaPostWall();
-    }elseif($_POST['comment']) {
-        TerimaComment();
-    }
+	}elseif($_POST['comment']) {
+		TerimaComment();
+	}elseif($_POST['followuser'])
+	{
+		FollowUser();
+		}
 }
 
 ?>
