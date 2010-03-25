@@ -48,8 +48,6 @@ sessionInit();
                 <h1>Konco&trade;</h1>
                 <h2><b>Connecting People</b></h2>
             </div>
-        
-        
             <?php
             if(sessionGet('activeUserID')) {
                 ?>
@@ -71,17 +69,15 @@ sessionInit();
                             <a href="logout.php">Logout</a>
                         </li>
                     </ul>
-                </div><div id="loginstatus">
-		Selamat datang, <?php echo sessionGet('activeFullname'); ?>
-                <?php
-                if(sessionGet('activeRole') == 'ADMIN') {
-                    ?>
-            <a href="administrator.php">Administrator Page</a></div>
+                </div>
             </div>
-                    <?php
+            <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
+                <?php
+                if(sessionGet('activeRole') == 'ADMIN') {?>
+            	<a href="administrator.php">Administrator Page</a></div>
+                <?php
                 }
-            } else {
-                ?>
+            } else {?>
             <div id="loginform">
 			Login
                 <form action="loginhandler.php" method="post">
@@ -98,7 +94,7 @@ sessionInit();
                     </p>
                 </form>
                 <a href="#">Lupa password</a> | <a href="register.php">Daftar</a>
-    </div>
+    		</div>
                 <?php
             }
             ?>
