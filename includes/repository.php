@@ -16,26 +16,31 @@ function ShowRepository($repo_userid) {
     }
     $hasil = mysql_query($tampil);
     if(mysql_num_rows($hasil) > 0) {
-        echo "<table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Counter</th><th>Aksi</th></tr>";
+        echo "<div id='repolist'>
+            <table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Counter</th><th>Aksi</th></tr>";
         $no =1;
         while($data = mysql_fetch_array($hasil)) {
             echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
             echo "<input type=hidden name=repositoryid value=$data[repositoryid]>
-					<input type=hidden name=filenamehash value=$data[filenamehash]>
-					<tr><td>$no</td><td>$data[filename]</td><td>$data[status]</td><td>$data[counter]</td>
-					<td>";
+		<input type=hidden name=filenamehash value=$data[filenamehash]>
+		<tr><td class='no'>$no</td>
+                    <td>$data[filename]</td>
+                    <td>$data[status]</td>
+                    <td class='count'>$data[counter]</td>
+		<td>";
             if(sessionGet("activeUserID")== $repo_userid) {
-                echo "<input type=submit value=Delete name='deletefileuser'>";
-                echo "<input type=submit value='Use as Avatar' name='changeavatar'>";
+                echo "<input class='repobutton' type=submit value=Delete name='deletefileuser'>";
+                echo "<input class='repobutton' type=submit value='Use as Avatar' name='changeavatar'>";
             }
-            echo	"<input type=submit value=Download name='downloadfileuser'></td>
-					</tr></form>";
+            echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
+                 </td>
+		 </tr></form>";
             $no++;
         };
-        echo "</table>";
+        echo "</table></div>";
     }
     else {
-        echo "Repository Kosong!";
+        echo "<div id='repolist'>Repository Kosong!<div>";
     }
 }
 
@@ -127,6 +132,8 @@ function mainRepository() {
     elseif($_POST['changeavatar']) {
         DownloadFileUser();
     }
-    else	echo "Tidak Terjadi Apa-apa!";
+    else {
+        echo "Tidak Terjadi Apa-apa!";
+    }
 }
 ?>
