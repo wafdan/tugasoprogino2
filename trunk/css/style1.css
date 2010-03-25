@@ -119,9 +119,13 @@ fieldset select{
 
 .submit input {
 	border: 2px solid #FFFFFF;
-	color: #000000;
-	background-color: #FFFF33;
-	font-weight: bold;
+	color: #FFFFFF;
+	background-color: red;
+	width: 100px;
+	height: 35px;
+	vertical-align: 60%;
+	font-size: 15px;
+	cursor: auto;
 }
 
 /* Sidebar */
@@ -239,3 +243,67 @@ fieldset select{
 	font-weight: bold;
 	color: #FEF200;
 }	
+.submit input:hover {
+	border: 2px solid #FFFF00;
+	color: #FFFF00;
+}
+.submit input:active {
+	color: #F0F000;
+	background-color: #E60000;
+	border-top-color: #F0F000;
+	border-right-color: #F0F000;
+	border-bottom-color: #F0F000;
+	border-left-color: #F0F000;
+}
+/*Khusus Login Page */
+#loginform {
+	font-weight: bold;
+	font-size: 14px;
+	float: left;
+	clear: both;
+	position: relative;
+	left: 40%;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+}
+#loginform #LoginButton {
+	border: 2px solid #FFFFFF;
+	color: #FFFFFF;
+	background-color: red;
+	width: auto;
+	height: auto;
+	vertical-align: top;
+	font-size: 15px;
+	position: relative;
+	left: 170px;
+	text-align: center;
+}
+
+#loginform #LoginButton:hover {
+	border: 2px solid #FFFF00;
+	color: #FFFF00;
+}
+#loginform #LoginButton:active {
+	color: #F0F000;
+	background-color: #E60000;
+	border-top-color: #F0F000;
+	border-right-color: #F0F000;
+	border-bottom-color: #F0F000;
+	border-left-color: #F0F000;
+}
+#loginform #input-username {
+	position: relative;
+	left: 20px;
+	border: 1px dotted red;
+	width: 150px;
+	float:right;
+}
+#loginform #input-password {
+	position: relative; 
+	left: 20px;
+	border: 1px dotted red;
+	width: 150px;
+	float:right;
+}
