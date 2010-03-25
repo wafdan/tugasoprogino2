@@ -3,17 +3,13 @@
 /*
 	File		index.php
 	Deskripsi	Halaman utama (home)
- */
+*/
 
 require_once("includes/session.php");
 require_once("includes/auth.php");
 require_once("includes/course.php");
 
 sessionInit();
-
-/*
- */
-
 /*
 	Periksa status otentikasi user (apakah sudah login apa belum)
 	kemudian tampilkan konten sesuai status login dan rolenya.
@@ -35,41 +31,60 @@ sessionInit();
 			Tampilkan menu manajemen/admin
 	
 	Form pada kotak login di-POST ke loginhandler.php
- */
+*/
 
 
 ?>
 
 <html>
-	<head>
-		<title>Home</title>
-	</head>
-	
-	<body>
-		<div>
-			<?php
-			if(sessionGet('activeUserID')) {
-				?>
-			Selamat datang, <?php echo sessionGet('activeFullname'); ?> <a href="logout.php">[logout]</a>
-				<?php
-				if(sessionGet('activeRole') == 'ADMIN') {
-					?>
-					<a href="administrator.php">Administrator Page</a>
-					<?php
-				}
-			} else {
-			?>
+    <head>
+        <title>Home</title>
+        <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="logo">
+                <h1>Konco&trade;</h1>
+                <h2><b>Connecting People</b></h2>
+            </div>
+        </div>
+        <div>
+            <?php
+            if(sessionGet('activeUserID')) {
+                ?>
+		Selamat datang, <?php echo sessionGet('activeFullname'); ?> <a href="logout.php">[logout]</a>
+                <?php
+                if(sessionGet('activeRole') == 'ADMIN') {
+                    ?>
+            <a href="administrator.php">Administrator Page</a>
+                    <?php
+                }
+            } else {
+                ?>
+            <div id="loginform">
 			Login
-			<form action="loginhandler.php" method="post">
-				Username
-				<input type="text" name="data[login][username]" />
-				Password
-				<input type="password" name="data[login][password]" />
-				<input type="submit" value="Login" />
-			</form>
-				<?php
-			}
-			?>
-		</div>
-	</body>
+                <form action="loginhandler.php" method="post">
+                    <p>
+                        Username
+                        <input id="input-username" type="text" name="data[login][username]" />
+                    </p>
+                    <p>
+                        Password
+                        <input id="input-password" type="password" name="data[login][password]" />
+                    </p>
+                    <p>
+                        <input name="LoginButton" type="submit" id="LoginButton" value="Login" />
+                    </p>
+                </form>
+            </div>
+                <?php
+            }
+            ?>
+        </div>
+        <div id="footer">
+            <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
+            <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Anggrahita Bayu Sasmita</a>, <a>Alvin Andhika Zulen</a></p>
+        </div>
+    </body>
 </html>
