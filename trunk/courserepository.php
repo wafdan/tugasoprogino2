@@ -3,6 +3,11 @@ require_once("includes/session.php");
 require_once("includes/repository.php");
 sessionInit();
 //sessionSet("activeUserID",135);
+if(!$_GET['coursesid'])
+{
+	header("Location: index.php");
+}
+$courseid = $_GET['coursesid'];
 if(!sessionGet("activeUserID")) {
     header("Location: index.php");
 }
@@ -36,11 +41,8 @@ if(!sessionGet("activeUserID")) {
           </div>
             <div>
                 <?php
-                $repo_userid = $_GET['userid'];
-                if(!$repo_userid) {
-                    $repo_userid = sessionGet("activeUserID");
-                }
-                ShowRepository($repo_userid);
+                
+				ShowCoursesRepository($courseid);
                 ?>
             </div>
         </div>
@@ -49,12 +51,17 @@ if(!sessionGet("activeUserID")) {
             <?php
 // form upload
 //echo sessionGet("activeUserID");
-            if(sessionGet("activeUserID")== $repo_userid) {
+databaseconnect();
+$userid = sessionGet('activeUserID');
+$checkuser = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
+if(mysql_num_rows($checkuser)>0) {
 			echo "<h2>Upload File</h2>";
                 echo
                 "
 			<div>
 			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\">
+			<input type=hidden name=isrepository value=1>
+			<input type=hidden name=repocourseid value=$courseid>
 			Pilih file yang diupload : <input type=\"file\" name=\"fupload\">
 			<select name=\"status\">
 			<option value=\"PUBLIC\">PUBLIC</option>
@@ -66,6 +73,7 @@ if(!sessionGet("activeUserID")) {
                         </div>
 			";
             }
+databasedisconnect();
             ?>
         </div>
       	<div id="footer">

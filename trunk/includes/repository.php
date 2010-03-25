@@ -9,10 +9,10 @@ function ShowRepository($repo_userid) {
     if(sessionGet("activeUserID")== $repo_userid) {
         $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid'";
     }elseif(isFollower(sessionGet("activeUserID"),$repo_userid)) {
-        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='public' OR userid='$repo_userid' AND status='FOLLOWER'";
+        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='PUBLIC' OR userid='$repo_userid' AND status='FOLLOWER'";
     }
     else {
-        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='public'";
+        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='PUBLIC'";
     }
     $hasil = mysql_query($tampil);
     if(mysql_num_rows($hasil) > 0) {
@@ -45,6 +45,53 @@ function ShowRepository($repo_userid) {
     }
 }
 
+function ShowCoursesRepository($courseid) {
+	$tampil;
+	$ismanager =false;
+	$userid =sessionGet("activeUserID");
+	databaseconnect();
+	$checkuser = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
+	$checkfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
+	if(mysql_num_rows($checkuser)>0) {
+		$ismanager = true;
+		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid'";
+	}elseif(mysql_num_rows($checkfollow)>0) {
+		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' AND status='PUBLIC' OR courseinstanceid='$courseid' AND status='FOLLOWER'";
+	}
+	else {
+		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' AND status='PUBLIC'";
+	}
+	$hasil = mysql_query($tampil);
+	if(mysql_num_rows($hasil) > 0) {
+		echo "<div id='repolist'>
+				<table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Counter</th><th>Aksi</th></tr>";
+		$no =1;
+		while($data = mysql_fetch_array($hasil)) {
+			echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
+			echo "<input type=hidden name=isrepository value=1>
+					<input type=hidden name=repositoryid value=$data[repositoryid]>
+					<input type=hidden name=filenamehash value=$data[filenamehash]>
+					<tr><td class='no'>$no</td>
+					<td>$data[filename]</td>
+					<td>$data[status]</td>
+					<td class='count'>$data[counter]</td>
+					<td>";
+			if($ismanager) {
+				echo "<input class='repobutton' type=submit value=Delete name='deletefileuser'>";
+				echo "<input class='repobutton' type=hidden value=$repo_userid name='pagecourseid'>";
+			}
+			echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
+					</td>
+					</tr></form>";
+			$no++;
+		};
+		echo "</table></div>";
+	}
+	else {
+		echo "<div id='repolist'>Repository Kosong!<div>";
+	}
+}
+
 function isFollower($user_id,$target_userid) {
     $result = mysql_query("SELECT * FROM userfollowing WHERE userid='$user_id' AND targetuserid='$target_userid'");
     if(mysql_num_rows($result)>0) {
@@ -66,22 +113,42 @@ function UploadFileUser() {
     $now = date('Y-m-d H:i:s');
     databaseconnect();
     if(move_uploaded_file($lokasi_file,"$direktori")) {
-        mysql_query("INSERT INTO userrepository(
-					userid,
-					uploadtimestamp,
-					status,
-					filename,
-					filenamehash,
-					filesize
-					)
-					VALUES(
-					'$dummy_userid',
-					'$now',
-					'$_POST[status]',
-					'$nama_file',
-					'$nama_file_hash',
-					'$ukuran_file'
-					)");
+		if($_POST['isrepository'])
+		{
+			mysql_query("INSERT INTO courseinstancerepository(
+						courseinstanceid,
+						uploadtimestamp,
+						status,
+						filename,
+						filenamehash,
+						filesize
+						)
+						VALUES(
+						'$_POST[repocourseid]',
+						'$now',
+						'$_POST[status]',
+						'$nama_file',
+						'$nama_file_hash',
+						'$ukuran_file'
+						)");
+			}else{
+			mysql_query("INSERT INTO userrepository(
+						userid,
+						uploadtimestamp,
+						status,
+						filename,
+						filenamehash,
+						filesize
+						)
+						VALUES(
+						'$dummy_userid',
+						'$now',
+						'$_POST[status]',
+						'$nama_file',
+						'$nama_file_hash',
+						'$ukuran_file'
+						)");
+		}
     }else {
         echo "File Gagal DiUpload!";
     }
@@ -90,7 +157,12 @@ function UploadFileUser() {
 
 function DeleteFileUser() {
     databaseconnect();
-    mysql_query("DELETE FROM userrepository WHERE repositoryid='$_POST[repositoryid]'");
+	if($_POST['isrepository'])
+		{
+		mysql_query("DELETE FROM courseinstancerepository WHERE repositoryid='$_POST[repositoryid]'");
+			}else{
+		mysql_query("DELETE FROM userrepository WHERE repositoryid='$_POST[repositoryid]'");
+	}
     $dummy_userid = sessionGet("activeUserID");
     $file2delete = "repositoryfiles/$_POST[filenamehash]";
     unlink($file2delete) or die ("Gagal!");
@@ -102,18 +174,33 @@ function DownloadFileUser() {
     databaseconnect();
     $count = $_POST['counter']+1;
     $dummy_userid = sessionGet("activeUserID");
-    mysql_query("UPDATE userrepository SET counter='$count' WHERE repositoryid='$_POST[repositoryid]'");
+	if($_POST['isrepository'])
+	{
+		mysql_query("UPDATE courseinstancerepository SET counter='$count' WHERE repositoryid='$_POST[repositoryid]'");
+		}else{
+		mysql_query("UPDATE userrepository SET counter='$count' WHERE repositoryid='$_POST[repositoryid]'");
+	}
     header( "Location: repositoryfiles/$tempname") ;
     databasedisconnect();
 }
 
 function RedirectRepository() {
+	if($_POST['isrepository']){
+		$pageuserid = $_POST['repocourseid'];
+		if($pageuserid){
+			header("Location: courserepository.php?coursesid=$pageuserid");
+		}
+		else{
+			header('Location: courserepository.php');
+		}
+		}else{
 	$pageuserid = $_POST['pageuserid'];
 	if($pageuserid){
 		header("Location: repository.php?userid=$pageuserid");
 	}
-	else{
-		header('Location: repository.php');
+		else{
+			header('Location: repository.php');
+	}
 	}
 }
 
