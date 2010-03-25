@@ -10,6 +10,10 @@ require_once('includes/administrator.php');
 
 sessionInit();
 
+if(!isAllowed()) {
+	header('Location: index.php');
+}
+
 function generateOptionFaculty() {
 	$data = getFacultyList();
 	

@@ -8,6 +8,16 @@
 require_once('session.php');
 require_once('databaseconnection.php');
 
+function isAllowed() {
+	databaseconnect();
+	
+	if(sessionGet('activeRole') != 'ADMIN') {
+		return false;
+	} else {
+		return true;
+	}
+}
+
 function facultyAdd($data) {
 	databaseconnect();
 	
@@ -36,7 +46,8 @@ function facultyDel($data) {
 	
 	$facultyid = $data['facultyid'];
 	
-	$sql = "DELETE FROM `faculty` WHERE `facultyid` = '$facultyid';";
+	$sql  = "DELETE FROM `faculty` WHERE `facultyid` = '$facultyid';";
+	
 	if(mysql_query($sql)) {
 		return true;
 	} else {
