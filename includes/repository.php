@@ -30,6 +30,7 @@ function ShowRepository($repo_userid) {
 		<td>";
             if(sessionGet("activeUserID")== $repo_userid) {
                 echo "<input class='repobutton' type=submit value=Delete name='deletefileuser'>";
+				echo "<input class='repobutton' type=hidden value=$repo_userid name='pageuserid'>";
                 echo "<input class='repobutton' type=submit value='Use as Avatar' name='changeavatar'>";
             }
             echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
@@ -107,7 +108,13 @@ function DownloadFileUser() {
 }
 
 function RedirectRepository() {
-    header("Location: repository.php");
+	$pageuserid = $_POST['pageuserid'];
+	if($pageuserid){
+		header("Location: repository.php?userid=$pageuserid");
+	}
+	else{
+		header('Location: repository.php');
+	}
 }
 
 function ChangeAvatar() {
@@ -130,7 +137,8 @@ function mainRepository() {
         DownloadFileUser();
     }
     elseif($_POST['changeavatar']) {
-        DownloadFileUser();
+		RedirectRepository();
+		ChangeAvatar();
     }
     else {
         echo "Tidak Terjadi Apa-apa!";

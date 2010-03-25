@@ -45,11 +45,12 @@ if(!sessionGet("activeUserID")) {
             </div>
         </div>
         <div id="container">
-            <h1>Upload File!</h1>
+
             <?php
 // form upload
 //echo sessionGet("activeUserID");
             if(sessionGet("activeUserID")== $repo_userid) {
+			echo "<h2>Upload File</h2>";
                 echo
                 "
 			<div>
