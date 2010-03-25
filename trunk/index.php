@@ -49,7 +49,7 @@ sessionInit();
                 <h2><b>Connecting People</b></h2>
             </div>
         </div>
-        <div>
+        <div id="loginstatus">
             <?php
             if(sessionGet('activeUserID')) {
                 ?>
@@ -57,7 +57,7 @@ sessionInit();
                 <?php
                 if(sessionGet('activeRole') == 'ADMIN') {
                     ?>
-            <a href="administrator.php">Administrator Page</a>
+            <a href="administrator.php">Administrator Page</a></div>
                     <?php
                 }
             } else {
@@ -78,12 +78,12 @@ sessionInit();
                     </p>
                 </form>
                 <a href="#">Lupa password</a> | <a href="register.php">Daftar</a>
-            </div>
+    </div>
                 <?php
             }
             ?>
         </div>
-        <div id="footer">
+<div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
             <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Anggrahita Bayu Sasmita</a>, <a>Alvin Andhika Zulen</a></p>
         </div>

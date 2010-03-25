@@ -30,15 +30,20 @@ sessionInit();
                     <h1>Konco&trade;</h1>
                     <h2><b>Connecting People</b></h2>
                 </div>
+                <div id="menu">
+                    <ul>
+                        <li>
+                            <a href="index.php">Home</a></li>
+                    </ul>
+              </div>
             </div>
             <?php
             if($_GET['valid']=='1') {
-                echo '<div>INSERTO</div>';
+                echo '<div class="message">Akun berhasil dibuat, silakan login dari halaman HOME.</div>';
             }elseif($_GET['valid']=='0') {
-                echo '<div>GAGALO</div>';
+                echo '<div class="message">Akun gagal dibuat, periksa apakah masih ada field yang kosong atau tidak valid.</div>';
             }
             ?>
-            <hr />
             <div id="container">
                 <div id="registration">
                     <form id="registration-form"  name="registration-form" method="post" action="registerhandler.php" enctype="multipart/form-data">
@@ -47,7 +52,7 @@ sessionInit();
                             <ul>
                                 <li>
                                     <label for="name">Nama</label>
-                                    <input id="name" name="name" type="text" maxlength="30" size="50" onchange="CheckNama()" />
+                                    <input id="name" name="name" type="text" maxlength="30" size="50" onChange="CheckNama()" />
                                     <img id="name_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found" />
                                 </li>
                                 <li>
@@ -59,8 +64,8 @@ sessionInit();
                                 </li>
                                 <li>
                                     <label for="birthday">Tanggal Lahir</label>
-                                    <input id="birthday" name="birthday" type="text" maxlength="10" size="50" onchange="CheckBirthday()" />
-                                    <a href="#" onclick="setYears(1980, 2010); showCalender(this, 'birthday');"><img src="images/calender.png" alt="Picture not Found" /></a>
+                                    <input id="birthday" name="birthday" type="text" maxlength="10" size="50" onChange="CheckBirthday()" />
+                                    <a href="#" onClick="setYears(1980, 2010); showCalender(this, 'birthday');"><img src="images/calender.png" alt="Picture not Found" /></a>
 
                                     <!-- Calendar HTML -->
 
@@ -68,7 +73,7 @@ sessionInit();
                                         <tbody id="calenderTableHead">
                                             <tr>
                                                 <td colspan="4" align="center">
-                                                    <select onchange="showCalenderBody(createCalender(document.getElementById('selectYear').value,
+                                                    <select onChange="showCalenderBody(createCalender(document.getElementById('selectYear').value,
                                                         this.selectedIndex, false));" id="selectMonth">
                                                         <option value="0">Jan</option>
                                                         <option value="1">Feb</option>
@@ -85,11 +90,11 @@ sessionInit();
                                                     </select>
                                                 </td>
                                                 <td colspan="2" align="center">
-                                                    <select onchange="showCalenderBody(createCalender(this.value, document.getElementById('selectMonth').selectedIndex, false));" id="selectYear">
+                                                    <select onChange="showCalenderBody(createCalender(this.value, document.getElementById('selectMonth').selectedIndex, false));" id="selectYear">
                                                     </select>
                                                 </td>
                                                 <td align="center">
-                                                    <a href="#" onclick="closeCalender();"><font color="#003333" size="+1">x</font></a>
+                                                    <a href="#" onClick="closeCalender();"><font color="#003333" size="+1">x</font></a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -112,17 +117,17 @@ sessionInit();
                             <ul>
                                 <li>
                                     <label for="username">Username</label>
-                                    <input id="username" name="username" type="text" maxlength="20" size="50" onchange="CheckUserName()"/>
+                                    <input id="username" name="username" type="text" maxlength="20" size="50" onChange="CheckUserName()"/>
                                     <img id="username_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
                                 <li>
                                     <label for="password">Password</label>
-                                    <input id="password" name="password" type="password" maxlength="20" size="50" onchange="CheckPassword()"/>
+                                    <input id="password" name="password" type="password" maxlength="20" size="50" onChange="CheckPassword()"/>
                                     <img id="password_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
                                 <li>
                                     <label for="password2">Password Lagi</label>
-                                    <input id="password2" name="password2" type="password" maxlength="20" size="50" onchange="CheckPassword2()"/>
+                                    <input id="password2" name="password2" type="password" maxlength="20" size="50" onChange="CheckPassword2()"/>
                                     <img id="password2_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
                             </ul>
@@ -132,22 +137,22 @@ sessionInit();
                             <ul>
                                 <li>
                                     <label for="phone">Nomor Telepon</label>
-                                    <input id="phone" name="phone" type="text" maxlength="20" size="50" onchange="CheckPhone()"/>
+                                    <input id="phone" name="phone" type="text" maxlength="20" size="50" onChange="CheckPhone()"/>
                                     <img id="phone_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
                                 <li>
                                     <label for="email">Email</label>
-                                    <input id="email" name="email" type="text" maxlength="30" size="50" onchange="CheckEmail()"/>
+                                    <input id="email" name="email" type="text" maxlength="30" size="50" onChange="CheckEmail()"/>
                                     <img id="email_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
                                 <li>
                                     <label for="address">Alamat</label>
-                                    <textarea id="address" name="address" cols="38" rows="3" onchange="CheckAddress()"></textarea>
+                                    <textarea id="address" name="address" cols="38" rows="3" onChange="CheckAddress()"></textarea>
                                     <img id="address_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
                                 <li>
                                     <label for="province">Provinsi</label>
-                                    <select id="province" name="province" onchange="setKota()">
+                                    <select id="province" name="province" onChange="setKota()">
                                         <option value="1">DKI Jakarta</option>
                                         <option value="2">Jawa Barat</option>
                                         <option value="3">Sumatera Barat</option>
@@ -155,8 +160,8 @@ sessionInit();
                                 </li>
                                 <li>
                                     <label for="city">Kota</label>
-                                    <input id="city_text" name="city_text" type="text" maxlength="20" size="28" onchange="SyncKotaText()"/>
-                                    <select id="city" name="city" onchange="SyncKotaDDList()">
+                                    <input id="city_text" name="city_text" type="text" maxlength="20" size="28" onChange="SyncKotaText()"/>
+                                    <select id="city" name="city" onChange="SyncKotaDDList()">
                                     </select>
                                 </li>
                             </ul>
@@ -166,7 +171,7 @@ sessionInit();
                             <ul>
                                 <li>
                                     <label for="photo">Foto Anda</label>
-                                    <input id="photo" name="photo" type="file" onchange="CheckPhoto()"/>
+                                    <input id="photo" name="photo" type="file" onChange="CheckPhoto()"/>
                                     <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
                                     <img id="photo_img" src="images/12-em-trans_12x12.png" style="visibility:hidden;" alt="Picture not Found"/>
                                 </li>
@@ -176,33 +181,12 @@ sessionInit();
                             <ul>
                                 <li>
                                     <label>&nbsp;</label>
-                                    <input type="submit" name="submit" value="Buat Akun" onclick="javascript:submitRegistration();"/>
+                                    <input type="submit" name="submit" value="Buat Akun" onClick="javascript:CheckAll();"/>
                                 </li>
                             </ul>
                         </fieldset>
-                        <input type="text" id="dummy" name="dummy" />
+                        <input type="hidden" id="dummy" name="dummy" />
                     </form>
-                </div>
-                <div id ="sidebar">
-                    <ul>
-                        <li>
-                            <h2><a href="register.html">Konco&trade;</a></h2>
-                            <p>Sudah memiliki akun Konco&trade; ?</p>
-                        </li>
-                        <li>
-                            <label for="input-username">Username</label>
-                            <input id="input-username" name="input-username" type="text" maxlength="20" size="20"/>
-                        </li>
-                        <li>
-                            <label for="input-password">Password</label>
-                            <input id="input-password" name="input-password" type="password" maxlength="20" size="20"/>
-                        </li>
-                        <li>
-                            <input id="loginButton" type="submit" value="Login" onclick="nothingHappens()"/>
-                        </li>
-                    </ul>
-                </div>
-                <div id="style-switcher">
                 </div>
             </div>
             <div id="footer">
