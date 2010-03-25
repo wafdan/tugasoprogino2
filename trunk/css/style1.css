@@ -262,11 +262,9 @@ fieldset select{
 	float: left;
 	clear: both;
 	position: relative;
+	width: 250px;
+	padding: 20px;
 	left: 40%;
-	padding-top: 20px;
-	padding-right: 10px;
-	padding-bottom: 20px;
-	padding-left: 10px;
 }
 #loginform #LoginButton {
 	border: 2px solid #FFFFFF;
@@ -306,4 +304,8 @@ fieldset select{
 	border: 1px dotted red;
 	width: 150px;
 	float:right;
+}
+#loginform a {
+	font-size: 14px;
+	font-weight: normal;
 }
