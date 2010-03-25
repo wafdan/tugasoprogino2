@@ -48,16 +48,36 @@ sessionInit();
                 <h1>Konco&trade;</h1>
                 <h2><b>Connecting People</b></h2>
             </div>
-        </div>
+        
         
             <?php
             if(sessionGet('activeUserID')) {
-                ?><div id="loginstatus">
-		Selamat datang, <?php echo sessionGet('activeFullname'); ?> <a href="logout.php">[logout]</a>
+                ?>
+                <div id="menu">
+                    <ul>
+                        <li>
+                            <a href="index.php">Home</a>
+                        </li>
+                        <li class="first">
+                            <a href="profile.php">Profile</a>
+                        </li>
+                        <li>
+                            <a href="repository.php">Repository</a>
+                        </li>
+                        <li>
+                            <a href="javascript:nothingHappens();">Kuliah</a>
+                        </li>
+                        <li>
+                            <a href="logout.php">Logout</a>
+                        </li>
+                    </ul>
+                </div><div id="loginstatus">
+		Selamat datang, <?php echo sessionGet('activeFullname'); ?>
                 <?php
                 if(sessionGet('activeRole') == 'ADMIN') {
                     ?>
             <a href="administrator.php">Administrator Page</a></div>
+            </div>
                     <?php
                 }
             } else {
