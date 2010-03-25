@@ -61,7 +61,7 @@ databasedisconnect();
                             <h2><?php echo "<a href=profile.php?userid=$wall_userid>$data[fullname]</a>"; ?></h2>
 <?php
 $avatar = $data['avatar'];
-echo "<img id=\"primary-photo\" src=\"repositoryfiles\.$avatar.\" alt=\"Picture not Found\" />";
+echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture not Found\" />";
 							?>
                             
                         </li>
