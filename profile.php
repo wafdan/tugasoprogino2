@@ -71,7 +71,7 @@ if (!($wall_userid==sessionGet("activeUserID")))
 {
 	databaseconnect();
 	$activeuserid =sessionGet("activeUserID");
-	$result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='wall_userid' AND userid='$activeuserid'");
+	$result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid' AND userid='$activeuserid'");
 	databasedisconnect();
 	if(mysql_num_rows($result)==0)
 	{
