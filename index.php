@@ -70,7 +70,7 @@ sessionInit();
                         </li>
                     </ul>
                 </div>
-            </div>
+            <?php echo '</div>'; ?>
             <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
                 <?php
                 if(sessionGet('activeRole') == 'ADMIN') {?>
@@ -78,6 +78,7 @@ sessionInit();
                 <?php
                 }
             } else {?>
+            <?php echo '</div>'; ?>
             <div id="loginform">
 			Login
                 <form action="loginhandler.php" method="post">
