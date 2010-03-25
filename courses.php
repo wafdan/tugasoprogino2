@@ -4,11 +4,11 @@ require_once("includes/mywall.php");
 sessionInit();
 //sessionSet("activeUserID",135);
 if(!sessionGet("activeUserID")) {
-	header("Location: index.php");
+    header("Location: index.php");
 }
-$courseid = $_GET['coursesid'];
+$courseid = $_GET['courseid'];
 if(!$courseid) {
-	header("Location: index.php");
+    header("Location: index.php");
 }
 ?>
 
@@ -29,41 +29,41 @@ if(!$courseid) {
                         <a href="index.php">Home</a>                    </li>
                     <li class="first">
                         <a href="courses.php">Profile</a>                    </li>
-              <li>
-                    <a href="repository.php">Repository</a></li>
+                    <li>
+                        <a href="repository.php">Repository</a></li>
                     <li> </li>
                     <li>
-                        <a href="javascript:nothingHappens();">Kuliah</a>                    </li>
+                        <a href="courses.php">Kuliah</a>                    </li>
                     <li>
                         <a href="logout.php">Logout</a>                    </li>
-              </ul>
-          </div>
+                </ul>
+            </div>
+
+        </div>
+        <div id="container">
             <div>
-<?php
-databaseconnect();
-$userid =sessionGet("activeUserID");
-$isfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
-$ismanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
-if((mysql_num_rows($isfollow)>0)||(mysql_num_rows($ismanager)>0)){
-	echo	"<form action=\"mywallhandler.php\" method=\"POST\">
+                <?php
+                databaseconnect();
+                $userid =sessionGet("activeUserID");
+                $isfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
+                $ismanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
+                if((mysql_num_rows($isfollow)>0)||(mysql_num_rows($ismanager)>0)) {
+                    echo	"<form action=\"mywallhandler.php\" method=\"POST\">
 			<input type=hidden name=\"pagecourseid\" value=$courseid>
 			<b>Post Wall : </b><input type=\"textbox\" name=\"coursecontent\" size=70>
 			</form>";
-}else
-{
-	echo "<form action=\"mywallhandler.php\" method=\"POST\">
+                }else {
+                    echo "<form action=\"mywallhandler.php\" method=\"POST\">
                   <input name=\"followcourse\" type=\"submit\" value=\"Follow this course\">
 			<input name=\"pagecourseid\" type=\"hidden\" value=$courseid>
 						</form>";
-	}
-databasedisconnect();
-DisplayCoursesWall($courseid);
+                }
+                databasedisconnect();
+                DisplayCoursesWall($courseid);
                 ?>
             </div>
         </div>
-        <div id="container">
-        </div>
-      	<div id="footer">
+        <div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
             <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Adityo Jiwandono </a>, <a>Wafdan Musa Nursakti</a></p>
         </div>

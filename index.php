@@ -60,6 +60,9 @@ sessionInit();
                             <a href="profile.php">Profile</a>
                         </li>
                         <li>
+                            <a href="publicwall.php">Public Wall</a>
+                        </li>
+                        <li>
                             <a href="repository.php">Repository</a>
                         </li>
                         <li>
