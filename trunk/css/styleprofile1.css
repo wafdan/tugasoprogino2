@@ -394,6 +394,7 @@ legend span {
 	color: #FF00FF;
 	padding: 20px;
 	border: 1px solid #00CC33;
+	margin: 5px;
 }
 .friendstatus .statusdatetime {
 	float: right;
@@ -427,4 +428,27 @@ legend span {
 	overflow: scroll;
 }
 #sidebar #friends {
+}
+.friendstatus .commentfield {
+	background-color: #EFEFEF;
+	color: #333333;
+	border: 1px solid #FF0000;
+}
+
+.friendstatus .neutral {
+	font-weight: bold;
+	color: #FFFFFF;
+	font-size: 12px;
+	background-color: #FF6600;
+	padding: 3px;
+	margin: 3px;
+}
+
+.friendstatus .neutral2 {
+	font-weight: bold;
+	color: #FFFFFF;
+	font-size: 12px;
+	background-color: #CC6600;
+	padding: 3px;
+	margin: 3px;
 }
