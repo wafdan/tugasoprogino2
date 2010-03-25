@@ -342,7 +342,7 @@ fieldset select{
 	padding: 0 2px 0 2px;
 }
 
-#menu li.first a{
+/*#menu li.first a{
 	float: left;
 	padding: 9px 20px;
 	text-decoration: none;
@@ -352,7 +352,7 @@ fieldset select{
 	font-size: 12px;
 	color: #FFFF00;
 	background-color: #009900;
-}
+}*/
 
 #menu a {
 	float: left;
@@ -372,6 +372,14 @@ fieldset select{
 	background-color: #00FF00;
 	color: #FFFF00;
 }
+
+#menu a:focus {
+	text-decoration: none;
+	padding: 9px 20px;
+	background-color: #009900;
+	color: #FFFFFF;
+}
+
 .message {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 16px;
