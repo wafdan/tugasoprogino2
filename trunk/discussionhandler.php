@@ -1,5 +1,6 @@
 <?php
 require_once('includes/databaseconnection.php');
+require_once('includes/session.php');
 function NewTopic()
 {
 	databaseconnect();

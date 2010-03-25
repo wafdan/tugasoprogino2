@@ -11,6 +11,7 @@ if(!sessionGet('activeUserID'))
 	if($_GET['userid'])
 	{
 		$wall_userid = $_GET['userid'];
+		SetPageUserID($wall_userid);
 	}else
 	{
 		$wall_userid = sessionGet('activeUserID');
