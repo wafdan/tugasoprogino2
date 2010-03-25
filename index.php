@@ -63,7 +63,7 @@ sessionInit();
                             <a href="repository.php">Repository</a>
                         </li>
                         <li>
-                            <a href="javascript:nothingHappens();">Kuliah</a>
+                            <a href="courses.php">Kuliah</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>
