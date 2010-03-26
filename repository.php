@@ -69,6 +69,7 @@ if(!sessionGet("activeUserID")) {
 			<option value=\"FOLLOWER\">FOLLOWER</option>
 			<option value=\"PRIVATE\">PRIVATE</option>
 			</select>
+			Kategori : <input type=\"textbox\" name=\"chosencategory\" value=\"Uncategorized\">
 			<input type=\"submit\" name=\"uploadfileuser\" value=\"Upload\">
 			</form>
                         </div>
