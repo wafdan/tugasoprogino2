@@ -1,18 +1,15 @@
 <?php
 require_once("includes/mywall.php");
 sessionInit();
-if(!sessionGet('activeUserID'))
-{
-	header("Location: index.php");
-}else{
-	$wall_userid;
-	if($_GET['userid'])
-	{
-		$wall_userid = $_GET['userid'];
-	}else
-	{
-		$wall_userid = sessionGet('activeUserID');
-	}
+if(!sessionGet('activeUserID')) {
+    header("Location: index.php");
+}else {
+    $wall_userid;
+    if($_GET['userid']) {
+        $wall_userid = $_GET['userid'];
+    }else {
+        $wall_userid = sessionGet('activeUserID');
+    }
 }
 ?>
 <?php
@@ -20,7 +17,7 @@ databaseconnect();
 $result = mysql_query("SELECT * FROM user WHERE userid='$wall_userid'");
 $data = mysql_fetch_array($result);
 databasedisconnect();
-				?>
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -40,8 +37,8 @@ databasedisconnect();
                     <ul>
                         <li>
                             <a href="index.php">Home</a>                        </li>
-                  <li class="first">
-                            <?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
+                        <li class="first">
+<?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
                         </li>
                         <li>
                             <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Public Wall</a>
@@ -54,7 +51,7 @@ databasedisconnect();
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>                        </li>
-                  </ul>
+                    </ul>
                 </div>
             </div><hr />
             <div id="container">
@@ -65,55 +62,51 @@ databasedisconnect();
 <?php
 $avatar = $data['avatar'];
 echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture not Found\" />";
-							?>
-                            
-                        </li>
-<?php
+                            ?>
 
-if (!($wall_userid==sessionGet("activeUserID")))
-{
-	databaseconnect();
-	$activeuserid =sessionGet("activeUserID");
-	$result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid' AND userid='$activeuserid'");
-	databasedisconnect();
-	if(mysql_num_rows($result)==0)
-	{
-			echo "<form action=\"mywallhandler.php\" method=\"POST\">
+                        </li>
+                            <?php
+
+if (!($wall_userid==sessionGet("activeUserID"))) {
+                            databaseconnect();
+                            $activeuserid =sessionGet("activeUserID");
+                            $result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid' AND userid='$activeuserid'");
+                            databasedisconnect();
+                            if(mysql_num_rows($result)==0) {
+                                echo "<form action=\"mywallhandler.php\" method=\"POST\">
                   <input name=\"followuser\" type=\"submit\" value=\"Follow this user\">
 			      <input name=\"pageuserid\" type=\"hidden\" value=$wall_userid>
 						</form>";
-		}
-	};
-						?>
+                            }
+                        };
+                        ?>
 
                         <li id="friends">
                             <h2><a href="javascript:nothingHappens();">Follower</a></h2>
                             <ul>
-							<?php 
-							databaseconnect();
-							$friendresult = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'");
-while($datafriend=mysql_fetch_array($friendresult))
-{
-	$userfriend = mysql_query("SELECT * FROM user WHERE userid='$datafriend[userid]'");
-	$userfriend = mysql_fetch_array($userfriend );
-	echo "<li> <a class=\"friendName\" href=\"profile.php?userid=$datafriend[userid]\">$userfriend[fullname]</a>";
-	};
-							?>
+                        <?php
+databaseconnect();
+$friendresult = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'");
+while($datafriend=mysql_fetch_array($friendresult)) {
+    $userfriend = mysql_query("SELECT * FROM user WHERE userid='$datafriend[userid]'");
+                                    $userfriend = mysql_fetch_array($userfriend );
+                                    echo "<li> <a class=\"friendName\" href=\"profile.php?userid=$datafriend[userid]\">$userfriend[fullname]</a>";
+                                };
+                                ?>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <fieldset class="profile-status">
                     <legend><span>My Wall</span></legend>
-					<?php
-if($wall_userid == sessionGet('activeUserID'))
-{
-	echo	"<form action=\"mywallhandler.php\" method=\"POST\">
+<?php
+if($wall_userid == sessionGet('activeUserID')) {
+    echo	"<form action=\"mywallhandler.php\" method=\"POST\">
 			<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70>
 			</form>";
 }
-			DisplayWall($wall_userid);
-					 ?>
+                    DisplayWall($wall_userid);
+                    ?>
                 </fieldset>
                 <br />
                 <fieldset class="information">
@@ -129,7 +122,11 @@ if($wall_userid == sessionGet('activeUserID'))
                         </li>
                         <li>
                             <div class="label">Jenis Kelamin</div>
-                            <div class="info">: <?php if($data['gender']=='M'){ echo "Laki-laki";}else{echo "Wanita";};?></div>
+                            <div class="info">: <?php if($data['gender']=='M') {
+    echo "Laki-laki";
+}else {
+    echo "Wanita";
+};?></div>
                         </li>
                         <li>
                             <div class="label">Nomor Telepon</div>
