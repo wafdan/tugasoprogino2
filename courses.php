@@ -38,7 +38,7 @@ if(!$courseid) {
                         <a href="courses.php">Kuliah</a>
                     </li>
                     <li>
-                         <a href="courserepository.php?coursesid=<?php echo '{$courseid}';?>">Repository Kuliah</a>
+                         <a href="courserepository.php?coursesid=<?php echo $courseid; ?>">Repository Kuliah</a>
                     </li>
                     <li>
                         <a href="#">Forum Diskusi Kuliah</a>                    </li>
