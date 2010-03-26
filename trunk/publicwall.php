@@ -50,7 +50,7 @@ databasedisconnect();
                             <?php echo "<a href=repository.php?userid=$wall_userid"; ?>>Repository</a>
                         </li>
                         <li>
-                            <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Kuliah</a>
+                            <?php echo "<a href=courses.php"; ?>>Kuliah</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>                        </li>
