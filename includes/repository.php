@@ -26,6 +26,9 @@ function ShowRepository($repo_userid) {
 		<tr><td class='no'>$no</td>
                     <td>$data[filename]</td>";
 					if(sessionGet("activeUserID")== $repo_userid) {
+				$public='';
+				$follower='';
+				$private='';
 				if($data[status]=='PUBLIC')
 				{
 					$public='SELECTED';
@@ -93,6 +96,9 @@ function ShowCoursesRepository($courseid) {
 					<tr><td class='no'>$no</td>
 					<td>$data[filename]</td>";
 					if($ismanager) {
+				$public='';
+				$follower='';
+				$private='';
 				if($data[status]=='PUBLIC')
 				{
 					$public='SELECTED';
