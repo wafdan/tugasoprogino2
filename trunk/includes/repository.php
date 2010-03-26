@@ -7,31 +7,40 @@ function ShowRepository($repo_userid) {
     $tampil;
     databaseconnect();
     if(sessionGet("activeUserID")== $repo_userid) {
-        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid'";
+		$tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' ORDER BY category";
     }elseif(isFollower(sessionGet("activeUserID"),$repo_userid)) {
-        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='PUBLIC' OR userid='$repo_userid' AND status='FOLLOWER'";
+		$tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='PUBLIC' OR userid='$repo_userid' AND status='FOLLOWER' ORDER BY category";
     }
     else {
-        $tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='PUBLIC'";
+		$tampil="SELECT * FROM userrepository WHERE userid='$repo_userid' AND status='PUBLIC' ORDER BY category";
     }
     $hasil = mysql_query($tampil);
     if(mysql_num_rows($hasil) > 0) {
-        echo "<div id='repolist'>
-            <table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Counter</th><th>Aksi</th></tr>";
+		echo "<div id='repolist'>
+				<table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Category</th><th>Counter</th><th>Aksi</th></tr>";
         $no =1;
         while($data = mysql_fetch_array($hasil)) {
             echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
             echo "<input type=hidden name=repositoryid value=$data[repositoryid]>
 		<input type=hidden name=filenamehash value=$data[filenamehash]>
 		<tr><td class='no'>$no</td>
-                    <td>$data[filename]</td>
-                    <td>$data[status]</td>
-                    <td class='count'>$data[counter]</td>
-		<td>";
+                    <td>$data[filename]</td>";
+					if(sessionGet("activeUserID")== $repo_userid) {
+				echo "<td>			<select name=\"statusupdate\" value=$data[status]>
+						<option value=\"PUBLIC\">PUBLIC</option>
+						<option value=\"FOLLOWER\">FOLLOWER</option>
+						<option value=\"PRIVATE\">PRIVATE</option>
+						</select></td>
+						<td><input name=\"categoryupdate\" type=\"textbox\" value=$data[category]></td>";
+						}else{
+                    echo "<td>$data[status]</td>
+					<td>$data[category]</td>";}
+					echo "<td class='count'>$data[counter]</td><td>";
             if(sessionGet("activeUserID")== $repo_userid) {
                 echo "<input class='repobutton' type=submit value=Delete name='deletefileuser'>";
 				echo "<input class='repobutton' type=hidden value=$repo_userid name='pageuserid'>";
                 echo "<input class='repobutton' type=submit value='Use as Avatar' name='changeavatar'>";
+				echo "<input class='repobutton' type=submit value='Change Attribute' name='changeattribute'>";
             }
             echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
                  </td>
@@ -54,17 +63,17 @@ function ShowCoursesRepository($courseid) {
 	$checkfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
 	if(mysql_num_rows($checkuser)>0) {
 		$ismanager = true;
-		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid'";
+		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' ORDER BY category";
 	}elseif(mysql_num_rows($checkfollow)>0) {
-		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' AND status='PUBLIC' OR courseinstanceid='$courseid' AND status='FOLLOWER'";
+		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' AND status='PUBLIC' OR courseinstanceid='$courseid' AND status='FOLLOWER'  ORDER BY category";
 	}
 	else {
-		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' AND status='PUBLIC'";
+		$tampil="SELECT * FROM courseinstancerepository WHERE courseinstanceid='$courseid' AND status='PUBLIC' ORDER BY category";
 	}
 	$hasil = mysql_query($tampil);
 	if(mysql_num_rows($hasil) > 0) {
 		echo "<div id='repolist'>
-				<table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Counter</th><th>Aksi</th></tr>";
+				<table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Category</th><th>Counter</th><th>Aksi</th></tr>";
 		$no =1;
 		while($data = mysql_fetch_array($hasil)) {
 			echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
@@ -72,13 +81,22 @@ function ShowCoursesRepository($courseid) {
 					<input type=hidden name=repositoryid value=$data[repositoryid]>
 					<input type=hidden name=filenamehash value=$data[filenamehash]>
 					<tr><td class='no'>$no</td>
-					<td>$data[filename]</td>
-					<td>$data[status]</td>
-					<td class='count'>$data[counter]</td>
-					<td>";
+					<td>$data[filename]</td>";
+					if($ismanager) {
+				echo "<td>			<select name=\"statusupdate\" value=$data[status]>
+						<option value=\"PUBLIC\">PUBLIC</option>
+						<option value=\"FOLLOWER\">FOLLOWER</option>
+						<option value=\"PRIVATE\">PRIVATE</option>
+						</select></td>
+						<td><input name=\"categoryupdate\" type=\"textbox\" value=$data[category]></td>";
+						}else{
+                    echo "<td>$data[status]</td>
+					<td>$data[category]</td>";}
+					echo "<td class='count'>$data[counter]</td><td>";
 			if($ismanager) {
 				echo "<input class='repobutton' type=submit value=Delete name='deletefileuser'>";
 				echo "<input class='repobutton' type=hidden value=$repo_userid name='pagecourseid'>";
+				echo "<input class='repobutton' type=submit value='Change Attribute' name='changeattribute'>";
 			}
 			echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
 					</td>
@@ -110,6 +128,7 @@ function UploadFileUser() {
     $dummy_userid = sessionGet("activeUserID");
     $nama_file_hash = md5("$dummy_userid $nama_file").$ext;
     $direktori = "repositoryfiles/$nama_file_hash";
+	$category = $_POST['chosencategory'];
     $now = date('Y-m-d H:i:s');
     databaseconnect();
     if(move_uploaded_file($lokasi_file,"$direktori")) {
@@ -121,7 +140,8 @@ function UploadFileUser() {
 						status,
 						filename,
 						filenamehash,
-						filesize
+						filesize,
+						category
 						)
 						VALUES(
 						'$_POST[repocourseid]',
@@ -138,7 +158,8 @@ function UploadFileUser() {
 						status,
 						filename,
 						filenamehash,
-						filesize
+						filesize,
+						category
 						)
 						VALUES(
 						'$dummy_userid',
@@ -146,7 +167,8 @@ function UploadFileUser() {
 						'$_POST[status]',
 						'$nama_file',
 						'$nama_file_hash',
-						'$ukuran_file'
+						'$ukuran_file',
+						'$category'
 						)");
 		}
     }else {
@@ -212,6 +234,20 @@ function ChangeAvatar() {
     databasedisconnect();
 }
 
+function ChangeAttribute()
+{
+	databaseconnect();
+	$statusupdate = $_POST['statusupdate'];
+	$categoryupdate = $_POST['categoryupdate'];
+	if($_POST['isrepository'])
+	{
+		mysql_query("UPDATE courseinstancerepository SET status='$statusupdate',category='$categoryupdate' WHERE repositoryid='$_POST[repositoryid]'");
+	}else{
+		mysql_query("UPDATE userrepository SET status='$statusupdate',category='$categoryupdate' WHERE repositoryid='$_POST[repositoryid]'");
+	}
+	databasedisconnect();
+	}
+
 function mainRepository() {
     if($_POST['uploadfileuser']) {
         RedirectRepository();
@@ -227,6 +263,11 @@ function mainRepository() {
 		RedirectRepository();
 		ChangeAvatar();
     }
+	elseif($_POST['changeattribute'])
+	{
+		RedirectRepository();
+		ChangeAttribute();
+		}
     else {
         echo "Tidak Terjadi Apa-apa!";
     }
