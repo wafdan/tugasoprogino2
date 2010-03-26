@@ -1,13 +1,13 @@
 <?php
 require_once('includes/databaseconnection.php');
 require_once('includes/session.php');
+
 function NewTopic()
 {
 	databaseconnect();
-	$title = $_POST['newtopic'];
+	$title = $_POST['topicname'];
 	$dummy_courseinstanceid = 13;
 	$dummy_userid =12;
-	mysql_select_db("tugasprogin");
 	mysql_query("INSERT INTO courseinstancetopic(courseinstanceid,
 													userid,
 													title
@@ -20,6 +20,7 @@ function NewTopic()
 													)
 													");
 	databasedisconnect();
+	echo 'asdsada'.mysql_error();
 }
 
 function ShowTopics()
@@ -43,11 +44,13 @@ function ShowTopics()
 }	
 
 
-function mainDiscussion()
-{
-	if($_POST['newtopic'])
-	{
+$action = $_POST['action'];
+
+switch($action) {
+	case 'newtopic':
+		echo 'asdfasdfasdfsadf';
 		NewTopic();
-		}
-	}
+		break;
+}
+
 ?>
