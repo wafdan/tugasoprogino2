@@ -21,8 +21,8 @@ if(!$courseid) {
     <body>
         <div id="header">
             <div id="logo">
-                <h1>Konco&trade;</h1>
-                <h2><b>Connecting People</b></h2>
+                <h1>KulOn&trade;</h1>
+                <h2><b>Kuliah Online</b></h2>
             </div>      
             <div id="menu">
                 <ul>
@@ -79,7 +79,7 @@ if(!$courseid) {
             </fieldset>
         </div>
         <div id="footer">
-            <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
+            <p class="legal"><i>Copyright</i> &copy; 2010 KulOn&trade;. <i>All rights reserved</i>. </p>
             <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Adityo Jiwandono </a>, <a>Wafdan Musa Nursakti</a></p>
         </div>
     </body>
