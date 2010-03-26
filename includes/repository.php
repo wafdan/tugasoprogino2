@@ -175,7 +175,8 @@ function UploadFileUser() {
 						'$_POST[status]',
 						'$nama_file',
 						'$nama_file_hash',
-						'$ukuran_file'
+						'$ukuran_file',
+						'$category'
 						)");
 			}else{
 			mysql_query("INSERT INTO userrepository(
