@@ -55,6 +55,46 @@ function courseGetCourseList($start, $count, $sort = 0) {
 	}
 }
 
+function courseGetCourseInstanceList() {
+	
+	
+	databaseconnect();
+	
+	$sql = "SELECT `course`.`courseid` AS `courseid`, 
+				   `course`.`coursecode` AS `code`,
+				   `course`.`coursename` AS `name`,
+				   `courseinstance`.`courseinstanceid` AS `courseinstanceid`,
+				   `courseinstance`.`year` AS `year`,
+				   `courseinstance`.`semester` AS `semester`,
+				   `program`.`code` AS `program`,
+				   `faculty`.`code` AS `faculty`
+			FROM `course`, `program`, `faculty`, `courseinstance`
+			WHERE `course`.`courseprogram` = `program`.`programid` AND
+				  `program`.`facultyid` = `faculty`.`facultyid` AND
+				  `courseinstance`.`courseid` = `course`.`courseid`
+			ORDER BY `code` ASC";
+	$result = mysql_query($sql);
+	if($result) {
+		$data = array();
+		$n = 0;
+		
+		while($course = mysql_fetch_assoc($result)) {
+			$data[$n]['courseid'] = $course['courseid'];
+			$data[$n]['courseinstanceid'] = $course['courseinstanceid'];
+			$data[$n]['code'] = $course['code'];
+			$data[$n]['name'] = $course['name'];
+			$data[$n]['program'] = $course['program'];
+			$data[$n]['faculty'] = $course['faculty'];
+			$data[$n]['year'] = $course['year'];
+			$data[$n]['semester'] = $course['semester'];
+			
+			$n++;
+		}
+		
+		return $data;
+	}
+}
+
 function courseGetSelectedCourseList($user, $start, $count, $sort = 0) {
 	// mirip dengan courseGetCourseList
 	// hanya saja fungsi ini mengembalikan daftar matakuliah yang diambil oleh user

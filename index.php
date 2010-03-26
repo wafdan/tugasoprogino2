@@ -44,6 +44,17 @@ function generateCourseList() {
 	echo '</ul>';
 }
 
+function generateCourseInstanceList() {
+	$data = courseGetCourseInstanceList();
+	
+	echo '<h2>Courses List</h2>';
+	echo '<ul>';
+	foreach($data as $course) {
+		echo '<li><a href="courses.php?courseid='.$course['courseinstanceid'].'">'.$course['faculty'].' - '.$course['program'].' - ['.$course['code'].'] '.$course['name'].' ('.$course['year'].' semester '.$course['semester'].')</li>';
+	}
+	echo '</ul>';
+}
+
 function generateUserList()
 {
 	databaseconnect();
@@ -132,7 +143,7 @@ function generateUserList()
                 databasedisconnect();
                 /**/
                 ?>
-	<?php generateCourseList(); 
+	<?php generateCourseInstanceList(); 
 				generateUserList();?>
             </div>
             <?php } else {?>
