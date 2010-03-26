@@ -91,8 +91,9 @@ while($datafriend=mysql_fetch_array($friendresult))
 <?php
 databaseconnect();
 $resultcourse = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'");
+$resultmanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$wall_userid'");
 
-if(mysql_num_rows($resultcourse)>0)
+if((mysql_num_rows($resultcourse)>0)||(mysql_num_rows($resultmanager)>0))
 {
 	echo "<ul>";
 	while($datacourse=mysql_fetch_array($resultcourse))
