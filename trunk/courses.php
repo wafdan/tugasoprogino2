@@ -59,7 +59,7 @@ if(!$courseid) {
 						</form>";
                 }
                 databasedisconnect();
-                DisplayCoursesWall($courseid);
+                DisplayCoursesWall($courseid,true);
                 ?>
             </div>
         </div>
