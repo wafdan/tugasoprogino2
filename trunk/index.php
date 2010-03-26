@@ -33,6 +33,15 @@ sessionInit();
 	Form pada kotak login di-POST ke loginhandler.php
 */
 
+function generateCourseList() {
+	$data = courseGetCourseList(0, 0);
+	
+	echo '<ul>';
+	foreach($data as $course) {
+		echo '<li><a href="courses.php?id='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - '.$course['name'].'</li>';
+	}
+	echo '</ul>';
+}
 
 ?>
 
@@ -138,6 +147,9 @@ value="Login" />
             }
             ?>
         </div>
+		<div>
+			<?php generateCourseList(); ?>
+		</div>
 <div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights
 reserved</i>. </p>
