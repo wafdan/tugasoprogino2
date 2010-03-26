@@ -121,7 +121,7 @@ function ShowCoursesRepository($courseid) {
 					echo "<td class='count'>$data[counter]</td><td>";
 			if($ismanager) {
 				echo "<input class='repobutton' type=submit value=Delete name='deletefileuser'>";
-				echo "<input class='repobutton' type=hidden value=$repo_userid name='pagecourseid'>";
+				echo "<input class='repobutton' type=hidden value=$courseid name='repocourseid'>";
 				echo "<input class='repobutton' type=submit value='Change Attribute' name='changeattribute'>";
 			}
 			echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
