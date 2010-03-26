@@ -41,10 +41,11 @@ if(!$courseid) {
                          <a href="courserepository.php?coursesid=<?php echo $courseid; ?>">Repository Kuliah</a>
                     </li>
                     <li>
-                        <a href="#">Forum Diskusi Kuliah</a>                    </li>
-                    <li>
-                        
-                        <a href="logout.php">Logout</a>                    </li>
+                        <a href="#">Forum Diskusi Kuliah</a>
+                    </li>
+                    <li>    
+                        <a href="logout.php">Logout</a>
+                    </li>
                 </ul>
             </div>
 
