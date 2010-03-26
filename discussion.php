@@ -5,14 +5,12 @@ require_once("discussionhandler.php");
 
 if(!($cinstid = $_GET['courseinstanceid'])) {
 	header('Location: index.php');
-} else {
-	$action = 'viewtopiclist';
 }
 
 function showTopicList($cinstid) {
 	$data = discussionGetTopic($cinstid);
 	
-	print_r($data);
+	//print_r($data);
 	
 	echo '<div>';
 	echo '<table>';
@@ -25,6 +23,27 @@ function showTopicList($cinstid) {
 	}
 	echo '</table>';
 	echo '</div>';
+}
+
+function showTopicDetail($topicid) {
+	$data = discussionGetTopicDetail($topicid);
+	
+	//print_r($data);
+	
+	echo '<div>';
+	
+	if($data['post']) {
+		echo '<table>';
+		foreach($data['post'] as $post) {
+			echo '<tr>';
+			echo '<td>'.$post['username'].'</td>';
+			echo '<td>'.$post['content'].'</td>';
+			echo '<td>'.$post['time'].'</td>';
+			echo '</tr>';
+		}
+		echo '</table>';
+		echo '</div>';
+	}
 }
 
 ?>
@@ -47,6 +66,31 @@ function showTopicList($cinstid) {
 
 	<body>
 		<div>
+			<?php
+			if($_GET['viewtopic']) {
+				showTopicDetail($_GET['viewtopic']);
+				?>
+				
+			<div>
+				<form action="discussionhandler.php" method="post">
+					<input type="hidden" name="action" value="addpost" />
+					<input type="hidden" name="data[addpost][cinstid]" value="<?php echo $cinstid; ?>" />
+					<input type="hidden" name="data[addpost][topicid]" value="<?php echo $_GET['viewtopic']; ?>" />
+					<table>
+						<tr>
+							<td>Post reply</td>
+							<td><input type="text" name="data[addpost][content]" /></td>
+						</tr>
+						<tr>
+							<td><input type="submit" value="Submit" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+				
+				<?php
+			} else {
+			?>
 			<div>
 				<?php showTopicList($cinstid); ?>
 			</div>
@@ -61,15 +105,14 @@ function showTopicList($cinstid) {
 							<td><input type="text" name="data[addtopic][title]" /></td>
 						</tr>
 						<tr>
-							<td>Content</td>
-							<td><textarea name="data[addtopic][content]"></textarea></td>
-						</tr>
-						<tr>
 							<td><input type="submit" value="Submit" /></td>
 						</tr>
 					</table>
 				</form>
 			</div>
+			<?php
+			}
+			?>
 		</div>
 	</body>
 </html>

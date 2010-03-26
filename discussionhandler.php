@@ -17,6 +17,10 @@ if($_POST['action'] || $_GET['action']) {
 		case 'addtopic':
 			addTopic($data);
 			break;
+		
+		case 'addpost':
+			addPost($data);
+			break;
 	}
 }
 
