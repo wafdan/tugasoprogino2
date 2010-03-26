@@ -157,7 +157,11 @@ function DisplayCoursesWall($courseid,$nodatabase)
 				echo "</ul>
 						</div>";
 			}
-			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=frompublic value=1><input type=hidden name=pagecourseid value=$courseid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment></form>";
+			$frompublic = '';
+			if($nodatabase==false){
+				$frompublic = "<input type=hidden name=frompublic value=1>";
+			}
+			echo "<form action=\"mywallhandler.php\" method=\"POST\">$frompublic<input type=hidden name=pagecourseid value=$courseid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment></form>";
 			echo "</div>";
 			
 		}
