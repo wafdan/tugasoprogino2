@@ -169,7 +169,7 @@ function DisplayCoursesWall($courseid,$nodatabase)
 }
 
 function RedirectToProfile() {
-	if($_POST['fromwall']){
+	if($_POST['frompublic']){
 		header("Location: publicwall.php");
 		}else{
 	$pageuserid = $_POST['pageuserid'];
@@ -183,7 +183,7 @@ function RedirectToProfile() {
 }
 
 function  RedirectToCourseWall(){
-		if($_POST['fromwall']){
+	if($_POST['frompublic']){
 		header("Location: publicwall.php");
 	}else{
 		$pagecourseid = $_POST['pagecourseid'];
