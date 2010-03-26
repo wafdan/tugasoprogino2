@@ -35,7 +35,31 @@ function discussionGetTopic($cinstid) {
 }
 
 function addTopic($data) {
-
+	databaseconnect();
+	
+	$cinstid = $data['cinstid'];
+	$title = $data['title'];
+	$content = $data['content'];
+	$userid = sessionGet('activeUserID');
+	$time = date('Y-m-d H:i:s');
+	
+	$sql = "INSERT INTO `courseinstancetopic`
+				(`courseinstanceid`,
+				 `title`,
+				 `userid`,
+				 `timestamp`)
+			VALUES(
+				 '$cinstid',
+				 '$title',
+				 '$userid',
+				 '$time')";
+	$result = mysql_query($sql);
+	if($result) {
+		return true;
+	} else {
+		echo mysql_error();
+		return false;
+	}
 }
 
 ?>
