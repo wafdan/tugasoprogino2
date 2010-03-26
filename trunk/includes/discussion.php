@@ -96,6 +96,7 @@ function addTopic($data) {
 				 '$time')";
 	$result = mysql_query($sql);
 	if($result) {
+		header('Location: discussion.php?courseinstanceid='.$cinstid);
 		return true;
 	} else {
 		echo mysql_error();
