@@ -110,6 +110,26 @@ if((mysql_num_rows($resultcourse)>0)||(mysql_num_rows($resultmanager)>0))
 	};
 	echo "</ul";
 }
+
+// user follower
+
+$resultuser = mysql_query("SELECT * FROM userfollowing WHERE userid='$wall_userid'");
+
+if(mysql_num_rows($resultuser)>0)
+{
+	echo "<ul>";
+	while($datauser=mysql_fetch_array($resultuser))
+	{
+		$getuser = mysql_query("SELECT * FROM user WHERE userid='$datauser[userid]'");
+		$getuser = mysql_fetch_array($getuser);
+		echo  "<li>";
+		echo "<div class=\"label\">$getuser[username]</div>";
+		echo "<div class=\"info\">:$getuser[username] <a href=\"profile.php?userid=$getuser[userid]\">Link<a/></div>";
+		echo "</li>";
+		DisplayFromWall($getuser['userid']);
+	};
+	echo "</ul";
+}
 databasedisconnect();
 ?>
                 </fieldset>
