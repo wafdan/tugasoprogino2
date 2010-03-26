@@ -26,15 +26,24 @@ if(!$courseid) {
             <div id="menu">
                 <ul>
                     <li>
-                        <a href="index.php">Home</a>                    </li>
+                        <a href="index.php">Home</a>
+                    </li>
                     <li class="first">
-                        <a href="courses.php">Profile</a>                    </li>
+                        <a href="courses.php">Profile</a>
+                    </li>
                     <li>
-                        <a href="repository.php">Repository</a></li>
-                    <li> </li>
+                        <a href="repository.php">Repository</a>
+                    </li>
+                    <li>
+                        <a href="courses.php">Kuliah</a>
+                    </li>
+                    <li>
+                        <a href="courses.php">Kuliah</a>
+                    </li>
                     <li>
                         <a href="courses.php">Kuliah</a>                    </li>
                     <li>
+                        courserepository.php?coursesid=7
                         <a href="logout.php">Logout</a>                    </li>
                 </ul>
             </div>

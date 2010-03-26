@@ -84,15 +84,29 @@ if (!($wall_userid==sessionGet("activeUserID"))) {
                         <li id="friends">
                             <h2><a href="javascript:nothingHappens();">Follower</a></h2>
                             <ul>
-                        <?php
-databaseconnect();
-$friendresult = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'");
-while($datafriend=mysql_fetch_array($friendresult)) {
-    $userfriend = mysql_query("SELECT * FROM user WHERE userid='$datafriend[userid]'");
-                                    $userfriend = mysql_fetch_array($userfriend );
-                                    echo "<li> <a class=\"friendName\" href=\"profile.php?userid=$datafriend[userid]\">$userfriend[fullname]</a>";
-                                };
-                                ?>
+                            <?php
+                            databaseconnect();
+                            $friendresult = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'");
+                            while($datafriend=mysql_fetch_array($friendresult)) {
+                                $userfriend = mysql_query("SELECT * FROM user WHERE userid='$datafriend[userid]'");
+                                $userfriend = mysql_fetch_array($userfriend );
+                                echo "<li> <a class=\"friendName\" href=\"profile.php?userid=$datafriend[userid]\">$userfriend[fullname]</a>";
+                            };
+                            ?>
+                            </ul>
+                        </li>
+                        <li id="friends">
+                            <h2><a href="javascript:nothingHappens();">Course(s) Followed</a></h2>
+                            <ul>
+                            <?php
+                            $cres = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid={$wall_userid}");
+                            while($datac = mysql_fetch_array($cres)){
+                                $cins = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid={$datac['courseinstanceid']}");
+                                $courseid = $cins['courseid'];
+                                $cname = mysql_query("SELECT * FROM course WHERE courseid={$courseid}");
+                                echo "<li>{$cname}</li>";
+                            }
+                            ?>
                             </ul>
                         </li>
                     </ul>
