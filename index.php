@@ -38,7 +38,7 @@ function generateCourseList() {
 
 	echo '<ul>';
 	foreach($data as $course) {
-		echo '<li><a href="courses.php?courseid='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - '.$course['name'].'</li>';
+		echo '<li><a href="courses.php?courseid='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - ['.$course['code'].'] '.$course['name'].'</li>';
 	}
 	echo '</ul>';
 }
