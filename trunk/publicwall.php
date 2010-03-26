@@ -41,16 +41,16 @@ databasedisconnect();
                         <li>
                             <a href="index.php">Home</a>                        </li>
                   <li class="first">
-                            <?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
+                            <a href=profile.php?userid=<?php echo $wall_userid; ?>>Profile</a>
                         </li>
                         <li>
-                            <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Public Wall</a>
+                            <a href=publicwall.php?userid=<?php echo $wall_userid; ?>>Public Wall</a>
                         </li>
                         <li>
-                            <?php echo "<a href=repository.php?userid=$wall_userid"; ?>>Repository</a>
+                            <a href=repository.php?userid=<?php echo $wall_userid; ?>>Repository</a>
                         </li>
                         <li>
-                            <?php echo "<a href=courses.php"; ?>>Kuliah</a>
+                            <a href=courses.php>Kuliah</a>
                         </li>
                         <li>
                             <a href="logout.php">Logout</a>                        </li>
