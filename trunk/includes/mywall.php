@@ -139,7 +139,7 @@ function DisplayCoursesWall($courseid,$nodatabase)
 function RedirectToProfile() {
 	$pageuserid = $_POST['pageuserid'];
     if($pageuserid) {
-        header('Location: profile.php?userid=$pageuserid');
+        header("Location: profile.php?userid=$pageuserid");
     }
     else {
         header('Location: profile.php');
