@@ -103,7 +103,7 @@ if(mysql_num_rows($resultcourse)>0)
 		$course = mysql_fetch_array($course);
 		echo  "<li>";
 		echo "<div class=\"label\">$course[coursecode]</div>";
-		echo "<div class=\"info\">:$course[coursename]</div>";
+		echo "<div class=\"info\">:$course[coursename] <a href=\"courses.php?courseid=$getcourse[courseinstanceid]\">Link<a/></div>";
 		echo "</li>";
 		DisplayCoursesWall($datacourse[courseinstanceid],false);
 	};
