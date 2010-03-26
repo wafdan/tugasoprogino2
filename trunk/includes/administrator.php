@@ -41,6 +41,30 @@ function facultyAdd($data) {
 	}
 }
 
+function facultyMod($data) {
+	databaseconnect();
+	
+	$facultyid = $data['facultyid'];
+	$newcode = $data['code'];
+	$newname = $data['name'];
+	
+	if($newcode == '' || $newname == '') {
+		sessionSet('msg', 'Error: New Code or New Name field is blank');
+		return false;
+	}
+	
+	$sql = "UPDATE `faculty`
+			SET `code` = '$newcode',
+				`name` = '$newname'
+			WHERE `facultyid` = '$facultyid'";
+	if(mysql_query($sql)) {
+		return true;
+	} else {
+		echo mysql_error();
+		return false;
+	}
+}
+
 function facultyDel($data) {
 	databaseconnect();
 	
@@ -108,6 +132,30 @@ function programAdd($data) {
 	
 	$result = mysql_query($sql);
 	if($result) {
+		return true;
+	} else {
+		echo mysql_error();
+		return false;
+	}
+}
+
+function programMod($data) {
+	databaseconnect();
+	
+	$programid = $data['programid'];
+	$newcode = $data['code'];
+	$newname = $data['name'];
+	
+	if($newcode == '' || $newname == '') {
+		sessionSet('msg', 'Error: New Code or New Name field is blank');
+		return false;
+	}
+	
+	$sql = "UPDATE `program`
+			SET `code` = '$newcode',
+				`name` = '$newname'
+			WHERE `programid` = '$programid'";
+	if(mysql_query($sql)) {
 		return true;
 	} else {
 		echo mysql_error();

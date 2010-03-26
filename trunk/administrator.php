@@ -103,6 +103,36 @@ function generateOptionCourse() {
             </div>
 
             <div>
+				Edit Faculty
+				<div>
+					<form action="administratorhandler.php" method="post">
+						<input type="hidden" name="action" value="facultymod" />
+						<table>
+							<tr>
+								<td>Faculty</td>
+								<td>
+									<select name="data[facultymod][facultyid]">
+										<?php generateOptionFaculty(); ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>New Faculty Code</td>
+								<td><input type="text" name="data[facultymod][code]" size="6" /></td>
+							</tr>
+							<tr>
+								<td>New Faculty Name</td>
+								<td><input type="text" name="data[facultymod][name]" size="48" /></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Update" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			
+			<div>
 				Remove Faculty
                 <div>
                     <form action="administratorhandler.php" method="post">
@@ -155,6 +185,36 @@ function generateOptionCourse() {
             </div>
 
             <div>
+			Edit Program
+				<div>
+					<form action="administratorhandler.php" method="post">
+						<input type="hidden" name="action" value="programmod" />
+						<table>
+							<tr>
+								<td>Program</td>
+								<td>
+									<select name="data[programmod][programid]">
+										<?php generateOptionProgram(); ?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>New Program Code</td>
+								<td><input type="text" name="data[programmod][code]" size="6" /></td>
+							</tr>
+							<tr>
+								<td>New Program Name</td>
+								<td><input type="text" name="data[programmod][name]" size="48" /></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit" value="Update" /></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			
+			<div>
 				Remove Program
                 <div>
                     <form action="administratorhandler.php" method="post">

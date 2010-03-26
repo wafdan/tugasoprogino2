@@ -49,6 +49,14 @@ if($_POST) {
 				sessionSet('msg', 'Add faculty error.');
 			}
 			break;
+			
+		case 'facultymod':
+			if(facultyMod($data)) {
+			
+			} else {
+				sessionSet('msg', 'Edit faculty error.');
+			}
+			break;
 		
 		case 'facultydel':
 			if(facultyDel($data)) {
@@ -63,6 +71,14 @@ if($_POST) {
 			
 			} else {
 				sessionSet('msg', 'Add program error.');
+			}
+			break;
+		
+		case 'programmod':
+			if(programMod($data)) {
+			
+			} else {
+				sessionSet('msg', 'Edit program error.');
 			}
 			break;
 		
