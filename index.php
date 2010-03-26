@@ -85,18 +85,17 @@ function generateCourseList() {
             <?php echo '</div>'; ?>
             <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
                 <?php
-<<<<<<< .mine
+
                 if(sessionGet('activeRole') == 'ADMIN') {?>
             	<a href="administrator.php">Administrator Page</a></div>
             <div id="container">
                 <?php
-=======
+
                 if(sessionGet('activeRole') == 'ADMIN') {
 					?>
             	<a href="administrator.php">Administrator Page</a>
 			</div>
 					<?php
->>>>>>> .r84
                 }
                 
                 /**/
