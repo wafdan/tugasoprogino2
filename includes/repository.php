@@ -26,13 +26,23 @@ function ShowRepository($repo_userid) {
 		<tr><td class='no'>$no</td>
                     <td>$data[filename]</td>";
 					if(sessionGet("activeUserID")== $repo_userid) {
+				if($data[status]=='PUBLIC')
+				{
+					$public='SELECTED';
+				}elseif($data[status]=='FOLLOWER')
+				{
+					$follower='SELECTED';
+				}elseif($data[status]=='PRIVATE')
+				{
+					$private='SELECTED';
+				}
 				echo "<td>			<select name=\"statusupdate\" value=$data[status]>
-						<option value=\"PUBLIC\">PUBLIC</option>
-						<option value=\"FOLLOWER\">FOLLOWER</option>
-						<option value=\"PRIVATE\">PRIVATE</option>
+						<option value=\"PUBLIC\" $public >PUBLIC</option>
+						<option value=\"FOLLOWER\" $follower >FOLLOWER</option>
+						<option value=\"PRIVATE\" $private >PRIVATE</option>
 						</select></td>
 						<td><input name=\"categoryupdate\" type=\"textbox\" value=$data[category]></td>";
-						}else{
+			}else{
                     echo "<td>$data[status]</td>
 					<td>$data[category]</td>";}
 					echo "<td class='count'>$data[counter]</td><td>";
@@ -83,10 +93,20 @@ function ShowCoursesRepository($courseid) {
 					<tr><td class='no'>$no</td>
 					<td>$data[filename]</td>";
 					if($ismanager) {
+				if($data[status]=='PUBLIC')
+				{
+					$public='SELECTED';
+				}elseif($data[status]=='FOLLOWER')
+				{
+					$follower='SELECTED';
+				}elseif($data[status]=='PRIVATE')
+				{
+					$private='SELECTED';
+					}
 				echo "<td>			<select name=\"statusupdate\" value=$data[status]>
-						<option value=\"PUBLIC\">PUBLIC</option>
-						<option value=\"FOLLOWER\">FOLLOWER</option>
-						<option value=\"PRIVATE\">PRIVATE</option>
+						<option value=\"PUBLIC\" $public >PUBLIC</option>
+						<option value=\"FOLLOWER\" $follower >FOLLOWER</option>
+						<option value=\"PRIVATE\" $private >PRIVATE</option>
 						</select></td>
 						<td><input name=\"categoryupdate\" type=\"textbox\" value=$data[category]></td>";
 						}else{
