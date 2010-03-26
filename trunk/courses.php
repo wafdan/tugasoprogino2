@@ -16,6 +16,7 @@ if(!$courseid) {
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+        <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
     </head>
     <body>
         <div id="header">
@@ -51,8 +52,12 @@ if(!$courseid) {
 
         </div>
         <div id="container">
-            <div>
+            <fieldset class="profile-status">
                 <?php
+                databaseconnect();
+                $cname = mysql_query("SELECT * FROM course WHERE courseid={$courseid}");
+                $cname2 = $cname['coursename'];
+                echo "<h1>Kuliah  {$cname2}</h1>";
                 databaseconnect();
                 $userid =sessionGet("activeUserID");
                 $isfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
@@ -71,7 +76,7 @@ if(!$courseid) {
                 databasedisconnect();
                 DisplayCoursesWall($courseid,true);
                 ?>
-            </div>
+            </fieldset>
         </div>
         <div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
