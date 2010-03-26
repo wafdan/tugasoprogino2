@@ -42,7 +42,7 @@ if(!sessionGet("activeUserID")) {
                         <a href="courserepository.php?coursesid=<?php echo $courseid; ?>">Repository Kuliah</a>
                     </li>
                     <li>
-                        <a href="#">Forum Diskusi Kuliah</a>
+                        <a href="discussion.php?courseinstanceid=<?php echo $courseid; ?>">Forum Diskusi Kuliah</a>
                     </li>
                     <li>
                         <a href="logout.php">Logout</a>
