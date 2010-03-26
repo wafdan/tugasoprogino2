@@ -80,6 +80,26 @@ sessionInit();
             	<a href="administrator.php">Administrator Page</a></div>
                 <?php
                 }
+                
+                /**/
+                $userido = sessionGet('activeUserID');
+                databaseconnect();
+                $resulto = mysql_query("SELECT coursecode,coursename,year,semester
+                              FROM course,courseinstance,courseinstancefollowing
+                              WHERE userid =.'$userido'.");
+                if($resulto){?>
+                <div>
+                    <ul>
+                        <li>
+                            
+                        </li>
+                    </ul>
+                </div>
+                <?php
+                }
+                databasedisconnect();
+                /**/
+                
             } else {?>
             <?php echo '</div>'; ?>
             <div id="loginform">
@@ -105,7 +125,6 @@ sessionInit();
         </div>
 <div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
-            <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Anggrahita Bayu Sasmita</a>, <a>Alvin Andhika Zulen</a></p>
         </div>
     </body>
 </html>

@@ -22,25 +22,26 @@ if(!sessionGet("activeUserID")) {
             <div id="menu">
                 <ul>
                     <li>
-                        <a href="index.php">Home</a>                    </li>
+                        <a href="index.php">Home</a>
+                    </li>
                     <li class="first">
-                        <a href="profile.php">Profile</a>                    </li>
-                        <li>
-                            <a href="publicwall.php">Public Wall</a>
-                        </li>
-                        <li>
-                            <a href="publicwall.php">Public Wall</a>
-                        </li>
-              <li>
-                    <a href="repository.php">Repository</a></li>
+                        <a href="profile.php">Profile</a>
+                    </li>
+                    <li>
+                        <a href="publicwall.php">Public Wall</a>
+                    </li>
+                    <li>
+                        <a href="repository.php">Repository</a></li>
                     <li> </li>
                     <li>
-                        <a href="courses.php">Kuliah</a>                    </li>
+                        <a href="courses.php">Kuliah</a>
+                    </li>
                     <li>
-                        <a href="logout.php">Logout</a>                    </li>
-              </ul>
-          </div>
-          
+                        <a href="logout.php">Logout</a>
+                    </li>
+                </ul>
+            </div>
+
             <div>
                 <?php
                 $repo_userid = $_GET['userid'];
@@ -57,7 +58,7 @@ if(!sessionGet("activeUserID")) {
 // form upload
 //echo sessionGet("activeUserID");
             if(sessionGet("activeUserID")== $repo_userid) {
-			echo "<h2>Upload File</h2>";
+                echo "<h2>Upload File</h2>";
                 echo
                 "
 			<div>
@@ -75,9 +76,8 @@ if(!sessionGet("activeUserID")) {
             }
             ?>
         </div>
-      	<div id="footer">
+        <div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
-            <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Anggrahita Bayu Sasmita</a>, <a>Alvin Andhika Zulen</a></p>
         </div>
     </body>
 </html>
