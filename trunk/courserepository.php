@@ -34,7 +34,9 @@ if(!sessionGet("activeUserID")) {
                     <a href="repository.php">Repository</a></li>
                     <li> </li>
                     <li>
-                        <a href="javascript:nothingHappens();">Kuliah</a>                    </li>
+                        <a href="courses.php">Kuliah</a>                    </li>
+                    <li>
+                    <a href="#">Forum Diskusi Kuliah</a></li>
                     <li>
                         <a href="logout.php">Logout</a>                    </li>
               </ul>
