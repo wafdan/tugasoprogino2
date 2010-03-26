@@ -89,7 +89,7 @@ function DisplayFromWall($wall_userid) {
 				echo "</ul>
 						</div>";
 			}
-			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=pagecourseid value=$wall_userid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=comment></form>";
+			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=frompublic value=1><input type=hidden name=pagecourseid value=$wall_userid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=comment></form>";
 			echo "</div>";
 			
 		}
@@ -157,7 +157,7 @@ function DisplayCoursesWall($courseid,$nodatabase)
 				echo "</ul>
 						</div>";
 			}
-			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=pagecourseid value=$courseid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment></form>";
+			echo "<form action=\"mywallhandler.php\" method=\"POST\"><input type=hidden name=frompublic value=1><input type=hidden name=pagecourseid value=$courseid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment></form>";
 			echo "</div>";
 			
 		}
@@ -169,22 +169,30 @@ function DisplayCoursesWall($courseid,$nodatabase)
 }
 
 function RedirectToProfile() {
+	if($_POST['fromwall']){
+		header("Location: publicwall.php");
+		}else{
 	$pageuserid = $_POST['pageuserid'];
     if($pageuserid) {
         header("Location: profile.php?userid=$pageuserid");
     }
-    else {
-        header('Location: profile.php');
-    }
+		else {
+			header('Location: profile.php');
+	}
+	}
 }
 
 function  RedirectToCourseWall(){
-	$pagecourseid = $_POST['pagecourseid'];
-	if($pagecourseid) {
-		header("Location: courses.php?courseid=$pagecourseid");
-	}
-	else {
-		header('Location: courses.php');
+		if($_POST['fromwall']){
+		header("Location: publicwall.php");
+	}else{
+		$pagecourseid = $_POST['pagecourseid'];
+		if($pagecourseid) {
+			header("Location: courses.php?courseid=$pagecourseid");
+		}
+		else {
+			header('Location: courses.php');
+		}
 	}
 }
 
