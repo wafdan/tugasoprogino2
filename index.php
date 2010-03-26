@@ -36,6 +36,7 @@ sessionInit();
 function generateCourseList() {
 	$data = courseGetCourseList(0, 0, 0);
 
+	echo '<h2>Courses List</h2>';
 	echo '<ul>';
 	foreach($data as $course) {
 		echo '<li><a href="courses.php?courseid='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - ['.$course['code'].'] '.$course['name'].'</li>';
@@ -50,6 +51,7 @@ function generateUserList()
 	$result = mysql_query("SELECT * FROM user WHERE NOT userid='$pageuserid'");
 	if(mysql_num_rows($result)>0)
 	{
+		echo '<h2>User List</h2>';
 		echo '<ul>';
 		while($datauser=mysql_fetch_array($result))
 		{
