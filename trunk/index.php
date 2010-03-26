@@ -34,11 +34,11 @@ sessionInit();
 */
 
 function generateCourseList() {
-	$data = courseGetCourseList(0, 0);
-	
+	$data = courseGetCourseList(0, 0, 0);
+
 	echo '<ul>';
 	foreach($data as $course) {
-		echo '<li><a href="courses.php?id='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - '.$course['name'].'</li>';
+		echo '<li><a href="courses.php?courseid='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - '.$course['name'].'</li>';
 	}
 	echo '</ul>';
 }
@@ -82,77 +82,65 @@ function generateCourseList() {
                         </li>
                     </ul>
                 </div>
-            <?php echo '</div>'; ?>
-            <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname');
-?>
+            
+            <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
                 <?php
-                if(sessionGet('activeRole') == 'ADMIN') {?>
-            	<a href="administrator.php">Administrator Page</a></div>
-            <div id="container">
-                <?php
+                if(sessionGet('activeRole') == 'ADMIN') {
+					?>
+            	<a href="administrator.php">Administrator Page</a>
+			</div>
+        </div>
+        <div id="container">
+					<?php
                 }
 
                 /**/
                 $userido = sessionGet('activeUserID');
                 databaseconnect();
-//                $resulto = mysql_query("SELECT coursecode,coursename,year,semester
-//                              FROM course,courseinstance,courseinstancefollowing
-//                              WHERE userid =.'$userido'.");
-                  $query = "SELECT *
-                            FROM course JOIN courseinstance;";
-                $rs = mysql_query($query);
-		while($data = mysql_fetch_array($rs)) {
-                    $cid = $data['courseinstanceid'];
-                    echo "<div class='course-list'>Course";
-                    echo "<ul>";
-                    echo "<li><a href='courses.php?courseid={$cid}'>
-                          <b>{$data['coursecode']} : </b>
-                          {$data['coursename']}, Tahun :
-                          {$data['year']}, Semester :
-                          {$data['semester']}
-                          </a>
-                          </li>";
-                    echo "</ul>";
-                    echo "</div>";
-		}
-		?>
-            </div>
+                $resulto = mysql_query("SELECT coursecode,coursename,year,semester
+                              FROM course,courseinstance,courseinstancefollowing
+                              WHERE userid =.'$userido'.");
+                if($resulto){?>
+                <div>
+                    <ul>
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
                 <?php
+                }
                 databasedisconnect();
                 /**/
-
-            } else {?>
-            <?php echo '</div>'; ?>
+                ?>
+                <?php generateCourseList(); ?>
+            </div>
+            <?php } else {?>
+            <div id="container">
             <div id="loginform">
 			Login
                 <form action="loginhandler.php" method="post">
                     <p>
                         Username
-                        <input id="input-username" type="text" name="data[login][username]"
-/>
+                        <input id="input-username" type="text" name="data[login][username]" />
                     </p>
                     <p>
                         Password
-                        <input id="input-password" type="password" name="data[login]
-[password]" />
+                        <input id="input-password" type="password" name="data[login][password]" />
                     </p>
                     <p>
-                        <input name="LoginButton" type="submit" id="LoginButton"
-value="Login" />
+                        <input name="LoginButton" type="submit" id="LoginButton" value="Login" />
                     </p>
                 </form>
                 <a href="#">Lupa password</a> | <a href="register.php">Daftar</a>
     		</div>
+            </div>
                 <?php
             }
             ?>
-        </div>
-		<div>
-			<?php generateCourseList(); ?>
-		</div>
-<div id="footer">
-            <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights
-reserved</i>. </p>
+		<div id="footer">
+            <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
         </div>
     </body>
+    
 </html>
