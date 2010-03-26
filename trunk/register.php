@@ -17,7 +17,7 @@ sessionInit();
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Register - Konco&trade;</title>
+        <title>Register - KulOn&trade;</title>
         <link id="global-style" rel="stylesheet" type="text/css" href="css/global.css" />
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
         <link id="calendar-style" rel="stylesheet" type="text/css" href="css/calendar.css" />
@@ -27,8 +27,8 @@ sessionInit();
         <div id="toplevel">
             <div id="header">
                 <div id="logo">
-                    <h1>Konco&trade;</h1>
-                    <h2><b>Connecting People</b></h2>
+                    <h1>KulOn&trade;</h1>
+                    <h2><b>Kuliah Online</b></h2>
                 </div>
                 <div id="menu">
                     <ul>
@@ -48,7 +48,7 @@ sessionInit();
                 <div id="registration">
                     <form id="registration-form"  name="registration-form" method="post" action="registerhandler.php" enctype="multipart/form-data">
                         <fieldset class="general">
-                            <legend><span>Selamat Datang di Konco&trade;</span></legend>
+                            <legend><span>Selamat Datang di KulOn&trade;</span></legend>
                             <ul>
                                 <li>
                                     <label for="name">Nama</label>
@@ -190,7 +190,7 @@ sessionInit();
                 </div>
             </div>
             <div id="footer">
-                <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
+                <p class="legal"><i>Copyright</i> &copy; 2010 KulOn&trade;. <i>All rights reserved</i>. </p>
                 <p class="credit"><i>Designed by : </i> <a>Andika Pratama</a>, <a>Anggrahita Bayu Sasmita</a>, <a>Alvin Andhika Zulen</a></p>
             </div>
         </div>

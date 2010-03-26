@@ -22,7 +22,7 @@ databasedisconnect();
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Konco&trade;</title>
+        <title>KulOn&trade;</title>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <script type="text/javascript" src="script/script.js"></script>
     </head>
@@ -30,8 +30,8 @@ databasedisconnect();
         <div id="toplevel">
             <div id="header">
                 <div id="logo">
-                    <h1>Konco&trade;</h1>
-                    <h2><b>Connecting People</b></h2>
+                    <h1>KulOn&trade;</h1>
+                    <h2><b>Kuliah Online</b></h2>
                 </div>      
                 <div id="menu">
                     <ul>
@@ -158,7 +158,7 @@ if($wall_userid == sessionGet('activeUserID')) {
                 </fieldset>
             </div>
             <div id="footer">
-                <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
+                <p class="legal"><i>Copyright</i> &copy; 2010 KulOn&trade;. <i>All rights reserved</i>. </p>
             </div>
         </div>
     </body>

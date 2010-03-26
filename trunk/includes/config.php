@@ -7,8 +7,8 @@
 
 // Konfigurasi database
 $cfg['Database']['host'] = '127.0.0.1';
-$cfg['Database']['user'] = 'root';
-$cfg['Database']['pass'] = 'rootpekoktenan';
+$cfg['Database']['user'] = 'progin';
+$cfg['Database']['pass'] = 'progin';
 $cfg['Database']['tableprefix'] = '';
 
 // Konfigurasi session
