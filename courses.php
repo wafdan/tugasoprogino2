@@ -38,12 +38,12 @@ if(!$courseid) {
                         <a href="courses.php">Kuliah</a>
                     </li>
                     <li>
-                        <a href="courses.php">Kuliah</a>
+                         <?php echo "<a href='courserepository.php?coursesid={$courseid}";?>>Repository Kuliah</a>
                     </li>
                     <li>
-                        <a href="courses.php">Kuliah</a>                    </li>
+                        <a href="#">Forum Diskusi Kuliah</a>                    </li>
                     <li>
-                        courserepository.php?coursesid=7
+                        
                         <a href="logout.php">Logout</a>                    </li>
                 </ul>
             </div>
