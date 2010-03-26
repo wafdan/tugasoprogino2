@@ -16,6 +16,7 @@ function discussionGetTopic($cinstid) {
 				  `courseinstancetopic`.`userid` = `user`.`userid`
 			ORDER BY `timestamp` DESC";
 	$result = mysql_query($sql);
+	
 	if($result) {
 		$data = array();
 		$n = 0;
