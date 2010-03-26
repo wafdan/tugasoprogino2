@@ -17,7 +17,7 @@ sessionInit();
 	Ada menu "Home", "Register", "Profile", "Courses", "Logout"
 	Menu "Profile", "Courses", "Logout" hanya muncul jika user sudah login
 	Menu "Register" hanya muncul saat user belum login
-	
+
 	Belum login:
 		Tampilkan kotak login
 		Tampilkan daftar matakuliah
@@ -29,19 +29,10 @@ sessionInit();
 		Admin:
 			Tampilkan daftar matakuliah
 			Tampilkan menu manajemen/admin
-	
+
 	Form pada kotak login di-POST ke loginhandler.php
 */
 
-function generateCourseList() {
-	$data = courseGetCourseList(0, 0, 0);
-	
-	echo '<ul>';
-	foreach($data as $course) {
-		echo '<li><a href="courses.php?courseid='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - '.$course['name'].'</li>';
-	}
-	echo '</ul>';
-}
 
 ?>
 
@@ -83,21 +74,15 @@ function generateCourseList() {
                     </ul>
                 </div>
             <?php echo '</div>'; ?>
-            <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
+            <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname');
+?>
                 <?php
-
                 if(sessionGet('activeRole') == 'ADMIN') {?>
             	<a href="administrator.php">Administrator Page</a></div>
             <div id="container">
                 <?php
-
-                if(sessionGet('activeRole') == 'ADMIN') {
-					?>
-            	<a href="administrator.php">Administrator Page</a>
-			</div>
-					<?php
                 }
-                
+
                 /**/
                 $userido = sessionGet('activeUserID');
                 databaseconnect();
@@ -113,8 +98,8 @@ function generateCourseList() {
                     echo "<ul>";
                     echo "<li><a href='courses.php?courseid={$cid}'>
                           <b>{$data['coursecode']} : </b>
-                          {$data['coursename']}, Tahun : 
-                          {$data['year']}, Semester : 
+                          {$data['coursename']}, Tahun :
+                          {$data['year']}, Semester :
                           {$data['semester']}
                           </a>
                           </li>";
@@ -126,22 +111,25 @@ function generateCourseList() {
                 <?php
                 databasedisconnect();
                 /**/
-                
+
             } else {?>
-            
+            <?php echo '</div>'; ?>
             <div id="loginform">
 			Login
                 <form action="loginhandler.php" method="post">
                     <p>
                         Username
-                        <input id="input-username" type="text" name="data[login][username]" />
+                        <input id="input-username" type="text" name="data[login][username]"
+/>
                     </p>
                     <p>
                         Password
-                        <input id="input-password" type="password" name="data[login][password]" />
+                        <input id="input-password" type="password" name="data[login]
+[password]" />
                     </p>
                     <p>
-                        <input name="LoginButton" type="submit" id="LoginButton" value="Login" />
+                        <input name="LoginButton" type="submit" id="LoginButton"
+value="Login" />
                     </p>
                 </form>
                 <a href="#">Lupa password</a> | <a href="register.php">Daftar</a>
@@ -149,12 +137,10 @@ function generateCourseList() {
                 <?php
             }
             ?>
-			<div>
-				<?php generateCourseList(); ?>
-			</div>
         </div>
-		<div id="footer">
-            <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
+<div id="footer">
+            <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights
+reserved</i>. </p>
         </div>
     </body>
 </html>
