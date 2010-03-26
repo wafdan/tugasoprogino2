@@ -85,29 +85,46 @@ function generateCourseList() {
             <?php echo '</div>'; ?>
             <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
                 <?php
+<<<<<<< .mine
+                if(sessionGet('activeRole') == 'ADMIN') {?>
+            	<a href="administrator.php">Administrator Page</a></div>
+            <div id="container">
+                <?php
+=======
                 if(sessionGet('activeRole') == 'ADMIN') {
 					?>
             	<a href="administrator.php">Administrator Page</a>
 			</div>
 					<?php
+>>>>>>> .r84
                 }
                 
                 /**/
                 $userido = sessionGet('activeUserID');
                 databaseconnect();
-                $resulto = mysql_query("SELECT coursecode,coursename,year,semester
-                              FROM course,courseinstance,courseinstancefollowing
-                              WHERE userid =.'$userido'.");
-                if($resulto){?>
-                <div>
-                    <ul>
-                        <li>
-                            
-                        </li>
-                    </ul>
-                </div>
+//                $resulto = mysql_query("SELECT coursecode,coursename,year,semester
+//                              FROM course,courseinstance,courseinstancefollowing
+//                              WHERE userid =.'$userido'.");
+                  $query = "SELECT *
+                            FROM course JOIN courseinstance;";
+                $rs = mysql_query($query);
+		while($data = mysql_fetch_array($rs)) {
+                    $cid = $data['courseinstanceid'];
+                    echo "<div class='course-list'>Course";
+                    echo "<ul>";
+                    echo "<li><a href='courses.php?courseid={$cid}'>
+                          <b>{$data['coursecode']} : </b>
+                          {$data['coursename']}, Tahun : 
+                          {$data['year']}, Semester : 
+                          {$data['semester']}
+                          </a>
+                          </li>";
+                    echo "</ul>";
+                    echo "</div>";
+		}
+		?>
+            </div>
                 <?php
-                }
                 databasedisconnect();
                 /**/
                 
