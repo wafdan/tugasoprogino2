@@ -33,6 +33,15 @@ sessionInit();
 	Form pada kotak login di-POST ke loginhandler.php
 */
 
+function generateCourseList() {
+	$data = courseGetCourseList(0, 0, 0);
+	
+	echo '<ul>';
+	foreach($data as $course) {
+		echo '<li><a href="courses.php?courseid='.$course['id'].'">'.$course['faculty'].' - '.$course['program'].' - '.$course['name'].'</li>';
+	}
+	echo '</ul>';
+}
 
 ?>
 
@@ -76,9 +85,11 @@ sessionInit();
             <?php echo '</div>'; ?>
             <div id="loginstatus">Selamat datang, <?php echo sessionGet('activeFullname'); ?>
                 <?php
-                if(sessionGet('activeRole') == 'ADMIN') {?>
-            	<a href="administrator.php">Administrator Page</a></div>
-                <?php
+                if(sessionGet('activeRole') == 'ADMIN') {
+					?>
+            	<a href="administrator.php">Administrator Page</a>
+			</div>
+					<?php
                 }
                 
                 /**/
@@ -101,7 +112,7 @@ sessionInit();
                 /**/
                 
             } else {?>
-            <?php echo '</div>'; ?>
+            
             <div id="loginform">
 			Login
                 <form action="loginhandler.php" method="post">
@@ -122,8 +133,11 @@ sessionInit();
                 <?php
             }
             ?>
+			<div>
+				<?php generateCourseList(); ?>
+			</div>
         </div>
-<div id="footer">
+		<div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 Konco&trade;. <i>All rights reserved</i>. </p>
         </div>
     </body>
