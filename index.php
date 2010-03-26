@@ -43,6 +43,23 @@ function generateCourseList() {
 	echo '</ul>';
 }
 
+function generateUserList()
+{
+	databaseconnect();
+	$pageuserid = sessionGet('activeUserID');
+	$result = mysql_query("SELECT * FROM user WHERE NOT userid='$pageuserid'");
+	if(mysql_num_rows($result)>0)
+	{
+		echo '<ul>';
+		while($datauser=mysql_fetch_array($result))
+		{
+			echo '<li><a href="profile.php?userid='.$datauser['userid'].'">'.$datauser['username'].' - '.$datauser['fullname'].'</li>';
+			}
+		echo '</ul>';
+		}
+	databasedisconnect();
+	}
+
 ?>
 
 <html>
@@ -113,7 +130,8 @@ function generateCourseList() {
                 databasedisconnect();
                 /**/
                 ?>
-                <?php generateCourseList(); ?>
+	<?php generateCourseList(); 
+				generateUserList();?>
             </div>
             <?php } else {?>
             <div id="container">
