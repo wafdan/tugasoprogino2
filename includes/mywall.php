@@ -149,7 +149,7 @@ function RedirectToProfile() {
 function  RedirectToCourseWall(){
 	$pagecourseid = $_POST['pagecourseid'];
 	if($pagecourseid) {
-		header("Location: courses.php?coursesid=$pagecourseid");
+		header("Location: courses.php?courseid=$pagecourseid");
 	}
 	else {
 		header('Location: courses.php');
