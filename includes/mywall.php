@@ -250,7 +250,7 @@ function FollowCourse()
 	databaseconnect();
 	$userid = sessionGet('activeUserID');
 	$pagecourseid = $_POST['pagecourseid'];
-	mysql_query("INSERT INTO userfollowing(userid,courseinstanceid) VALUES('$userid','$pagecourseid')");
+	mysql_query("INSERT INTO courseinstancefollowing(userid,courseinstanceid) VALUES('$userid','$pagecourseid')");
 	databasedisconnect();
 }
 
@@ -268,7 +268,7 @@ function mainWall() {
 	elseif($_POST['followcourse'])
 	{
 		RedirectToCourseWall();
-		TerimaPostWallCourse();
+		FollowCourse();
 	}
 	else{
 		RedirectToProfile();
