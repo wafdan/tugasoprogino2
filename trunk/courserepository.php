@@ -27,18 +27,26 @@ if(!sessionGet("activeUserID")) {
             <div id="menu">
                 <ul>
                     <li>
-                        <a href="index.php">Home</a>                    </li>
+                        <a href="index.php">Home</a>
+                    </li>
                     <li class="first">
-                        <a href="profile.php">Profile</a>                    </li>
-              <li>
-                    <a href="repository.php">Repository</a></li>
-                    <li> </li>
+                        <a href="profile.php">Profile</a>
+                    </li>
                     <li>
-                        <a href="courses.php">Kuliah</a>                    </li>
+                        <a href="repository.php">Repository</a>
+                    </li>
                     <li>
-                    <a href="#">Forum Diskusi Kuliah</a></li>
+                        <a href="courses.php">Kuliah</a>
+                    </li>
                     <li>
-                        <a href="logout.php">Logout</a>                    </li>
+                        <a href="courserepository.php?coursesid=<?php echo $courseid; ?>">Repository Kuliah</a>
+                    </li>
+                    <li>
+                        <a href="#">Forum Diskusi Kuliah</a>
+                    </li>
+                    <li>
+                        <a href="logout.php">Logout</a>
+                    </li>
               </ul>
           </div>
             <div>
