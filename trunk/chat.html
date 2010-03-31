@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<script type="text/javascript" src="chat/chat.js"></script>
+	</head>
+	
+	<body>
+		<div id="test">
+		</div>
+		
+		<div>
+			<div>
+				<button onClick="startPoll()">Start chat</button><br />
+				<b>Sender ID = You</b><br />
+				<b>Recver ID = Your chat friend</b><br />
+				Sender ID <input type="text" id="chatsender" size="2" />,
+				Recver ID <input type="text" id="chatrecver" size="2" />
+			</div>
+			<pre><div id="chatbox"><div></pre>
+			<div>
+				<input type="text" id="chatmessage" onKeyPress="checkEnter(event)" />
+				<button id="chatsend" onClick="sendChat()">Send</button>
+			</div>
+		</div>
+	</body>
+</html>

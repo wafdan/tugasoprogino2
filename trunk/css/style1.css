@@ -442,3 +442,18 @@ color:white;
 #repolist .count {
 	text-align: center;
 }
+
+#header {
+	padding-top: 24px;
+}
+
+#chatcontainer {
+	/* display: none; */
+	clear: both;
+	position: fixed;
+	z-index: 10;
+	height: 24px;
+	margin-bottom: -24px;
+	background: #fff;
+	width: 100%;
+}
