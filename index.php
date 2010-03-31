@@ -82,6 +82,10 @@ function generateUserList()
     </head>
 
     <body>
+		<div id="chatcontainer">
+			aefhaksdhflaksdhfk
+		</div>
+		
         <div id="header">
             <div id="logo">
                 <h1>KulOn&trade;</h1>
@@ -172,6 +176,8 @@ function generateUserList()
 		<div id="footer">
             <p class="legal"><i>Copyright</i> &copy; 2010 KulOn&trade;. <i>All rights reserved</i>. </p>
         </div>
+		
+		</div>
     </body>
     
 </html>
