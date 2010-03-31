@@ -5,16 +5,20 @@ require_once('../includes/databaseconnection.php');
 require_once('../includes/session.php');
 
 if($_POST) {
-	$action = $_POST['action'];
+	$json = $_POST['json'];
+	
+	$array = json_decode($json, true);
+	$action = $array['action'];
+	$data = $array['data'];
 	
 	databaseconnect();
 
-	$sender = mysql_real_escape_string($_POST['sender']);
-	$receiver = mysql_real_escape_string($_POST['receiver']);
+	$sender = mysql_real_escape_string($data['sender']);
+	$receiver = mysql_real_escape_string($data['recver']);
 	
 	switch($action) {
 		case 'send':
-			$message = mysql_real_escape_string($_POST['message']);
+			$message = mysql_real_escape_string(htmlentities($data['message'], ENT_QUOTES));
 			
 			$sql = "INSERT INTO `chat`
 						(`sender`, `receiver`, `message`)
@@ -24,7 +28,10 @@ if($_POST) {
 						 '$message')";
 			
 			if(mysql_query($sql)) {
-				echo $message."\n";
+				$response = array();
+				$response['ack'] = $message;
+				
+				echo json_encode($response);
 			} else {
 				echo mysql_error();
 			}
@@ -32,6 +39,20 @@ if($_POST) {
 			break;
 			
 		case 'poll':
+			$response = array();
+			
+			$sql = "SELECT `userid`
+					FROM `presence`
+					WHERE NOT(`userid` = '$sender') AND `timestamp` >= DATE_SUB(NOW() , INTERVAL 8 SECOND)";
+			$result = mysql_query($sql);
+			
+			$n = 0;
+			while($data = mysql_fetch_assoc($result)) {
+				$response['users'][$n]['id'] = $data['userid'];
+				
+				$n++;
+			}
+			
 			$sql = "INSERT INTO `presence`
 						(`userid`)
 					VALUES
@@ -40,27 +61,25 @@ if($_POST) {
 			
 			$sql = "SELECT *
 					FROM `chat`
-					WHERE `sender` = '$receiver' AND
-						  `receiver` = '$sender'";
+					WHERE `receiver` = '$sender' ORDER BY `chatid`";
 			
 			if($result = mysql_query($sql)) {
+				$n = 0;
 				while($data = mysql_fetch_assoc($result)) {
-					echo "$data[message]\n";
+					$response['messages'][$n]['from'] = $data['sender'];
+					$response['messages'][$n]['message'] = $data['message'];
 					
 					$sql = "DELETE FROM `chat` WHERE `chatid` = '$data[chatid]'";
 					mysql_query($sql);
+					
+					$n++;
 				}
+				
+				echo json_encode($response);
 			} else {
 				echo mysql_error();
 			}
 			
-			break;
-			
-		case 'getonlineuser':
-			$sql = "SELECT `userid`
-					FROM `presence`
-					WHERE `timestamp` >= DATE_SUB(NOW() , INTERVAL 2 SECOND)";
-					
 			break;
 	}	
 }

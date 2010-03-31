@@ -13,13 +13,22 @@ function initAjax() {
 }
 
 function sendChat() {
+	if(!document.getElementById('chatmessage').value) {
+		return;
+	}
+	
 	xmlhttp = initAjax();	
 	
-	sender = document.getElementById('chatsender').value;
-	recver = document.getElementById('chatrecver').value;
-	message = document.getElementById('chatmessage').value;
+	var chatObj = {
+		action: 'send',
+		data: {
+			sender: document.getElementById('chatsender').value,
+			recver: document.getElementById('chatrecver').value,
+			message: document.getElementById('chatmessage').value
+		}
+	}
 	
-	postdata = "action=send&sender=" + sender + "&receiver=" + recver + "&message=" + message;
+	postdata = 'json=' + JSON.stringify(chatObj);
 	document.getElementById('chatmessage').value = "";
 	
 	xmlhttp.open("POST", url, true);
@@ -30,7 +39,9 @@ function sendChat() {
 	
 	xmlhttp.onreadystatechange = function() {
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			document.getElementById('chatbox').innerHTML += "--\n<b>You:</b> " + xmlhttp.responseText;
+			response = xmlhttp.responseText;
+			responseJSON = eval('(' + response + ')');
+			document.getElementById('chatbox').innerHTML += "--\n<b>You:</b> " + responseJSON.ack;
 		}
 	}
 	
@@ -40,9 +51,15 @@ function sendChat() {
 function chatPoll() {
 	xmlhttp = initAjax();
 	
-	sender = document.getElementById('chatsender').value;
-	recver = document.getElementById('chatrecver').value;
-	postdata = "action=poll&sender=" + sender + "&receiver=" + recver;
+	var chatObj = {
+		action: 'poll',
+		data: {
+			sender: document.getElementById('chatsender').value,
+			recver: document.getElementById('chatrecver').value
+		}
+	}
+	
+	postdata = 'json=' + JSON.stringify(chatObj);
 	
 	xmlhttp.open("POST", url, true);
 	
@@ -52,8 +69,16 @@ function chatPoll() {
 	
 	xmlhttp.onreadystatechange = function() {
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			if(xmlhttp.responseText != "") {
-				document.getElementById('chatbox').innerHTML += "--\n<b>Friend:</b> " + xmlhttp.responseText;
+			response = xmlhttp.responseText;
+			responseJSON = eval('(' + response + ')');
+			
+			for(var n in responseJSON['messages']) {
+				document.getElementById('chatbox').innerHTML += "--\n<b>Friend:</b> " + responseJSON['messages'][n]['message'];
+			}
+			
+			document.getElementById('onlineusers').innerHTML = '';
+			for(var n in responseJSON['users']) {
+				document.getElementById('onlineusers').innerHTML += responseJSON['users'][n]['id'] + '; ';
 			}
 		}
 	}
