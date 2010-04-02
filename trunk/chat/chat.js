@@ -76,9 +76,21 @@ function chatPoll() {
 				document.getElementById('chatbox').innerHTML += "--\n<b>Friend:</b> " + responseJSON['messages'][n]['message'];
 			}
 			
-			document.getElementById('onlineusers').innerHTML = '';
+			oldulcontent = document.getElementById('contactlist-ul').innerHTML;
+			newulcontent = '';
 			for(var n in responseJSON['users']) {
-				document.getElementById('onlineusers').innerHTML += responseJSON['users'][n]['id'] + '; ';
+				newulcontent += '<li class="contact"><a>' + responseJSON['users'][n]['id'] + '</a></li>';
+			}
+			
+			if(oldulcontent != newulcontent) {
+				document.getElementById('contactlist-ul').innerHTML = newulcontent;
+			}
+			
+			olduserol = document.getElementById('contactbutton').innerHTML;
+			newuserol = 'Chat (' + responseJSON['users'].length + ')';
+			
+			if(olduserol != newuserol) {
+				document.getElementById('contactbutton').innerHTML = newuserol;
 			}
 		}
 	}
@@ -99,5 +111,15 @@ function checkEnter(e) {
 	
 	if (e.keyCode == 13) {
 			document.getElementById('chatsend').click();
+	}
+}
+
+function toggleElement(_id) {
+	x = document.getElementById(_id).style;
+	
+	if(x.display == 'none') {
+		x.display = 'block';
+	} else {
+		x.display = 'none';
 	}
 }
