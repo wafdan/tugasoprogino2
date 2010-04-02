@@ -11,15 +11,29 @@
 		
 		<div id="chatcontainer">
 			<div class="wrap">
-				<div id="contactbutton" onClick="toggleElement('contactlist')">
+				<span id="contactbutton" onClick="toggleElement('contactlist')">
 					Chat offline
-				</div>
+				</span>
 				<div id="contactlist">
 					<ul id="contactlist-ul">
 					</ul>
 				</div>
-				<div id="chatboxes">
-				</div>
+				<span id="chatboxes">
+					<span class="chatbox" id="chat_dummy">
+						<div id="chattext">
+							adsfasdf<br />
+							asdfa<br />
+							sdfasdf<br />
+							sdfads<br />
+							fasdfas<br />
+							dfadsfads<br />
+							fasdfasd<br />
+						</div>
+						<div id="">
+							<input type="text" id="chatmessage" onKeyPress="checkEnter(event)" />
+						</div>
+					</span>
+				</span>
 			</div>
 		</div>
 		
