@@ -1,0 +1,61 @@
+<?php
+
+if(!$_COOKIE['myUserID']) {
+	setCookie('myUserID', mt_rand(1, 9999));
+}
+
+?>
+
+<html>
+	<head>
+		<link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+		<script type="text/javascript" src="chat2/chat.js"></script>
+	</head>
+	
+	<body onLoad="startPoll()">
+		<div id="chatContainer">
+			<div id="contactBar" onClick="toggleElement('contactBox')">
+				<div id="chatStatus">
+					Chat offline
+				</div>
+				<div id="contactBox" style="display: none">
+					<ul id="contactList">
+						<li id="userID_1001" onClick="popChatWindow(1001)">Adityo Jiwandono</li>
+						<li id="userID_1002" onClick="popChatWindow(1002)">Jlitheng Kusumo</li>
+						<li id="userID_1003" onClick="popChatWindow(1003)">zxvxcvzxcv</li>
+					</ul>
+				</div>
+			</div>
+			<div id="chatBoxes">
+				<div class="chatBox" id="chatBox_1001">
+					<div class="chatMate" id="chatMate_1001" onClick="toggleElement('chatInterface_1001')">
+						SomeOne
+					</div>
+					<div class="chatClose" id="chatClose_1001" onClick="removeChatWindow(1001)">
+					X
+					</div>
+					<div class="chatInterface" id="chatInterface_1001">
+						<div class="chatText" id="chatText_1001">
+							chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />
+						</div>
+						<input type="text" id="chatMessage_1001" onKeyPress="chatMessageKeyPress(event, 1001)" />
+					</div>
+				</div>
+				<div class="chatBox" id="chatBox_1002">
+					<div class="chatMate" id="chatMate_1002" onClick="toggleElement('chatInterface_1002')">
+						SomeOne
+					</div>
+					<div class="chatClose" id="chatClose_1002" onClick="removeChatWindow(1002)">
+					X
+					</div>
+					<div class="chatInterface" id="chatInterface_1002">
+						<div class="chatText" id="chatText_1002">
+							chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />chat1<br />
+						</div>
+						<input type="text" id="chatMessage_1002" onKeyPress="chatMessageKeyPress(event, 1002)" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -98,19 +98,37 @@ function chatPoll() {
 	xmlhttp.send(postdata);
 }
 
+function popChatWindow(_id, content) {
+	id = 'chat_' + _id;
+	
+	if(document.getElementById(id)) {
+		// kalau div {id} sudah ada
+		updateChatWindow(_id, content);
+	} else {
+		// kalau belum ada
+		addChatWindow(_id, content)
+	}
+}
+
+function addChatWindow(_id, content) {
+	id = 'chat_' + _id;
+	
+	var parentbox = document.getElementById('chatboxes');
+}
+
 function startPoll() {
 	chatPoll();
 	loop = setTimeout("startPoll()", 2000);
 }
 
-function checkEnter(e) {
+function checkEnter(e, sender, receiver) {
 	// look for window.event in case event isn't passed in
 	if (window.event) {
 		e = window.event;
 	}
 	
 	if (e.keyCode == 13) {
-			document.getElementById('chatsend').click();
+			sendChat(sender, receiver);
 	}
 }
 
