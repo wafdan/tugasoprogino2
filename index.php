@@ -83,7 +83,14 @@ function generateUserList()
 
     <body>
 		<div id="chatcontainer">
-			aefhaksdhflaksdhfk
+			<div class="wrap">
+				<div id="contactbutton">
+					<div id="contactlist">
+					</div>
+				</div>
+				<div id="chatboxes">
+				</div>
+			</div>
 		</div>
 		
         <div id="header">

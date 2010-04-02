@@ -454,6 +454,43 @@ color:white;
 	z-index: 10;
 	height: 24px;
 	margin-bottom: -24px;
-	background: #fff;
+	background: #ccc;
 	width: 100%;
+}
+
+.wrap {
+	margin: 0 auto;
+	width: 960px;
+}
+
+#contactbutton {
+	width: 160px;
+	background: #fcc;
+	cursor: pointer;
+}
+
+#contactlist {
+	width: 160px;
+	background: #ccf;
+}
+
+#contactlist-ul {
+	list-style: none;
+}
+
+#contactlist-ul li {
+	display: block;
+}
+
+.contact {
+	cursor: pointer;
+	background: #123;
+}
+
+.contact a {
+	width: 100%;
+}
+
+.contact a:hover {
+	background: #00f;
 }
