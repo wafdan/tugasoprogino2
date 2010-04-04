@@ -12,6 +12,7 @@ if(!sessionGet("activeUserID")) {
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+		<script type="text/javascript" src="script/repository.js"></script>
     </head>
     <body>
         <div id="header">
@@ -62,7 +63,7 @@ if(!sessionGet("activeUserID")) {
                 echo
                 "
 			<div>
-			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\">
+			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\" target=\"upload_target\" onsubmit=\"UploadFileJS();\">
 			Pilih file yang diupload : <input type=\"file\" name=\"fupload\">
 			<select name=\"status\">
 			<option value=\"PUBLIC\">PUBLIC</option>
@@ -72,6 +73,7 @@ if(!sessionGet("activeUserID")) {
 			Kategori : <input type=\"textbox\" name=\"chosencategory\" value=\"Uncategorized\">
 			<input type=\"submit\" name=\"uploadfileuser\" value=\"Upload\">
 			</form>
+			<iframe id=\"upload_target\" name=\"upload_target\" src=\"\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>
                         </div>
 			";
             }
