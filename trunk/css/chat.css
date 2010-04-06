@@ -1,6 +1,6 @@
 /* chat */
 
-#chatcontainer {
+#chatContainer {
 	/* display: none; */
 	clear: both;
 	position: fixed;
@@ -21,6 +21,13 @@
 
 #chatContainer {
 	position: relative;
+}
+
+#myID {
+	float: left;
+
+	padding-left: 5px;
+	padding-top: 3px;
 }
 
 #contactBar {
@@ -99,6 +106,7 @@
 	width: 160px;
 	
 	margin-right: 8px;
+	margin-bottom: 16px;
 	
 	border-style: solid;
 	border-width: 1px;
@@ -148,14 +156,14 @@
 	height: 160px;
 	width: 160px;
 	margin-top: 1px;
-	overflow-y: scroll;
+	overflow: auto;
 	background: #eee;
 	
 	font-size: 10px;
 }
 
 .chatMessage {
-	width: 160px;
+	width: 150px;
 	border-width: 1px;
 	border-left: 8px;
 	border-style: solid;
@@ -166,4 +174,12 @@
 
 .chatMessage:hover {
 	background: #eee;
+}
+
+#info {
+	position: absolute;
+	float: left;
+	clear: both;
+
+	margin-top: 32px;
 }

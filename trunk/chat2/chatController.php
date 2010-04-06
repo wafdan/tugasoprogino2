@@ -50,7 +50,7 @@ if($_POST) {
 			$n = 0;
 			while($data = mysql_fetch_assoc($result)) {
 				$response['users'][$n]['id'] = $data['userid'];
-				$response['users'][$n]['name'] = 'Anonymous #'.$data['userid']; // --> TODO: join with table users
+				$response['users'][$n]['name'] = $data['userid']; // --> TODO: join with table users
 				
 				$n++;
 			}
@@ -84,6 +84,7 @@ if($_POST) {
 			}
 			
 			break;
-	}	
+	}
+	databasedisconnect();	
 }
 ?>

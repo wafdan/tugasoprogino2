@@ -20,11 +20,11 @@ function popChatWindow(id) {
 		document.getElementById('chatBox_' + id).style.display = 'block';
 		document.getElementById('chatInterface_' + id).style.display = 'block';
 		document.getElementById('chatText_' + id).scrollTop = document.getElementById('chatText_' + id).scrollHeight;
-		document.getElementById('chatMessage_' + id).focus();
+		//document.getElementById('chatMessage_' + id).focus();
 	} else {
 		// kalau belum ada
 		addChatWindow(id);
-		document.getElementById('chatMessage_' + id).focus();
+		//document.getElementById('chatMessage_' + id).focus();
 	}
 }
 
@@ -42,7 +42,7 @@ function addChatWindow(id) {
 	var newChatClose = document.createElement('div');
 	newChatClose.setAttribute('class', 'chatClose');
 	newChatClose.setAttribute('id', 'chatClose_' + id);
-	newChatClose.setAttribute('onClick', 'removeChatWindow(' + id + ')');
+	newChatClose.setAttribute('onClick', 'removeChatWindow("' + id + '")');
 	newChatClose.innerHTML = '<a>X</a>';
 	
 	var newChatInterface = document.createElement('div');
@@ -57,7 +57,7 @@ function addChatWindow(id) {
 	newChatMessage.setAttribute('type', 'text');
 	newChatMessage.setAttribute('class', 'chatMessage');
 	newChatMessage.setAttribute('id', 'chatMessage_' + id);
-	newChatMessage.setAttribute('onKeyPress', 'chatMessageKeyPress(event, ' + id + ')');
+	newChatMessage.setAttribute('onKeyPress', 'chatMessageKeyPress(event, "' + id + '")');
 	
 	newChatInterface.appendChild(newChatText);
 	newChatInterface.appendChild(newChatMessage);
@@ -93,26 +93,19 @@ function updateChatWindow(id, content, type) {
 }
 
 function removeChatWindow(id) {
-	/*
-	parent = document.getElementById('chatBoxes');
-	child = document.getElementById('chatBox_' + id);
-	
-	parent.removeChild(child);
-	 */
-	
 	document.getElementById('chatBox_' + id).style.display = 'none';
 }
 
 function updateContactList(contactData) {
-	parent = document.getElementById('contactList');
+	parentElement = document.getElementById('contactList');
 	temp = document.createElement('ul');
 	
-	oldList = parent.innerHTML;
+	oldList = parentElement.innerHTML;
 	
 	for(var n in contactData) {
 		newListItem = document.createElement('li');
 		newListItem.setAttribute('id', 'userID_' + contactData[n]['id']);
-		newListItem.setAttribute('onClick', 'popChatWindow(' + contactData[n]['id'] + ')');
+		newListItem.setAttribute('onClick', 'popChatWindow("' + contactData[n]['id'] + '")');
 		newListItem.innerHTML = contactData[n]['name'];
 		
 		temp.appendChild(newListItem);
@@ -121,8 +114,13 @@ function updateContactList(contactData) {
 	newList = temp.innerHTML;
 	
 	if(oldList != newList) {
-		parent.innerHTML = newList;
-		document.getElementById('chatStatus').innerHTML = 'Chat <b>(' + contactData.length + ')</b>';
+		if(newList != '') {
+			parentElement.innerHTML = newList;
+			document.getElementById('chatStatus').innerHTML = 'Chat <b>(' + contactData.length + ')</b>';
+		} else {
+			parentElement.innerHTML = '<ul><li>No users connected</li></ul>';
+			document.getElementById('chatStatus').innerHTML = 'No users connected.';
+		}
 	}
 }
 
@@ -252,17 +250,19 @@ function chatPoll() {
 	var chatObj = {
 		action: 'poll',
 		data: {
-			sender: getMyUserID()
+			sender: getMyUserID(),
+			recver: 0
 		}
 	}
 	
-	postdata = 'json=' + JSON.stringify(chatObj);
+	jsondata = JSON.stringify(chatObj);
+	postdata = 'json=' + jsondata;
 	
 	xmlhttp.open("POST", ajaxURL, true);
 	
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.setRequestHeader("Content-length", postdata.length);
-	xmlhttp.setRequestHeader("Connection", "close");
+	//xmlhttp.setRequestHeader("Connection", "close");
 	
 	xmlhttp.onreadystatechange = function() {
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -275,24 +275,7 @@ function chatPoll() {
 				updateChatWindow(responseJSON['messages'][n]['from'], responseJSON['messages'][n]['message'], 1);
 			}
 			
-			/*
-			oldulcontent = document.getElementById('contactlist-ul').innerHTML;
-			newulcontent = '';
-			for(var n in responseJSON['users']) {
-				newulcontent += '<li class="contact"><a>' + responseJSON['users'][n]['id'] + '</a></li>';
-			}
-			
-			if(oldulcontent != newulcontent) {
-				document.getElementById('contactlist-ul').innerHTML = newulcontent;
-			}
-			
-			olduserol = document.getElementById('contactbutton').innerHTML;
-			newuserol = 'Chat (' + responseJSON['users'].length + ')';
-			
-			if(olduserol != newuserol) {
-				document.getElementById('contactbutton').innerHTML = newuserol;
-			}
-			 */
+			document.getElementById('myID').innerHTML = 'My ID: <b>' + getMyUserID() + '</b>';
 			
 			updateContactList(responseJSON['users']);
 		}
