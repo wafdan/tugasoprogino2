@@ -6,6 +6,11 @@ sessionInit();
 if(!sessionGet("activeUserID")) {
     header("Location: index.php");
 }
+
+                $repo_userid = $_GET['userid'];
+                if(!$repo_userid) {
+                    $repo_userid = sessionGet("activeUserID");
+                }
 ?>
 
 
@@ -42,15 +47,18 @@ if(!sessionGet("activeUserID")) {
                     </li>
                 </ul>
             </div>
+			<script type="text/javascript">
+			</script>
 
-            <div>
+            <div id ="reposhow">
+			<script type="text/javascript">
                 <?php
-                $repo_userid = $_GET['userid'];
-                if(!$repo_userid) {
-                    $repo_userid = sessionGet("activeUserID");
-                }
-                ShowRepository($repo_userid);
-                ?>
+				echo "var userid = $repo_userid;";
+				?>
+				var page = 0;
+				var limit = 10;
+				ShowRepoUserAjax(userid,page,limit)
+				</script>
             </div>
         </div>
         <div id="container">
@@ -63,7 +71,7 @@ if(!sessionGet("activeUserID")) {
                 echo
                 "
 			<div>
-			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\" target=\"upload_target\" onsubmit=\"UploadFileJS();\">
+			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\" target=\"upload_target\" onsubmit=\"ShowRepoUserAjax($repo_userid,0,10)\">
 			Pilih file yang diupload : <input type=\"file\" name=\"fupload\">
 			<select name=\"status\">
 			<option value=\"PUBLIC\">PUBLIC</option>
