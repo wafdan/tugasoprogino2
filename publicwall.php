@@ -55,6 +55,16 @@ databasedisconnect();
                         </li>
                     </ul>
                 </div>
+                <div id="menu2">
+                    <ul>
+                        <li>
+                            <a href="#">Terbaru</a>
+                        </li>
+                        <li>
+                            <a href="#">Terpopuler</a>
+                        </li>
+                    </ul>
+                </div>
             </div><hr />
             <div id="container">
                 <div id ="sidebar">
