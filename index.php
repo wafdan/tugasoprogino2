@@ -79,19 +79,18 @@ function generateUserList()
     <head>
         <title>Home</title>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+		<link rel="stylesheet" type="text/css" href="css/chat.css" media="screen" />
+		<script type="text/javascript" src="chat2/chat.js"></script>
     </head>
 
-    <body>
-		<div id="chatcontainer">
-			<div class="wrap">
-				<div id="contactbutton">
-					<div id="contactlist">
-					</div>
-				</div>
-				<div id="chatboxes">
-				</div>
-			</div>
-		</div>
+    <body <?php if(sessionGet('activeUserID')) { echo 'onload="startPoll()"'; } ?>>
+		<?php
+		
+		if(sessionGet('activeUserID')) {
+			include('chat.template.php');
+		}
+		
+		?>
 		
         <div id="header">
             <div id="logo">
