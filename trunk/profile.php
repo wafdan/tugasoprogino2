@@ -38,19 +38,20 @@ databasedisconnect();
                         <li>
                             <a href="index.php">Home</a>                        </li>
                         <li class="first">
-                            <?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
+                            <a<?php echo " href=profile.php?userid=$wall_userid"; ?>>Profile</a>
                         </li>
                         <li>
-                            <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Public Wall</a>
+                            <a<?php echo " href=publicwall.php?userid=$wall_userid"; ?>>Public Wall</a>
                         </li>
                         <li>
-                            <?php echo "<a href=repository.php?userid=$wall_userid"; ?>>Repository</a>
+                            <a<?php echo " href=repository.php?userid=$wall_userid"; ?>>Repository</a>
                         </li>
                         <li>
                             <a href="courses.php">Kuliah</a>
                         </li>
                         <li>
-                            <a href="logout.php">Logout</a>                        </li>
+                            <a href="logout.php">Logout</a>
+                        </li>
                     </ul>
                 </div>
                 <div id="menu2">
@@ -81,9 +82,9 @@ databasedisconnect();
                             databasedisconnect();
                             if(mysql_num_rows($result)==0) {
                                 echo "<form action=\"mywallhandler.php\" method=\"POST\">
-                  <input name=\"followuser\" type=\"submit\" value=\"Follow this user\">
-			      <input name=\"pageuserid\" type=\"hidden\" value=$wall_userid>
-						</form>";
+                                      <input name=\"followuser\" type=\"submit\" value=\"Follow this user\">
+                                      <input name=\"pageuserid\" type=\"hidden\" value=$wall_userid>
+                                      </form>";
                             }
                         };
                         ?>
