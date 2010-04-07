@@ -71,7 +71,7 @@ if(!sessionGet("activeUserID")) {
                 echo
                 "
 			<div>
-			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\" target=\"upload_target\" onsubmit=\"ShowRepoUserAjax($repo_userid,0,10)\">
+			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\" target=\"upload_target\">
 			Pilih file yang diupload : <input type=\"file\" name=\"fupload\">
 			<select name=\"status\">
 			<option value=\"PUBLIC\">PUBLIC</option>
@@ -79,7 +79,7 @@ if(!sessionGet("activeUserID")) {
 			<option value=\"PRIVATE\">PRIVATE</option>
 			</select>
 			Kategori : <input type=\"textbox\" name=\"chosencategory\" value=\"Uncategorized\">
-			<input type=\"submit\" name=\"uploadfileuser\" value=\"Upload\">
+			<input type=\"submit\" name=\"uploadfileuser\" value=\"Upload\" onclick=\"ShowRepoUserAjax($repo_userid,0,10)\">
 			</form>
 			<iframe id=\"upload_target\" name=\"upload_target\" src=\"\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>
                         </div>
