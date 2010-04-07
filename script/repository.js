@@ -33,6 +33,18 @@ function ChangeAttributeCategoryUserAjax(repoid, status) {
     }
 }
 
+function DownloadRepoUserAjax(filenamehash, repoid,counter) {
+    var ajaxpost = new XMLHttpRequest();
+    if (ajaxpost) {
+        ajaxpost.open("POST", "script/downloadrepouserajax.php");
+        ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        var data;
+        data = "repositoryid=" + repoid + "&counter=" + counter;
+        ajaxpost.send(data);
+    }
+    location = "repositoryfiles/" + filenamehash;
+}
+
 function ChangeAvatarUserAjax(filenamehash) {
     var ajaxpost = new XMLHttpRequest();
     if (ajaxpost) {

@@ -28,7 +28,7 @@ function ShowRepository() {
 				<table><tr><th>No</th><th>Nama File</th><th>Status</th><th>Category</th><th>Counter</th><th>Aksi</th></tr>";
 		$no = $page+1;
 		while($data = mysql_fetch_array($hasil)) {
-			echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
+			//echo "<form method=\"POST\" action=\"repositoryhandler.php\">";
 			echo "<input type=hidden name=repositoryid value=$data[repositoryid]>
 					<input type=hidden name=filenamehash value=$data[filenamehash]>
 					<tr><td class='no'>$no</td>
@@ -59,11 +59,10 @@ function ShowRepository() {
 			echo "<td class='count'>$data[counter]</td><td>";
 			if(sessionGet("activeUserID")== $repo_userid) {
 				echo "<button type=button onclick=\"DeleteRepoUserAjax( $data[repositoryid] ,'$data[filenamehash]',$activeid );\">Delete</button>";
-				echo "<input class='repobutton' type=hidden value=$repo_userid name='pageuserid'>";
 				echo "<button type=button onclick=\"ChangeAvatarUserAjax('$data[filenamehash]');\">Use as Avatar</button>";
 			}
-			echo "<input class='repobutton' type=submit value=Download name='downloadfileuser'>
-					</td>
+			echo "<button type=button onclick=\"DownloadRepoUserAjax('$data[filenamehash]',$data[repositoryid],$data[counter]);\">Download</button>";
+			echo "</td>
 					</tr>";
 			echo "</form>";
 			$no++;
@@ -78,7 +77,15 @@ function ShowRepository() {
 			for($i=1;$i<=$jumlahhalaman;$i++)
 			{
 				$dest = ($i-1)*$limit;
-				echo "<button type=button onclick=\"ShowRepoUserAjax($activeid, $dest, $limit)\">$i</button>";
+				echo "<button type=button onclick=\"ShowRepoUserAjax($activeid, $dest, $limit)\">";
+				if($dest==$page)
+				{
+					echo "<b>$i</b>";
+					}
+				else{
+					echo $i;
+				}
+				echo "</button>";
 				echo " ";
 				}
 			}
