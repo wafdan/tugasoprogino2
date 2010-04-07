@@ -38,7 +38,7 @@ databasedisconnect();
                         <li>
                             <a href="index.php">Home</a>                        </li>
                         <li class="first">
-<?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
+                            <?php echo "<a href=profile.php?userid=$wall_userid"; ?>>Profile</a>
                         </li>
                         <li>
                             <?php echo "<a href=publicwall.php?userid=$wall_userid"; ?>>Public Wall</a>
@@ -53,21 +53,28 @@ databasedisconnect();
                             <a href="logout.php">Logout</a>                        </li>
                     </ul>
                 </div>
+                <div id="menu2">
+                    <ul>
+                        <li>
+                            <a href="#">Notifikasi</a>
+                        </li>
+                    </ul>
+                </div>
             </div><hr />
             <div id="container">
                 <div id ="sidebar">
                     <ul>
                         <li id="profile">
                             <h2><?php echo "<a href=profile.php?userid=$wall_userid>$data[fullname]</a>"; ?></h2>
-<?php
-$avatar = $data['avatar'];
-echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture not Found\" />";
+                            <?php
+                            $avatar = $data['avatar'];
+                            echo "<img id=\"primary-photo\" src=\"repositoryfiles/$avatar\" alt=\"Picture not Found\" />";
                             ?>
 
                         </li>
-                            <?php
+                        <?php
 
-if (!($wall_userid==sessionGet("activeUserID"))) {
+                        if (!($wall_userid==sessionGet("activeUserID"))) {
                             databaseconnect();
                             $activeuserid =sessionGet("activeUserID");
                             $result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid' AND userid='$activeuserid'");
@@ -84,41 +91,41 @@ if (!($wall_userid==sessionGet("activeUserID"))) {
                         <li id="friends">
                             <h2><a href="javascript:nothingHappens();">Follower</a></h2>
                             <ul>
-                            <?php
-                            databaseconnect();
-                            $friendresult = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'");
-                            while($datafriend=mysql_fetch_array($friendresult)) {
-                                $userfriend = mysql_query("SELECT * FROM user WHERE userid='$datafriend[userid]'");
-                                $userfriend = mysql_fetch_array($userfriend );
-                                echo "<li> <a class=\"friendName\" href=\"profile.php?userid=$datafriend[userid]\">$userfriend[fullname]</a>";
-                            };
-                            ?>
+                                <?php
+                                databaseconnect();
+                                $friendresult = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'");
+                                while($datafriend=mysql_fetch_array($friendresult)) {
+                                    $userfriend = mysql_query("SELECT * FROM user WHERE userid='$datafriend[userid]'");
+                                    $userfriend = mysql_fetch_array($userfriend );
+                                    echo "<li> <a class=\"friendName\" href=\"profile.php?userid=$datafriend[userid]\">$userfriend[fullname]</a>";
+                                };
+                                ?>
                             </ul>
                         </li>
                         <li id="friends">
                             <h2><a href="javascript:nothingHappens();">Course(s) Followed</a></h2>
                             <ul>
-                            <?php
-                            $cres = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid={$wall_userid}");
-                            while($datac = mysql_fetch_array($cres)){
-                                $cins = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid={$datac['courseinstanceid']}");
-                                $courseid = $cins['courseid'];
-                                $cname = mysql_query("SELECT * FROM course WHERE courseid={$courseid}");
-                                echo "<li>{$cname}</li>";
-                            }
-                            ?>
+                                <?php
+                                $cres = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid={$wall_userid}");
+                                while($datac = mysql_fetch_array($cres)) {
+                                    $cins = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid={$datac['courseinstanceid']}");
+                                    $courseid = $cins['courseid'];
+                                    $cname = mysql_query("SELECT * FROM course WHERE courseid={$courseid}");
+                                    echo "<li>{$cname}</li>";
+                                }
+                                ?>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <fieldset class="profile-status">
                     <legend><span>My Wall</span></legend>
-<?php
-if($wall_userid == sessionGet('activeUserID')) {
-    echo	"<form action=\"mywallhandler.php\" method=\"POST\">
+                    <?php
+                    if($wall_userid == sessionGet('activeUserID')) {
+                        echo	"<form action=\"mywallhandler.php\" method=\"POST\">
 			<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70>
 			</form>";
-}
+                    }
                     DisplayWall($wall_userid);
                     ?>
                 </fieldset>
@@ -137,10 +144,10 @@ if($wall_userid == sessionGet('activeUserID')) {
                         <li>
                             <div class="label">Jenis Kelamin</div>
                             <div class="info">: <?php if($data['gender']=='M') {
-    echo "Laki-laki";
-}else {
-    echo "Wanita";
-};?></div>
+                                    echo "Laki-laki";
+                                }else {
+                                    echo "Wanita";
+                                };?></div>
                         </li>
                         <li>
                             <div class="label">Nomor Telepon</div>
