@@ -17,6 +17,7 @@ if(!sessionGet("activeUserID")) {
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+				<script type="text/javascript" src="script/repository.js"></script>
     </head>
     <body>
         <div id="header">
@@ -49,11 +50,15 @@ if(!sessionGet("activeUserID")) {
                     </li>
               </ul>
           </div>
-            <div>
+            <div id="repocourseshow">
+			<script type="text/javascript">
                 <?php
-                
-				ShowCoursesRepository($courseid);
-                ?>
+				echo "var userid = $courseid;";
+				?>
+				var page = 0;
+				var limit = 10;
+				ShowRepoCourseAjax(userid,page,limit)
+				</script>
             </div>
         </div>
         <div id="container">
@@ -69,7 +74,7 @@ if(mysql_num_rows($checkuser)>0) {
                 echo
                 "
 			<div>
-			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\">
+			<form enctype=\"multipart/form-data\" method=\"POST\" action=\"repositoryhandler.php\" target=\"upload_target\" onsubmit=\"ShowRepoCourseAjax($repo_userid,0,10)\">
 			<input type=hidden name=isrepository value=1>
 			<input type=hidden name=repocourseid value=$courseid>
 			Pilih file yang diupload : <input type=\"file\" name=\"fupload\">
@@ -81,7 +86,8 @@ if(mysql_num_rows($checkuser)>0) {
 			Kategori : <input type=\"textbox\" name=\"chosencategory\" value=\"Uncategorized\">
 			<input type=\"submit\" name=\"uploadfileuser\" value=\"Upload\">
 			</form>
-                        </div>
+			<iframe id=\"upload_target\" name=\"upload_target\" src=\"\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>
+			</div>
 			";
             }
 databasedisconnect();

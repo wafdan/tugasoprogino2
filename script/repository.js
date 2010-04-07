@@ -1,4 +1,4 @@
-
+//Users
 function DeleteRepoUserAjax(repositoryid, filenamehash,activeid) {
     var ajaxpost = new XMLHttpRequest();
         if (ajaxpost) {
@@ -79,5 +79,70 @@ function ChangeAvatarUserAjax(filenamehash) {
             //alert(data);
             ajaxpost.send(data);
         }
-    } 
+    }
 
+    //Courses
+
+    function DeleteRepoCourseAjax(repositoryid, filenamehash, activeid) {
+        var ajaxpost = new XMLHttpRequest();
+        if (ajaxpost) {
+            ajaxpost.open("POST", "script/deleterepositorycourseajax.php");
+            ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            var data;
+            data = "repositoryid=" + repositoryid + "&filenamehash=" + filenamehash;
+            ajaxpost.send(data);
+        }
+        ShowRepoCourseAjax(activeid, 0, 10);
+    }
+
+    function ChangeAttributeStatusCourseAjax(repoid, status) {
+        var ajaxpost = new XMLHttpRequest();
+        if (ajaxpost) {
+            ajaxpost.open("POST", "script/changestatusrepocourseajax.php");
+            ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            var data;
+            data = "statusupdate=" + status + "&repositoryid=" + repoid;
+            ajaxpost.send(data);
+        }
+    }
+
+    function ChangeAttributeCategoryCourseAjax(repoid, status) {
+        var ajaxpost = new XMLHttpRequest();
+        if (ajaxpost) {
+            ajaxpost.open("POST", "script/changecategoryrepocourseajax.php");
+            ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            var data;
+            data = "statusupdate=" + status + "&repositoryid=" + repoid;
+            ajaxpost.send(data);
+        }
+    }
+
+    function DownloadRepoCourseAjax(filenamehash, repoid, counter) {
+        var ajaxpost = new XMLHttpRequest();
+        if (ajaxpost) {
+            ajaxpost.open("POST", "script/downloadrepocourseajax.php");
+            ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            var data;
+            data = "repositoryid=" + repoid + "&counter=" + counter;
+            ajaxpost.send(data);
+        }
+        location = "repositoryfiles/" + filenamehash;
+    }
+
+    function ShowRepoCourseAjax(userid, page, limit) {
+        var ajaxpost = new XMLHttpRequest();
+        if (ajaxpost) {
+            var obj = document.getElementById('repocourseshow');
+            ajaxpost.open("POST", "script/repositorycourseajax.php");
+            ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            ajaxpost.onreadystatechange = function() {
+                if (ajaxpost.readyState == 4 && ajaxpost.status == 200) {
+                    obj.innerHTML = ajaxpost.responseText;
+                }
+            }
+            var data;
+            data = "courseid=" + userid + "&page=" + page + "&limit=" + limit;
+            //alert(data);
+            ajaxpost.send(data);
+        }
+    } 

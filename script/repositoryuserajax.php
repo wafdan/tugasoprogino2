@@ -64,7 +64,7 @@ function ShowRepository() {
 			echo "<button type=button onclick=\"DownloadRepoUserAjax('$data[filenamehash]',$data[repositoryid],$data[counter]);\">Download</button>";
 			echo "</td>
 					</tr>";
-			echo "</form>";
+			//echo "</form>";
 			$no++;
 		};
 		echo "</table>";
