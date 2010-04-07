@@ -25,6 +25,7 @@ databasedisconnect();
         <title>KulOn&trade;</title>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <script type="text/javascript" src="script/script.js"></script>
+        <script type="text/javascript" src="script/profile.js"></script>
     </head>
     <body>
         <div id="toplevel">
@@ -57,7 +58,7 @@ databasedisconnect();
                 <div id="menu2">
                     <ul>
                         <li>
-                            <a href="#">Notifikasi</a>
+                            <a href="#" onclick="<?php echo "showNotif({$wall_userid})";?>">Notifikasi</a>
                         </li>
                     </ul>
                 </div>
@@ -118,6 +119,10 @@ databasedisconnect();
                             </ul>
                         </li>
                     </ul>
+                </div>
+
+                <div id="notifications">
+                    
                 </div>
                 <fieldset class="profile-status">
                     <legend><span>My Wall</span></legend>

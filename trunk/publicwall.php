@@ -25,6 +25,7 @@ databasedisconnect();
         <title>KulOn&trade;</title>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <script type="text/javascript" src="script/script.js"></script>
+        <script type="text/javascript" src="script/profile.js"></script>
     </head>
     <body>
         <div id="toplevel">
