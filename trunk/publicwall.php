@@ -71,20 +71,20 @@ databasedisconnect();
                 <div id ="sidebar">
                     <ul>
                         <li id="profile">
-                            
+                            FOTO
                         </li>
                         <li id="friends">
-                            
+                            TEMAN
                         </li>
                     </ul>
                 </div>
                 <div id="wallcontent">
-
+                    ISI WALL
                 </div>
                 
                 <br />
                 <fieldset class="information" id="information">
-                    
+                    INFORMASI
                 </fieldset>
             </div>
             <div id="footer">
