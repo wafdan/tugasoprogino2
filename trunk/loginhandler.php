@@ -15,10 +15,10 @@ require_once('includes/auth.php');
 sessionInit();
 
 if($_POST['data']) {
-	if(authLogin($_POST['data']['login']['username'], $_POST['data']['login']['password'])) {
+	if($uid = authLogin($_POST['data']['login']['username'], $_POST['data']['login']['password'])) {
 		sessionSet('splashmsg', 'Logged in');
 		sessionSet('splashtarget', 'index.php');
-		setCookie('myUserID', $_POST['data']['login']['username']);
+		setCookie('myUserID', $uid);
 		header('Location: splash.php');
 	} else {
 		sessionSet('msg', 'Incorrect username and/or password.');

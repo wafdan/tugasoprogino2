@@ -37,7 +37,7 @@ function authLogin($user, $pass) {
 			sessionSet('activeFullname', $data['fullname']);
 			sessionSet('activeRole', $data['role']);
 			
-			return true;
+			return $data['userid'];
 		} else {
 			return false;
 		}

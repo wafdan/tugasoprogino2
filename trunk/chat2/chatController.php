@@ -5,6 +5,8 @@ require_once('../includes/databaseconnection.php');
 require_once('../includes/session.php');
 
 if($_POST) {
+	sessionInit();
+	
 	$json = $_POST['json'];
 	
 	$array = json_decode($json, true);
@@ -42,15 +44,47 @@ if($_POST) {
 			$response = array();
 			
 			// get online users
+			/*
 			$sql = "SELECT `userid`
 					FROM `presence`
 					WHERE NOT(`userid` = '$sender') AND `timestamp` >= DATE_SUB(NOW() , INTERVAL 8 SECOND)";
+			 */
+			
+			$sql = "SELECT `user`.`username` AS `username`,
+						   `userfollowing`.`targetuserid` AS `userid`
+					FROM `user`, `userfollowing`
+					WHERE `user`.`userid` = `userfollowing`.`targetuserid` AND
+						  `userfollowing`.`userid` = '".sessionGet('activeUserID')."' AND
+						  `user`.`userid` IN
+							(SELECT `userid` FROM `presence` WHERE `timestamp` >= DATE_SUB(NOW() , INTERVAL 8 SECOND))
+					ORDER BY `username`";
+			
+			$result = mysql_query($sql);
+			echo mysql_error();
+			
+			$n = 0;
+			while($data = mysql_fetch_assoc($result)) {
+				$response['users']['following'][$n]['id'] = $data['userid'];
+				$response['users']['following'][$n]['name'] = $data['username'];
+				
+				$n++;
+			}
+			
+			$sql = "SELECT `user`.`username` AS `username`,
+						   `userfollowing`.`targetuserid` AS `userid`
+					FROM `user`, `userfollowing`
+					WHERE `user`.`userid` = `userfollowing`.`userid` AND
+						  `userfollowing`.`targetuserid` = '".sessionGet('activeUserID')."' AND
+						  `user`.`userid` IN
+							(SELECT `userid` FROM `presence` WHERE `timestamp` >= DATE_SUB(NOW() , INTERVAL 8 SECOND))
+					ORDER BY `username`";
+			
 			$result = mysql_query($sql);
 			
 			$n = 0;
 			while($data = mysql_fetch_assoc($result)) {
-				$response['users'][$n]['id'] = $data['userid'];
-				$response['users'][$n]['name'] = $data['userid']; // --> TODO: join with table users
+				$response['users']['follower'][$n]['id'] = $data['userid'];
+				$response['users']['follower'][$n]['name'] = $data['username'];
 				
 				$n++;
 			}

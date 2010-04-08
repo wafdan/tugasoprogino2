@@ -102,21 +102,59 @@ function updateContactList(contactData) {
 	
 	oldList = parentElement.innerHTML;
 	
-	for(var n in contactData) {
+	nUsersOnline = 0;
+	
+	if(!contactData) {
+		parentElement.innerHTML = '<ul><li>No users connected</li></ul>';
+		document.getElementById('chatStatus').innerHTML = 'No users connected.';
+	}
+	
+	contactDataFollowing = contactData['following'];
+		
+	for(var n in contactDataFollowing) {
+		if(n == 0) {
+			newListItem = document.createElement('li');
+			newListItem.innerHTML = '<u>Following:</u>';
+			
+			temp.appendChild(newListItem);
+		}
+		
 		newListItem = document.createElement('li');
-		newListItem.setAttribute('id', 'userID_' + contactData[n]['id']);
-		newListItem.setAttribute('onClick', 'popChatWindow("' + contactData[n]['id'] + '")');
-		newListItem.innerHTML = contactData[n]['name'];
+		newListItem.setAttribute('id', 'userID_' + contactDataFollowing[n]['id']);
+		newListItem.setAttribute('onClick', 'popChatWindow("' + contactDataFollowing[n]['id'] + '")');
+		newListItem.innerHTML = contactDataFollowing[n]['name'];
 		
 		temp.appendChild(newListItem);
+		
+		nUsersOnline++;
+	}
+	
+	contactDataFollower = contactData['follower'];
+	
+	for(var n in contactDataFollower) {
+		if(n == 0) {
+			newListItem = document.createElement('li');
+			newListItem.innerHTML = '<u>Follower:</u>';
+			
+			temp.appendChild(newListItem);
+		}
+		
+		newListItem = document.createElement('li');
+		newListItem.setAttribute('id', 'userID_' + contactDataFollower[n]['id']);
+		newListItem.setAttribute('onClick', 'popChatWindow("' + contactDataFollower[n]['id'] + '")');
+		newListItem.innerHTML = contactDataFollower[n]['name'];
+		
+		temp.appendChild(newListItem);
+		
+		nUsersOnline++;
 	}
 	
 	newList = temp.innerHTML;
 	
 	if(oldList != newList) {
-		if(newList != '') {
+		if(nUsersOnline > 0) {
 			parentElement.innerHTML = newList;
-			document.getElementById('chatStatus').innerHTML = 'Chat <b>(' + contactData.length + ')</b>';
+			document.getElementById('chatStatus').innerHTML = 'Chat <b>(' + nUsersOnline + ')</b>';
 		} else {
 			parentElement.innerHTML = '<ul><li>No users connected</li></ul>';
 			document.getElementById('chatStatus').innerHTML = 'No users connected.';
