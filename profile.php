@@ -25,7 +25,8 @@ databasedisconnect();
         <title>KulOn&trade;</title>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <script type="text/javascript" src="script/script.js"></script>
-        <script type="text/javascript" src="script/profile.js"></script>
+        <script type="text/javascript" src="script/mywall.js"></script>
+		<script type="text/javascript" src="script/profile.js"></script>
     </head>
     <body>
         <div id="toplevel">
@@ -126,14 +127,24 @@ databasedisconnect();
                 </div>
                 <fieldset class="profile-status">
                     <legend><span>My Wall</span></legend>
+					
                     <?php
                     if($wall_userid == sessionGet('activeUserID')) {
                         echo	"<form action=\"mywallhandler.php\" method=\"POST\">
 			<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70>
 			</form>";
                     }
-                    DisplayWall($wall_userid);
-                    ?>
+					?>
+					                    <div id="wallusershow">
+					</div>
+				<script type="text/javascript">
+                <?php
+				echo "var userid = $wall_userid;";
+				?>
+				var page = 0;
+				var limit = 5;
+				ShowMyWallUserAjax(userid,page,limit)
+				</script>
                 </fieldset>
                 <br />
                 <fieldset class="information">
