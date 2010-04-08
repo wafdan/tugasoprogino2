@@ -137,8 +137,76 @@ function DisplayCoursesWall($courseid,$nodatabase) {
     }
 }
 
-function DisplayWallorderPop($wall_userid){
-    
+function DisplayWallorderPop($wall_userid) {
+    $resulto = mysql_query("SELECT COUNT( wallpostid ) AS count, wallpostid
+                          FROM userwallpostcomment
+                          GROUP BY wallpostid
+                          ORDER BY count DESC");
+    if(mysql_num_rows($resulto) > 0) {
+        echo "<label>Popular User Wallposts :</label>";
+        while($data = mysql_fetch_array($resulto)) {
+            $hasil = mysql_query("SELECT * FROM userwallpost WHERE wallpostid='$data[wallpostid]'");
+            $hasil = mysql_fetch_array($hasil);
+            //echo "<li>";
+            $userinfo = mysql_query("SELECT * FROM user WHERE userid='$hasil[userid]'");
+            $userinfo = mysql_fetch_array($userinfo);
+            $wallcontent = ScanUsername($hasil['content']);
+            echo "<div class='friendstatus'>$userinfo[username] <label class='neutral2'>bilang</label> <label>$wallcontent</label>";
+            $wallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$data[wallpostid]' ORDER BY timestamp");
+
+            if(mysql_num_rows($wallcomment) > 0) {
+                echo "<div class='coments'>
+			<ul>";
+                while($datacomment = mysql_fetch_array($wallcomment)) {
+                    $userinfocomment = mysql_query("SELECT * FROM user WHERE userid='$datacomment[userid]'");
+                    $userinfocomment = mysql_fetch_array($userinfocomment);
+                    $datacomment['content'] = ScanUsername($datacomment['content']);
+                    echo "<li><a href=\"profile.php?userid=$userinfocomment[userid]\">$userinfocomment[username] </a><label class='neutral'>bilang</label><label>$datacomment[content]</label></li>";
+                }
+                echo "</ul>
+		</div>";
+                //echo "</li>";
+            }
+            //echo "</ul>";
+            echo "</div>";
+        }
+    }
+}
+
+function DisplayCourseWallorderPop($wall_userid) {
+    $resulto = mysql_query("SELECT COUNT( wallpostid ) AS count, wallpostid
+                          FROM courseinstancewallpostcomment
+                          GROUP BY wallpostid
+                          ORDER BY count DESC");
+    if(mysql_num_rows($resulto) > 0) {
+        echo "<label>Popular Course Wallposts :</label>";
+        while($data = mysql_fetch_array($resulto)) {
+            $hasil = mysql_query("SELECT * FROM courseinstancewallpost WHERE wallpostid='$data[wallpostid]'");
+            $hasil = mysql_fetch_array($hasil);
+            //echo "<li>";
+            $userinfo = mysql_query("SELECT * FROM user WHERE userid='$hasil[userid]'");
+            $userinfo = mysql_fetch_array($userinfo);
+            $wallcontent = ScanUsername($hasil['content']);
+            echo "<div class='friendstatus'>$userinfo[username] <label class='neutral2'>bilang</label> <label>$wallcontent</label>";
+            $wallcomment = mysql_query("SELECT * FROM courseinstancewallpostcomment WHERE wallpostid='$data[wallpostid]' ORDER BY timestamp");
+
+            if(mysql_num_rows($wallcomment) > 0) {
+                echo "<div class='coments'>
+			<ul>";
+                while($datacomment = mysql_fetch_array($wallcomment)) {
+                    $userinfocomment = mysql_query("SELECT * FROM user WHERE userid='$datacomment[userid]'");
+                    $userinfocomment = mysql_fetch_array($userinfocomment);
+                    $datacomment['content'] = ScanUsername($datacomment['content']);
+                    echo "<li><a href=\"profile.php?userid=$userinfocomment[userid]\">$userinfocomment[username] </a><label class='neutral'>bilang</label><label>$datacomment[content]</label></li>";
+                }
+                echo "</ul>
+		</div>";
+                //echo "</li>";
+            }
+            //echo "</ul>";
+            echo "</div>";
+        }
+    }
 }
 
 function RedirectToProfile() {
