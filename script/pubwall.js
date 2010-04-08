@@ -109,25 +109,25 @@ function getXHR(){
     }
     return xmlHttpObj;
 }
-function showWallordertime(userid){
+function showWallorderpop(userid){
     xmlhttp5 = getXHR();
     if(xmlhttp5==null){
         alert ("Browser does not support HTTP Request");
         return;
     }
-    var url = "script/getpublicwallajax.php"
+    var url = "script/getpubwallorderpopajax.php"
     url = url+"?userid="+userid;
     xmlhttp5.open("GET",url,true);
-    xmlhttp5.onreadystatechange = wallordertimestateChanged;
+    xmlhttp5.onreadystatechange = wallorderpopstateChanged;
     xmlhttp5.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xmlhttp5.send(null);
 }
-function wallordertimestateChanged(){
+function wallorderpopstateChanged(){
     if(xmlhttp5.readyState == 4){
         var obj = document.getElementById('wallcontent');
         obj.innerHTML =
         "<fieldset class='profile-status'>\n\
-        <legend><span>Public Wall</span></legend>"
+        <legend><span>Popular Posts</span></legend>"
         + xmlhttp5.responseText +
         "</fieldset>";
     }
