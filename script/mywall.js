@@ -30,6 +30,19 @@ function ShowHideComment(wallpostid) {
         obj.style.visibility = "hidden";
         }
     }
+}
+ 
+ function PostWallUserAjax(content,walluserid) {
+     var ajaxpost = new XMLHttpRequest();
+     //alert("comment");
+     if (ajaxpost) {
+         ajaxpost.open("POST", "script/postwalluserajax.php");
+         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+         var data;
+         data = "content=" + content;
+         ajaxpost.send(data);
+     }
+     ShowMyWallUserAjax(walluserid, 0, 5); 
  }
 
 function ShowMyWallUserAjax(walluserid,page,limit) {

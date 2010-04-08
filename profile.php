@@ -130,9 +130,7 @@ databasedisconnect();
 					
                     <?php
                     if($wall_userid == sessionGet('activeUserID')) {
-                        echo	"<form action=\"mywallhandler.php\" method=\"POST\">
-			<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70>
-			</form>";
+	echo	"<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70 onKeyPress=\"if(enter_pressed(event)){ PostWallUserAjax(this.value,$wall_userid)}\">";
                     }
 					?>
 					                    <div id="wallusershow">
