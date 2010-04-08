@@ -7,17 +7,17 @@ if(!sessionGet("activeUserID")) {
     header("Location: index.php");
 }
 
-                $repo_userid = $_GET['userid'];
-                if(!$repo_userid) {
-                    $repo_userid = sessionGet("activeUserID");
-                }
+$repo_userid = $_GET['userid'];
+if(!$repo_userid) {
+    $repo_userid = sessionGet("activeUserID");
+}
 ?>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
-		<script type="text/javascript" src="script/repository.js"></script>
+        <script type="text/javascript" src="script/repository.js"></script>
     </head>
     <body>
         <div id="header">
@@ -47,18 +47,18 @@ if(!sessionGet("activeUserID")) {
                     </li>
                 </ul>
             </div>
-			<script type="text/javascript">
-			</script>
+            <script type="text/javascript">
+            </script>
 
             <div id ="reposhow">
-			<script type="text/javascript">
-                <?php
-				echo "var userid = $repo_userid;";
-				?>
-				var page = 0;
-				var limit = 10;
-				ShowRepoUserAjax(userid,page,limit)
-				</script>
+                <script type="text/javascript">
+                            <?php
+                            echo "var userid = $repo_userid;";
+                            ?>
+                            var page = 0;
+                            var limit = 10;
+                            ShowRepoUserAjax(userid,page,limit)
+                </script>
             </div>
         </div>
         <div id="container">
@@ -83,7 +83,7 @@ if(!sessionGet("activeUserID")) {
 			</form>
 			<iframe id=\"upload_target\" name=\"upload_target\" src=\"\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>
                         </div>
-			";
+                ";
             }
             ?>
         </div>
