@@ -19,7 +19,10 @@ function stateChanged(){
     if(xmlhttp.readyState == 4){
         var obj = document.getElementById('notifications');
         if(obj.innerHTML == ''){
-            obj.innerHTML = "<fieldset class='profile-status'><legend><span>Notification</span></legend>" + xmlhttp.responseText + "</fieldset>";     
+            obj.innerHTML = "<fieldset class='profile-status'>\n\
+                                <legend><span>Notification</span></legend>"
+                                    + xmlhttp.responseText +
+                             "</fieldset>";
         }else{
             obj.innerHTML = "";
         }
