@@ -42,7 +42,20 @@ function ShowHideComment(wallpostid) {
          data = "content=" + content;
          ajaxpost.send(data);
      }
-     ShowMyWallUserAjax(walluserid, 0, 5); 
+     ShowMyWallUserAjax(walluserid, 0, 5);
+ }
+
+ function PostWallCourseAjax(content, courseid) {
+     var ajaxpost = new XMLHttpRequest();
+     //alert("comment");
+     if (ajaxpost) {
+         ajaxpost.open("POST", "script/postwallcourseajax.php");
+         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+         var data;
+         data = "coursecontent=" + content + "&pagecourseid=" + courseid;
+         ajaxpost.send(data);
+     }
+     ShowMyWallCourseAjax(courseid, 0, 5);
  }
 
 function ShowMyWallUserAjax(walluserid,page,limit) {
@@ -58,6 +71,23 @@ function ShowMyWallUserAjax(walluserid,page,limit) {
         }
         var data;
         data = "walluserid=" + walluserid + "&page=" + page + "&limit=" + limit;
+        ajaxpost.send(data);
+    }
+}
+
+function ShowMyWallCourseAjax(courseid, page, limit) {
+    var ajaxpost = new XMLHttpRequest();
+    if (ajaxpost) {
+        var obj = document.getElementById('wallcourseshow');
+        ajaxpost.open("POST", "script/mywallcourseajax.php");
+        ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        ajaxpost.onreadystatechange = function() {
+            if (ajaxpost.readyState == 4 && ajaxpost.status == 200) {
+                obj.innerHTML = ajaxpost.responseText;
+            }
+        }
+        var data;
+        data = "courseid=" + courseid + "&page=" + page + "&limit=" + limit;
         ajaxpost.send(data);
     }
 }

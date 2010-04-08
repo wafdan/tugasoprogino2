@@ -17,7 +17,8 @@ if(!$courseid) {
     <head>
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
-    </head>
+		<script type="text/javascript" src="script/mywall.js"></script>
+	</head>
     <body>
         <div id="header">
             <div id="logo">
@@ -42,7 +43,7 @@ if(!$courseid) {
                          <a href="courserepository.php?coursesid=<?php echo $courseid; ?>">Repository Kuliah</a>
                     </li>
                     <li>
-                        <a href="discussion.php?courseinstanceid=<?php echo $courseid; ?>">Forum Diskusi Kuliah</a>
+                       <a href="discussion.php?courseinstanceid=<?php echo $courseid; ?>">Forum Diskusi Kuliah</a>
                     </li>
                     <li>    
                         <a href="logout.php">Logout</a>
@@ -63,19 +64,26 @@ if(!$courseid) {
                 $isfollow = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$userid' AND courseinstanceid='$courseid'");
                 $ismanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$userid' AND courseinstanceid='$courseid'");
                 if((mysql_num_rows($isfollow)>0)||(mysql_num_rows($ismanager)>0)) {
-                    echo	"<form action=\"mywallhandler.php\" method=\"POST\">
-			<input type=hidden name=\"pagecourseid\" value=$courseid>
-			<b>Post Wall : </b><input type=\"textbox\" name=\"coursecontent\" size=70>
-			</form>";
-                }else {
-                    echo "<form action=\"mywallhandler.php\" method=\"POST\">
-                  <input name=\"followcourse\" type=\"submit\" value=\"Follow this course\">
+	echo	"<b>Post Wall : </b><input type=\"textbox\" name=\"content\" size=70 onKeyPress=\"if(enter_pressed(event)){ PostWallCourseAjax(this.value,$courseid)}\">";
+}else {
+	echo "<form action=\"mywallhandler.php\" method=\"POST\">
+			<input name=\"followcourse\" type=\"submit\" value=\"Follow this course\">
 			<input name=\"pagecourseid\" type=\"hidden\" value=$courseid>
-						</form>";
-                }
+			</form>";
+};
                 databasedisconnect();
-                DisplayCoursesWall($courseid,true);
                 ?>
+					                    <div id="wallcourseshow">
+					</div>
+				<script type="text/javascript">
+                <?php
+				echo "var userid = $courseid;";
+				?>
+				var page = 0;
+				var limit = 5;
+				ShowMyWallCourseAjax(userid,page,limit)
+				</script>
+                
             </fieldset>
         </div>
         <div id="footer">
