@@ -3,6 +3,8 @@ var xmlhttp;
 var xmlhttp2;
 var xmlhttp3;
 var xmlhttp4;
+var xmlhttp5;
+var xmlhttp6;
 
 function showEntirely(userid){
     showWall(userid);
@@ -106,6 +108,29 @@ function getXHR(){
         }
     }
     return xmlHttpObj;
+}
+function showWallordertime(userid){
+    xmlhttp5 = getXHR();
+    if(xmlhttp5==null){
+        alert ("Browser does not support HTTP Request");
+        return;
+    }
+    var url = "script/getpublicwallajax.php"
+    url = url+"?userid="+userid;
+    xmlhttp5.open("GET",url,true);
+    xmlhttp5.onreadystatechange = wallordertimestateChanged;
+    xmlhttp5.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xmlhttp5.send(null);
+}
+function wallordertimestateChanged(){
+    if(xmlhttp5.readyState == 4){
+        var obj = document.getElementById('wallcontent');
+        obj.innerHTML =
+        "<fieldset class='profile-status'>\n\
+        <legend><span>Public Wall</span></legend>"
+        + xmlhttp5.responseText +
+        "</fieldset>";
+    }
 }
 
 //end Mainan AJAX

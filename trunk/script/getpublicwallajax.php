@@ -27,7 +27,7 @@ if((mysql_num_rows($resultcourse)>0)||(mysql_num_rows($resultmanager)>0)) {
 
 // user follower
 
-$resultuser = mysql_query("SELECT * FROM userfollowing WHERE userid='$uid'");
+$resultuser = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$uid' or userid='$uid'");
 
 if(mysql_num_rows($resultuser)>0) {
     echo "<ul>";
@@ -36,7 +36,7 @@ if(mysql_num_rows($resultuser)>0) {
         $getuser = mysql_fetch_array($getuser);
         echo  "<li>";
         echo "<div class=\"label\">$getuser[username]</div>";
-        echo "<div class=\"info\">:$getuser[username] <a href=\"profile.php?userid=$getuser[userid]\">Link<a/></div>";
+        echo "<div class=\"info\"> : $getuser[fullname] <a href=\"profile.php?userid=$getuser[userid]\">Link<a/></div>";
         echo "</li>";
         DisplayFromWall($getuser['userid']);
     };
