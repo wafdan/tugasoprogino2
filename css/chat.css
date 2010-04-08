@@ -19,11 +19,16 @@
 	width: 960px;
 }
 
-#chatContainer {
-	position: relative;
+#myID {
+	float: left;
+
+	padding-left: 5px;
+	padding-top: 3px;
+	
+	display: none;
 }
 
-#myID {
+#myID_display {
 	float: left;
 
 	padding-left: 5px;
