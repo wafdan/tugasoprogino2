@@ -22,7 +22,7 @@ if((mysql_num_rows($resultcourse)>0)||(mysql_num_rows($resultmanager)>0)) {
         echo "</li>";
         DisplayCoursesWall($datacourse[courseinstanceid],false);
     };
-    echo "</ul";
+    echo "</ul>";
 }
 
 // user follower
