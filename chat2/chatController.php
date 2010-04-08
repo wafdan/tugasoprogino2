@@ -83,7 +83,7 @@ if($_POST) {
 			
 			$n = 0;
 			while($data = mysql_fetch_assoc($result)) {
-				$response['users']['follower'][$n]['id'] = $data['userid'];
+				$response['users']['follower'][$n]['id'] = $data['targetuserid'];
 				$response['users']['follower'][$n]['name'] = $data['username'];
 				
 				$n++;
