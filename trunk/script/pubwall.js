@@ -142,6 +142,7 @@ function enter_pressed(e) {
     else if (e) keycode = e.which;
     else return false;
     return (keycode == 13);
+    alert('ENTER');
 }
 
 function PostCommentUserAjax(wallpostid, comment, walluserid) {
@@ -154,7 +155,7 @@ function PostCommentUserAjax(wallpostid, comment, walluserid) {
         data = "wallpostid=" + wallpostid + "&comment=" + comment;
         ajaxpost.send(data);
     }
-    ShowMyWallUserAjax(walluserid, 0, 5);
+    ShowPubWallAjax(walluserid, 0, 5);
 }
 
 function ShowHideComment(wallpostid) {
@@ -180,7 +181,7 @@ function ShowHideComment(wallpostid) {
          data = "content=" + content;
          ajaxpost.send(data);
      }
-     ShowMyWallUserAjax(walluserid, 0, 5);
+     ShowPubWallAjax(walluserid, 0, 5);
  }
 
  function PostWallCourseAjax(content, courseid) {

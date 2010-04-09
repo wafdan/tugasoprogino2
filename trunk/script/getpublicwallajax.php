@@ -2,6 +2,7 @@
 require_once("../includes/databaseconnection.php");
 require_once("../includes/session.php");
 require_once("../includes/mywall.php");
+//require_once("pubwalluserajax.php");
 sessionInit();
 $uid = $_GET['userid'];
 
@@ -38,7 +39,7 @@ if(mysql_num_rows($resultuser)>0) {
         echo "<div class=\"label\">$getuser[username]</div>";
         echo "<div class=\"info\"> : $getuser[fullname] <a href=\"profile.php?userid=$getuser[userid]\">Link<a/></div>";
         echo "</li>";
-        DisplayFromWall($getuser['userid']);
+        //DisplayFromWall($getuser['userid']);
     };
     echo "</ul>";
 }
