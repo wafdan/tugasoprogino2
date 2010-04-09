@@ -26,6 +26,7 @@ databasedisconnect();
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <script type="text/javascript" src="script/script.js"></script>
         <script type="text/javascript" src="script/pubwall.js"></script>
+        
     </head>
     <body onload="<?php echo "showEntirely({$wall_userid})";?>">
         <div id="toplevel">
@@ -80,16 +81,9 @@ databasedisconnect();
                 </div>
                 <fieldset class="profile-status">
                     <legend><span>Public Wall</span></legend>
-
                     <div id="wallusershow">
                         ISI WALL
                     </div>
-                    <script type="text/javascript">
-                        <?php echo "var userid =$wall_userid"?>
-                        //var page = 0;
-                        //var limit = 5;
-                        //ShowPubWallUserAjax(userid,0,5);
-                    </script>
                 </fieldset>
                 <br />
                 <fieldset class="information" id="information">
