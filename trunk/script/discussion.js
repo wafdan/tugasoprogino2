@@ -13,6 +13,10 @@ function initAjax() {
 }
 
 function gotoTopicListPage(cinstid, page) {
+	if(page < 1) {
+		return;
+	}
+	
 	xmlhttp = initAjax();
 	
 	count = 10;
@@ -37,6 +41,10 @@ function gotoTopicListPage(cinstid, page) {
 }
 
 function gotoTopicPostPage(topicid, page) {
+	if(page < 1) {
+		return;
+	}
+	
 	xmlhttp = initAjax();
 	
 	count = 10;
@@ -85,8 +93,8 @@ function updateTopicList(cinstid, page, topicsData) {
 }
 
 function updateTopicPost(topicid, page, postsData) {
-	if(postsData.length == 0) {
-	
+	if(!postsData) {
+		return;
 	}
 	
 	content = '<table>';
