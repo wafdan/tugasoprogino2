@@ -202,8 +202,8 @@ function DisplayPubWall() {
     $fp = fopen('c:/data.txt', 'w');
     fwrite($fp, $querywall);
     fclose($fp);
-    $resultquerywall=mysql_query($querywall);
 
+    $resultquerywall=mysql_query($querywall);
     while($dataquerywall = mysql_fetch_array($resultquerywall)) {
         //$dataquerywallcontent = ScanUsername($dataquerywall['content']);
         $user = mysql_fetch_array(mysql_query("SELECT * FROM user WHERE userid='$dataquerywall[userid]'"));
@@ -219,13 +219,13 @@ function DisplayPubWall() {
                 $datacomment['content'] = ScanUsername($datacomment['content']);
                 $nocomment++;
                 if($nocomment==4) {
-                    echo "<div style=\"height:0;visibility:hidden;\" id=\"$data[wallpostid]\">";
+                    echo "<div style=\"height:0;visibility:hidden;\" id=\"$dataquerywall[wallpostid]\">";
                 }
                 echo "<li><a href=\"profile.php?userid=$userinfocomment[userid]\">$userinfocomment[username] </a><label class='neutral'>bilang</label><label>$datacomment[content]</label></li>";
             }
             if($nocomment>=4) {
                 echo "</div>";
-                echo "<button type\"button\" onclick=\"ShowHideComment('$dataquerywall[wallpostid]')\">Show/Hide More Comments</button>";
+                echo "<button type=button onclick=ShowHideComment('$dataquerywall[wallpostid]')>Show/Hide More Comments</button>";
             }
             echo "</ul></div>";
         }
