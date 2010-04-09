@@ -63,7 +63,7 @@ databasedisconnect();
                             <a href="#" onclick="<?php echo "showEntirely({$wall_userid})";?>">Terbaru</a>
                         </li>
                         <li>
-                            <a href="#" onclick="<?php echo "showWallorderpop({$wall_userid})";?>">Terpopuler</a>
+                            <a href="#" onclick="<?php echo "ShowPubWallPopulerAjax($wall_userid,0,5)";?>">Terpopuler</a>
                         </li>
                     </ul>
                 </div>

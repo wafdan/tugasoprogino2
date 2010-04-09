@@ -231,4 +231,22 @@ function ShowPubWallCourseAjax(courseid, page, limit) {
         ajaxpost.send(data);
     }
 }
+
+function ShowPubWallPopulerAjax(walluserid, page, limit) {
+    var ajaxpost = new XMLHttpRequest();
+    if (ajaxpost) {
+        var obj = document.getElementById('wallusershow');
+        ajaxpost.open("POST", "script/pubwallsominajax.php");
+        ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //alert('HOOOOOOOPYA');
+        ajaxpost.onreadystatechange = function() {
+            if (ajaxpost.readyState == 4 && ajaxpost.status == 200) {
+                obj.innerHTML = ajaxpost.responseText;
+            }
+        }
+        var data;
+        data = "walluserid=" + walluserid + "&page=" + page + "&limit=" + limit;
+        ajaxpost.send(data);
+    }
+}
 //end Mainan AJAX
