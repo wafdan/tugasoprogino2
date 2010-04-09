@@ -8,12 +8,13 @@ function enter_pressed(e) {
 
 function PostCommentUserAjax(wallpostid, comment, walluserid) {
     var ajaxpost = new XMLHttpRequest();
-    //alert("comment");
+    alert("comment");
     if (ajaxpost) {
         ajaxpost.open("POST", "script/postcommentuserajax.php");
         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         var data;
         data = "wallpostid=" + wallpostid + "&comment=" + comment;
+        alert(data);
         ajaxpost.send(data);
     }
     ShowMyWallUserAjax(walluserid, 0, 5);
