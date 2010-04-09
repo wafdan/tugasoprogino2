@@ -3,7 +3,7 @@
 require_once('session.php');
 require_once('databaseconnection.php');
 
-function discussionGetTopic($cinstid) {
+function discussionGetTopic($cinstid, $offset = 0, $count = 99999) {
 	databaseconnect();
 	
 	$sql = "SELECT `courseinstancetopic`.`topicid` AS `id`,
@@ -14,7 +14,8 @@ function discussionGetTopic($cinstid) {
 			FROM `courseinstancetopic`, `user`
 			WHERE `courseinstancetopic`.`courseinstanceid` = '$cinstid' AND
 				  `courseinstancetopic`.`userid` = `user`.`userid`
-			ORDER BY `timestamp` DESC";
+			ORDER BY `timestamp` DESC
+			LIMIT $offset, $count";
 	$result = mysql_query($sql);
 	
 	if($result) {
@@ -35,7 +36,7 @@ function discussionGetTopic($cinstid) {
 	}
 }
 
-function discussionGetTopicDetail($id) {
+function discussionGetTopicDetail($id, $offset = 0, $count = 99999) {
 	databaseconnect();
 	
 	$sql = "SELECT `courseinstancetopic`.`topicid` AS `id`,
@@ -62,7 +63,8 @@ function discussionGetTopicDetail($id) {
 			FROM `courseinstancetopicpost`, `user`
 			WHERE `courseinstancetopicpost`.`topicid` = '$id' AND
 				  `courseinstancetopicpost`.`userid` = `user`.`userid`
-			ORDER BY `timestamp` ASC";
+			ORDER BY `timestamp` ASC
+			LIMIT $offset, $count";
 	$result = mysql_query($sql);
 	$n = 0;
 	while($post = mysql_fetch_assoc($result)) {
