@@ -149,6 +149,7 @@ function DisplayPubWall() {
             $querywall=$querywall." UNION SELECT DISTINCT * FROM userwallpost WHERE userid='$datauserfollow[userid]' ";
         }
     }
+    echo "<label>Terbaru : </label>";
     //begin paginasi atas
     $jumlahhasil = mysql_num_rows((mysql_query($querywall)));
     $jumlahhalaman = ceil($jumlahhasil/$limit);
