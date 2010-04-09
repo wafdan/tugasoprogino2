@@ -8,7 +8,7 @@ var xmlhttp6;
 
 function showEntirely(userid){
     //showWall(userid);
-    ShowPubWallUserAjax(userid,0,5)
+    ShowPubWallAjax(userid,0,5)
     showPhoto(userid);
     showFriends(userid);
     showInformation(userid);
@@ -196,7 +196,7 @@ function ShowHideComment(wallpostid) {
      ShowMyWallCourseAjax(courseid, 0, 5);
  }
 
-function ShowPubWallUserAjax(walluserid,page,limit) {
+function ShowPubWallAjax(walluserid,page,limit) {
     var ajaxpost = new XMLHttpRequest();
     if (ajaxpost) {
         var obj = document.getElementById('wallusershow');

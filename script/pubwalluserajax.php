@@ -131,7 +131,7 @@ function DisplayCourseWall() {
     databasedisconnect();
 }
 
-function DisplayUserWall() {
+function DisplayPubWall() {
     databaseconnect();
     $wall_userid = $_POST['walluserid'];
     $page = $_POST['page'];
@@ -317,5 +317,6 @@ function DisplayUserWall() {
     //END course
     databasedisconnect();
 }
-DisplayUserWall();
+
+DisplayPubWall();
 ?>
