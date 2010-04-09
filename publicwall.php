@@ -59,7 +59,7 @@ databasedisconnect();
                 <div id="menu2">
                     <ul>
                         <li>
-                            <a href="#" onclick="<?php echo "showWall({$wall_userid})";?>">Terbaru</a>
+                            <a href="#" onclick="<?php echo "showEntirely({$wall_userid})";?>">Terbaru</a>
                         </li>
                         <li>
                             <a href="#" onclick="<?php echo "showWallorderpop({$wall_userid})";?>">Terpopuler</a>
