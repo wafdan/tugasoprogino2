@@ -8,11 +8,10 @@ if(!($cinstid = $_GET['courseinstanceid'])) {
 }
 
 function showTopicList($cinstid) {
-    $data = discussionGetTopic($cinstid);
+    $data = discussionGetTopic($cinstid, 0, 10);
 
     //print_r($data);
 
-    echo '<div>';
     echo '<table>';
     foreach($data as $topic) {
         echo '<tr>';
@@ -22,15 +21,12 @@ function showTopicList($cinstid) {
         echo '</tr>';
     }
     echo '</table>';
-    echo '</div>';
 }
 
 function showTopicDetail($topicid) {
-    $data = discussionGetTopicDetail($topicid);
+    $data = discussionGetTopicDetail($topicid, 0, 10);
 
     //print_r($data);
-
-    echo '<div>';
 
     if($data['post']) {
         echo '<table>';
@@ -42,15 +38,18 @@ function showTopicDetail($topicid) {
             echo '</tr>';
         }
         echo '</table>';
-        echo '</div>';
     }
 }
 
 ?>
 
-
-<html>
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		
+		<title>Discussion</title>
+		
         <style type="text/css">
             table, td, th
             {
@@ -62,8 +61,11 @@ function showTopicDetail($topicid) {
                 color:white;
             }
         </style>
+		
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/styleprofile1.css" />
         <link id="unique-style" rel="stylesheet" type="text/css" href="css/style1.css" />
+		
+		<script type="text/javascript" src="script/discussion.js"></script>
     </head>
 
     <body>
@@ -99,11 +101,16 @@ function showTopicDetail($topicid) {
           </div>
         </div>
         <div id="container">
-            <?php
-            if($_GET['viewtopic']) {
-                showTopicDetail($_GET['viewtopic']);
-                ?>
-
+			<?php
+			if($_GET['viewtopic']) {
+				echo '<span id="prevPage" style="cursor: pointer" onclick="gotoTopicPostPage('.$_GET['viewtopic'].', 0)">&lt;&lt; Prev || </span>';
+				echo '<span id="page">1</span>';
+				echo '<span id="nextPage" style="cursor: pointer" onclick="gotoTopicPostPage('.$_GET['viewtopic'].', 2)"> || Next &gt;&gt;</span>';
+				echo '<div id="topicDetail">';
+				showTopicDetail($_GET['viewtopic']);
+				echo '</div>';
+				?>
+			
             <div>
                 <form action="discussionhandler.php" method="post">
                     <input type="hidden" name="action" value="addpost" />
@@ -123,10 +130,13 @@ function showTopicDetail($topicid) {
 
                 <?php
             } else {
-                ?>
-            <div>
-                    <?php showTopicList($cinstid); ?>
-            </div>
+				echo '<span id="prevPage" style="cursor: pointer" onclick="gotoTopicListPage('.$cinstid.', 0)">&lt;&lt; Prev || </span>';
+				echo '<span id="page">1</span>';
+				echo '<span id="nextPage" style="cursor: pointer" onclick="gotoTopicListPage('.$cinstid.', 2)"> || Next &gt;&gt;</span>';
+				echo '<div id="topicList">';
+				showTopicList($cinstid); 
+				echo '</div>';
+				?>
 
             <div>
                 <form action="discussionhandler.php" method="post">

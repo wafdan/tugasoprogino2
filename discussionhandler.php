@@ -21,6 +21,16 @@ if($_POST['action'] || $_GET['action']) {
         case 'addpost':
             addPost($data);
             break;
+		
+		case 'gettopiclist':
+			$topics = discussionGetTopic($_POST['cinstid'], $_POST['offset'], $_POST['count']);
+			echo json_encode($topics);
+			break;
+			
+		case 'gettopicpost':
+			$posts = discussionGetTopicDetail($_POST['topicid'], $_POST['offset'], $_POST['count']);
+			echo json_encode($posts);
+			break;
     }
 }
 
