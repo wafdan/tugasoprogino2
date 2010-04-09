@@ -83,10 +83,7 @@ databasedisconnect();
                             $result = mysql_query("SELECT * FROM userfollowing WHERE targetuserid='$wall_userid' AND userid='$activeuserid'");
                             databasedisconnect();
                             if(mysql_num_rows($result)==0) {
-                                echo "<form action=\"mywallhandler.php\" method=\"POST\">
-                                      <input name=\"followuser\" type=\"submit\" value=\"Follow this user\">
-                                      <input name=\"pageuserid\" type=\"hidden\" value=$wall_userid>
-                                      </form>";
+		echo "<button type=\"button\" name=\"followuser\" onclick=\"FollowUserAjax($wall_userid)\">Follow this user</button>";
                             }
                         };
                         ?>

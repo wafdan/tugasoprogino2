@@ -45,6 +45,19 @@ function ShowHideComment(wallpostid) {
      ShowMyWallUserAjax(walluserid, 0, 5);
  }
 
+ function FollowUserAjax(pageuserid) {
+     var ajaxpost = new XMLHttpRequest();
+     //alert("comment");
+     if (ajaxpost) {
+         ajaxpost.open("POST", "script/followuserajax.php");
+         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+         var data;
+         data = "pageuserid=" + pageuserid;
+         ajaxpost.send(data);
+     }
+  }
+
+
  function PostWallCourseAjax(content, courseid) {
      var ajaxpost = new XMLHttpRequest();
      //alert("comment");
