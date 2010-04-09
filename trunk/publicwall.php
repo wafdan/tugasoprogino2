@@ -78,10 +78,19 @@ databasedisconnect();
                         </li>
                     </ul>
                 </div>
-                <div id="wallcontent">
-                    ISI WALL
-                </div>
-                
+                <fieldset class="profile-status">
+                    <legend><span>Public Wall</span></legend>
+
+                    <div id="wallusershow">
+                        ISI WALL
+                    </div>
+                    <script type="text/javascript">
+                        <?php echo "var userid =$wall_userid"?>
+                        //var page = 0;
+                        //var limit = 5;
+                        //ShowPubWallUserAjax(userid,0,5);
+                    </script>
+                </fieldset>
                 <br />
                 <fieldset class="information" id="information">
                     INFORMASI
