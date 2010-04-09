@@ -137,39 +137,26 @@ function DisplayPubWall() {
     $page = $_POST['page'];
     $limit = $_POST['limit'];
     $jumlahhasil = 0;
-    ////for paginasi
-    $q1 = "SELECT * FROM userwallpost WHERE userid='$wall_userid'";
-    $jumlahhasil = mysql_query($q1);
-    $jumlahhasil = mysql_num_rows($jumlahhasil);
+    
+    $queryfollow="SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'";
+    $resultuserfollow = mysql_query($queryfollow);
+    $querycourse="SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'";
+    $resultcoursefollow = mysql_query($querycourse);
+    $querywall="SELECT DISTINCT * FROM userwallpost WHERE userid='$wall_userid' ";
 
-    $q2 = "SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'";
-    $j2 = mysql_query($q2);
-    while($j3 = mysql_fetch_array($j2)) {
-        $j4 = mysql_query("SELECT * FROM userwallpost WHERE userid='$j3[userid]'");
-        $jumlahhasil += mysql_num_rows($j4);
-    }
-
-    $q3 = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'");
-    $q4 = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$wall_userid'");
-
-    if((mysql_num_rows($q3)>0)||(mysql_num_rows($q4)>0)) {
-        while($j5=mysql_fetch_array($q3)) {
-            $getcourse = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid='$datacourse[courseinstanceid]'");
-            $getcourse = mysql_fetch_array($getcourse);
-            $course = mysql_query("SELECT * FROM course WHERE courseid='$getcourse[courseid]'");
-            $course = mysql_fetch_array($course);
-
-            $courseid=$course[courseid];
-            $coursewallpost = mysql_query("SELECT * FROM courseinstancewallpost WHERE courseinstanceid='$courseid' ORDER BY timestamp DESC LIMIT 5");
-            $jumlahhasil += mysql_num_rows($coursewallpost);
+    if(mysql_num_rows($resultuserfollow)>0) {
+        while($datauserfollow = mysql_fetch_array($resultuserfollow)) {
+            $querywall=$querywall." UNION SELECT DISTINCT * FROM userwallpost WHERE userid='$datauserfollow[userid]' ";
         }
     }
+    //begin paginasi atas
+    $jumlahhasil = mysql_num_rows((mysql_query($querywall)));
     $jumlahhalaman = ceil($jumlahhasil/$limit);
     echo "<div>";
     if($jumlahhalaman>1) {
         for($i=1;$i<=$jumlahhalaman;$i++) {
             $dest = ($i-1)*$limit;
-            echo "<button type=button onclick=\"ShowPubWallUserAjax($wall_userid, $dest, $limit)\">";
+            echo "<button type=button onclick=\"ShowPubWallAjax($wall_userid, $dest, $limit)\">";
             if($dest==$page) {
                 echo "<b>$i</b>";
             }
@@ -180,36 +167,15 @@ function DisplayPubWall() {
         }
     }
     echo "</div>";
-    ////end for paginasi
-    //////////////////////////////////////////////////////////////////////////
-    //Begin user and followers
-    $queryfollow="SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'";
-    $resultuserfollow = mysql_query($queryfollow);
-    $querycourse="SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'";
-    $resultcoursefollow = mysql_query($querycourse);
-    $querywall="SELECT DISTINCT * FROM userwallpost WHERE userid='$wall_userid' ";
-    ////if(mysql_num_rows($resultuser)>0) {
-    //echo "<ul>";
-    if(mysql_num_rows($resultuserfollow)>0) {
-        while($datauserfollow = mysql_fetch_array($resultuserfollow)) {
-            $querywall=$querywall." UNION SELECT DISTINCT * FROM userwallpost WHERE userid='$datauserfollow[userid]' ";
-        }
-    }
-//    while($datacoursefollow=mysql_fetch_array($resultcoursefollow)) {
-//        $querywall." UNION SELECT wallpostid,userid,content,timestamp FROM courseinstancewallpost WHERE userid='$datacoursefollow[userid]'";
-//    }
-    $querywall=$querywall." ORDER BY timestamp DESC "; /*LIMIT $page,$limit*/
-    $fp = fopen('c:/data.txt', 'w');
-    fwrite($fp, $querywall);
-    fclose($fp);
-
+    //end paginasi atas
+    $querywall=$querywall." ORDER BY timestamp DESC LIMIT $page,$limit";
+    
     $resultquerywall=mysql_query($querywall);
     while($dataquerywall = mysql_fetch_array($resultquerywall)) {
-        //$dataquerywallcontent = ScanUsername($dataquerywall['content']);
         $user = mysql_fetch_array(mysql_query("SELECT * FROM user WHERE userid='$dataquerywall[userid]'"));
 
         echo "<div class='friendstatus'><medium style='float:right;' >$dataquerywall[timestamp]</medium><br/>$user[username] <label class='neutral2'>bilang</label> <label>$dataquerywall[content]</label>";
-        $resultwallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$dataquerywall[userid]' ORDER BY timestamp ASC");
+        $resultwallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$dataquerywall[wallpostid]' ORDER BY timestamp ASC");
         if (mysql_num_rows($resultwallcomment)>0) {
             echo "<div class='coments'><ul>";
             $nocomment = 0;
@@ -233,135 +199,24 @@ function DisplayPubWall() {
         echo "</div>";
     }
 
+    //begin paginasi bawah
+    echo "<div>";
+    if($jumlahhalaman>1) {
+        for($i=1;$i<=$jumlahhalaman;$i++) {
+            $dest = ($i-1)*$limit;
+            echo "<button type=button onclick=\"ShowPubWallAjax($wall_userid, $dest, $limit)\">";
+            if($dest==$page) {
+                echo "<b>$i</b>";
+            }
+            else {
+                echo $i;
+            }
+            echo "</button>";
+        }
+    }
+    echo "</div>";
+    //end paginasi bawah
 
-//    $getuser = mysql_query("SELECT * FROM user WHERE userid='$datauser[userid]'");
-//    $getuser = mysql_fetch_array($getuser);
-//    $hasil = mysql_query("SELECT * FROM userwallpost WHERE userid='$resultuser[userid]' ORDER BY timestamp DESC LIMIT $page,$limit");
-//    //$jumlah = mysql_query("SELECT * FROM userwallpost WHERE userid='$getuser[userid]'");
-//    if(mysql_num_rows($hasil) > 0) {
-//        //echo "<table>";
-//        while($data = mysql_fetch_array($hasil)) {
-//            $data['content'] = ScanUsername($data['content']);
-//
-//            echo "<div class='friendstatus'><medium style='float:right;' >$data[timestamp]</medium><br/>$getuser[username] <label class='neutral2'>bilang</label> <label>$data[content]</label>";
-//            $wallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$data[wallpostid]' ORDER BY timestamp");
-//
-//            if(mysql_num_rows($wallcomment) > 0) {
-//                echo "<div class='coments'>
-//                                      <ul>";
-//                $nocomment = 0;
-//                while($datacomment = mysql_fetch_array($wallcomment)) {
-//                    $userinfocomment = mysql_query("SELECT * FROM user WHERE userid='$datacomment[userid]'");
-//                    $userinfocomment = mysql_fetch_array($userinfocomment);
-//                    $datacomment['content'] = ScanUsername($datacomment['content']);
-//                    $nocomment++;
-//                    if($nocomment==4) {
-//                        echo "<div style=\"height:0;visibility:hidden;\" id=\"$data[wallpostid]\">";
-//                    }
-//                    echo "<li><a href=\"profile.php?userid=$userinfocomment[userid]\">$userinfocomment[username] </a><label class='neutral'>bilang</label><label>$datacomment[content]</label></li>";
-//                }
-//                if($nocomment>=4) {
-//                    echo "</div>";
-//                    echo "<button type\"button\" onclick=\"ShowHideComment('$data[wallpostid]')\">Show/Hide More Comments</button>";
-//                }
-//                echo "</ul>
-//                                    </div>";
-//            }
-//            echo "<input type=hidden name=pagecourseid value=$wall_userid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=comment onKeyPress=\"if(enter_pressed(event)){ PostCommentUserAjax($data[wallpostid], this.value,$wall_userid)}\">";
-//            echo "</div>";
-//        }
-//    }
-//    ///}
-//    ////}
-//    //END user
-//    //BEGIN course
-//    $resultcourse = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'");
-//    $resultmanager = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$wall_userid'");
-//    if((mysql_num_rows($resultcourse)>0)||(mysql_num_rows($resultmanager)>0)) {
-//        while($datacourse=mysql_fetch_array($resultcourse)) {
-//            $getcourse = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid='$datacourse[courseinstanceid]'");
-//            $getcourse = mysql_fetch_array($getcourse);
-//            $course = mysql_query("SELECT * FROM course WHERE courseid='$getcourse[courseid]'");
-//            $course = mysql_fetch_array($course);
-//            echo  "<li>";
-//            echo "<div class=\"label\">$course[coursecode]</div>";
-//            echo "<div class=\"info\">:$course[coursename] <a href=\"courses.php?courseid=$getcourse[courseinstanceid]\">Link<a/></div>";
-//            echo "</li>";
-//            //DisplayCoursesWall($datacourse[courseinstanceid],false);
-//            $courseid=$datacourse[courseinstanceid];
-//            $coursewallpost = mysql_query("SELECT * FROM courseinstancewallpost WHERE courseinstanceid='$courseid' ORDER BY timestamp DESC LIMIT 5");
-//            if(mysql_num_rows($coursewallpost)>0) {
-//                while($data = mysql_fetch_array($coursewallpost)) {
-//                    $userinfo = mysql_query("SELECT * FROM user WHERE userid='$data[userid]'");
-//                    $userinfo = mysql_fetch_array($userinfo);
-//                    echo "<div class='friendstatus'>$userinfo[username] <label class='neutral2'>bilang</label> <label>$data[content]</label>";
-//                    $wallcomment = mysql_query("SELECT * FROM courseinstancewallpostcomment WHERE wallpostid='$data[wallpostid]' ORDER BY timestamp");
-//                    if(mysql_num_rows($wallcomment) > 0) {
-//                        echo "<div class='coments'>
-//						<ul>";
-//                        while($datacomment = mysql_fetch_array($wallcomment)) {
-//                            $userinfocomment = mysql_query("SELECT * FROM user WHERE userid='$datacomment[userid]'");
-//                            $userinfocomment = mysql_fetch_array($userinfocomment);
-//                            echo "<li><a href=\"profile.php?userid=$userinfocomment[userid]\">$userinfocomment[username] </a><label class='neutral'>bilang</label><label>$datacomment[content]</label></li>";
-//                        }
-//                        echo "</ul>
-//			</div>";
-//                    }
-//                    echo "<input type=hidden name=pagecourseid value=$courseid><input type=hidden name=wallpostid value=$data[wallpostid]> <label class='neutral'>Comment</label> <input class='commentfield' type=text size=60 name=coursecomment onKeyPress=\"if(enter_pressed(event)){ PostCommentCourseAjax($data[wallpostid], this.value,$wall_userid)}\">";
-//                    echo "</div>";
-//                }
-//            }
-//
-//        };
-//    }
-//////////////////////////////////////////////////////////////////////////////////////
-//
-    //paginasi
-//    $q1 = "SELECT * FROM userwallpost WHERE userid='$wall_userid'";
-//    $jumlahhasil = mysql_query($q1);
-//    $jumlahhasil = mysql_num_rows($jumlahhasil);
-//
-//    $q2 = "SELECT * FROM userfollowing WHERE targetuserid='$wall_userid'";
-//    $j2 = mysql_query($q2);
-//    while($j3 = mysql_fetch_array($j2)) {
-//        $j4 = mysql_query("SELECT * FROM userwallpost WHERE userid='$j3[userid]'");
-//        $jumlahhasil += mysql_num_rows($j4);
-//    }
-//
-//    $q3 = mysql_query("SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'");
-//    $q4 = mysql_query("SELECT * FROM courseinstancemanager WHERE userid='$wall_userid'");
-//
-//    if((mysql_num_rows($q3)>0)||(mysql_num_rows($q4)>0)) {
-//        while($j5=mysql_fetch_array($q3)) {
-//            $getcourse = mysql_query("SELECT * FROM courseinstance WHERE courseinstanceid='$datacourse[courseinstanceid]'");
-//            $getcourse = mysql_fetch_array($getcourse);
-//            $course = mysql_query("SELECT * FROM course WHERE courseid='$getcourse[courseid]'");
-//            $course = mysql_fetch_array($course);
-//
-//            $courseid=$course[courseid];
-//            $coursewallpost = mysql_query("SELECT * FROM courseinstancewallpost WHERE courseinstanceid='$courseid' ORDER BY timestamp DESC LIMIT 5");
-//            $jumlahhasil += mysql_num_rows($coursewallpost);
-//        }
-//    }
-
-//    $jumlahhalaman = ceil($jumlahhasil/$limit);
-//    echo "<div>";
-//    if($jumlahhalaman>1) {
-//        for($i=1;$i<=$jumlahhalaman;$i++) {
-//            $dest = ($i-1)*$limit;
-//            echo "<button type=button onclick=\"ShowPubWallAjax($wall_userid, $dest, $limit)\">";
-//            if($dest==$page) {
-//                echo "<b>$i</b>";
-//            }
-//            else {
-//                echo $i;
-//            }
-//            echo "</button>";
-//        }
-//    }
-//    echo "</div>";
-    //end paginasi
-    //END course
     databasedisconnect();
 }
 
