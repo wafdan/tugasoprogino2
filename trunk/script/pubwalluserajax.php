@@ -227,9 +227,13 @@ function DisplayCoursePubWall(){
     $page = $_POST['page'];
     $limit = $_POST['limit'];
     $jumlahhasil = 0;
-    //COURSE QUERY
     echo "<div><label>COURSE WALLPOST : </label>";
-    $querycourse = "SELECT * FROM courseinstancewallpost ORDER BY timestamp DESC LIMIT $page,$limit";// WHERE userid='$wall_userid'";
+    //COURSE QUERY
+    $queryfollow = "SELECT * FROM courseinstancefollowing WHERE userid='$wall_userid'";
+    $resultqueryfollow = mysql_query($queryfollow);
+    $ciidf = mysql_fetch_array($resultqueryfollow);
+    $ciidf = $ciidf[courseinstanceid];
+    $querycourse = "SELECT * FROM courseinstancewallpost WHERE courseinstanceid='$ciidf' ORDER BY timestamp DESC LIMIT $page,$limit";// WHERE userid='$wall_userid'";
     $resultcoursefollow = mysql_query($querycourse);
 
     //begin paginasi atas
@@ -257,7 +261,7 @@ function DisplayCoursePubWall(){
         $user = mysql_fetch_array(mysql_query("SELECT * FROM user WHERE userid='$datacoursepost[userid]'"));
 
         echo "<div class='friendstatus'><medium style='float:right;' >$datacoursepost[timestamp]</medium><br/>$user[username] <label class='neutral2'>bilang</label> <label>$datacoursepost[content]</label>";
-        $resultwallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$datacoursepost[wallpostid]' ORDER BY timestamp ASC");
+        $resultwallcomment = mysql_query("SELECT * FROM courseinstancewallpostcomment WHERE wallpostid='$datacoursepost[wallpostid]' ORDER BY timestamp ASC");
         if (mysql_num_rows($resultwallcomment)>0) {
             echo "<div class='coments'><ul>";
             $nocomment = 0;
