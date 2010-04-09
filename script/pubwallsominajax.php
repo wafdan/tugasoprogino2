@@ -140,7 +140,7 @@ function DisplayCoursePubPopulerWall(){
 	//$querycoursefollowing = "SELECT * FROM courseinstancefollowing";
 	while($datacoursepost=mysql_fetch_array($resultcoursefollow)) {
 		$user = mysql_fetch_array(mysql_query("SELECT * FROM user WHERE userid='$datacoursepost[userid]'"));		
-		$resultwallcomment = mysql_query("SELECT * FROM userwallpostcomment WHERE wallpostid='$datacoursepost[wallpostid]' ORDER BY timestamp ASC");
+		$resultwallcomment = mysql_query("SELECT * FROM courseinstancewallpostcomment WHERE wallpostid='$datacoursepost[wallpostid]' ORDER BY timestamp ASC");
 		if (mysql_num_rows($resultwallcomment)>=3) {
 			echo "<div class='friendstatus'><medium style='float:right;' >$datacoursepost[timestamp]</medium><br/>$user[username] <label class='neutral2'>bilang</label> <label>$datacoursepost[content]</label>";
 			echo "<div class='coments'><ul>";
