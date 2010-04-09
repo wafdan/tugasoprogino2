@@ -147,13 +147,13 @@ function enter_pressed(e) {
 
 function PostCommentUserAjax(wallpostid, comment, walluserid) {
     var ajaxpost = new XMLHttpRequest();
-    //alert("comment");
     if (ajaxpost) {
         ajaxpost.open("POST", "script/postcommentuserajax.php");
         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         var data;
         data = "wallpostid=" + wallpostid + "&comment=" + comment;
         ajaxpost.send(data);
+        //alert(data);
     }
     ShowPubWallAjax(walluserid, 0, 5);
 }
